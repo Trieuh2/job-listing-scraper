@@ -1,0 +1,22 @@
+{
+  "excluded_keywords": ["staff", "principal", "senior", "manager", "director"],
+  "indeed_url_params": {
+    "max_days_posted_ago": "14",
+    "position": "Software Engineer",
+    "experience_level": "0kf%3Aexplvl(ENTRY_LEVEL)",
+    "job_type": "(fulltime)",
+    "location": "California"
+  },
+  "csv_output_path": "data/data.csv",
+  "csv_headers": [
+    "posted_date",
+    "title",
+    "company",
+    "location",
+    "salary_preview",
+    "job_link",
+    "hash_id"
+  ],
+  "num_pages_to_scrape": 5,
+  "update_csv_on_completion": true
+}
