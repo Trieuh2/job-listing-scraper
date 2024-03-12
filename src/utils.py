@@ -1,3 +1,4 @@
+import re
 import datetime
 import json
 import os
@@ -10,8 +11,9 @@ def build_indeed_url(position, location, experience_level, job_type, max_days_po
 
     return url
 
-def exclude_based_on_title(excluded_keywords, title) -> bool:
-    title_split = title.split()
+def exclude_based_on_title(excluded_keywords, cleaned_title) -> bool:
+    cleaned_title = re.sub(r'[^a-zA-Z0-9]', ' ', cleaned_title)
+    title_split = cleaned_title.split()
     n = len(title_split)
 
     for idx, word in enumerate(title_split):
