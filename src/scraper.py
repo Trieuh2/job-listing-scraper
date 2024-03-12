@@ -38,6 +38,8 @@ class Scraper:
         job_cards = self.driver.find_elements(By.CSS_SELECTOR, 'div.job_seen_beacon')
 
         for job_card in job_cards:
+            add_to_results = True
+
             try:
                 job_details = {}
 
@@ -46,6 +48,9 @@ class Scraper:
                         title_element = job_card.find_element(By.CSS_SELECTOR, 'h2.jobTitle')
                         job_details[header] = title_element.text if title_element else 'Title not found'
 
+                        if title_element and utils.exclude_based_on_title(self.excluded_keywords, title_element.text):
+                            add_to_results = False
+                            break
                     elif header == 'company':
                         company_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="company-name"]')
                         job_details[header] = company_element.text if company_element else 'Company not found'
@@ -71,15 +76,16 @@ class Scraper:
                         posted_date_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="myJobsStateDate"]')
                         job_details[header] = utils.parse_post_date(posted_date_element.text)
 
-                hash_id = utils.string_to_hash(job_details['job_link'])
-                job_details['hash_id'] = hash_id 
+                if add_to_results:
+                    hash_id = utils.string_to_hash(job_details['job_link'])
+                    job_details['hash_id'] = hash_id 
 
-                # Update results
-                self.jobs[hash_id] = job_details
+                    # Update results
+                    self.jobs[hash_id] = job_details
 
-                # Print the details
-                print('\n'.join([f'{header}: {job_details[header]}' for header in self.csv_headers]))
-                print('\n')
+                    # Print the details
+                    print('\n'.join([f'{header}: {job_details[header]}' for header in self.csv_headers]))
+                    print('\n')
             except NoSuchElementException as e:
                 print(f"An element was not found: {e}")
         return
