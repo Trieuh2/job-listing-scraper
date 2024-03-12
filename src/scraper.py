@@ -15,10 +15,9 @@ class Scraper:
         self.excluded_keywords = excluded_keywords
         self.jobs = utils.read_jobs_csv(csv_output_path) # {hash_id : record}
         self.csv_headers = csv_headers
-
-    def extract_current_page(self):
         self.driver.get(self.url)
 
+    def extract_current_page(self):
         # Wait for job cards to load with a maximum of 5 tries
         max_tries = 5
 
