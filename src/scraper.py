@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,9 +19,21 @@ class Scraper:
     def extract_current_page(self):
         self.driver.get(self.url)
 
-        # Wait for job cards to load
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.job_seen_beacon')))
+        # Wait for job cards to load with a maximum of 5 tries
+        max_tries = 5
+
+        for attempt in range(max_tries):
+            try:
+                wait = WebDriverWait(self.driver, 5)
+                wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.job_seen_beacon')))
+                break  # If successful, break out of the loop
+            except TimeoutException:
+                if attempt < max_tries - 1:
+                    print(f"Timeout encountered on attempt {attempt + 1}, refreshing the page and retrying...")
+                    self.driver.refresh()
+                else:
+                    print(f"Failed to load the page after {max_tries} attempts. Proceeding with the next steps.")
+                    return
 
         # Extract and print job details
         job_cards = self.driver.find_elements(By.CSS_SELECTOR, 'div.job_seen_beacon')
