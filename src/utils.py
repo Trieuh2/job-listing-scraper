@@ -145,7 +145,7 @@ def parse_post_date(post_date_string):
         return datetime.date.today().strftime("%m/%d/%y")
 
     try:
-        num_days_ago = int(split_post_date[1])
+        num_days_ago = int(split_post_date[2])
 
         today = datetime.date.today()
         posted_date = today - datetime.timedelta(days=num_days_ago)
