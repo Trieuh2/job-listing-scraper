@@ -33,8 +33,10 @@
     "salary_preview",
     "job_link",
     "search_criteria",
+    "description",
     "hash_id"
   ],
   "num_pages_to_scrape": 0,
-  "update_csv_on_completion": true
+  "update_csv_on_completion": true,
+  "user_years_of_experience": 2
 }

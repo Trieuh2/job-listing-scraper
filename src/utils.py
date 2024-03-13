@@ -118,7 +118,7 @@ def write_jobs_csv(filename, job_records):
     file_exists = os.path.isfile(filename) and os.path.getsize(filename) > 0
     fieldnames = config['csv_headers']
 
-    with open(filename, "w", newline='') as csv_file:
+    with open(filename, "w", newline='', errors='replace') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames, dialect='excel')
         
         # Update the header structure for all records if the order or type of attributes have changed
@@ -186,3 +186,22 @@ def is_valid_indeed_job_link(url):
     if url[:n] == valid_prefix:
         return True
     return False
+
+def is_valid_description_criteria(description):
+    # Regular expression to match variations of years of experience
+    regex = r'(\d+)\+?[\s\w]* years'
+    matches = re.findall(regex, description, re.IGNORECASE)
+
+    if matches:
+        years = list(map(int, matches))
+        min_exp = min(years)
+
+        with open('config.json') as config_file:
+            config = json.load(config_file)
+        
+        if config['user_years_of_experience'] < min_exp:
+            return False
+        else:
+            return True
+    else:
+        return True

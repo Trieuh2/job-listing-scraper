@@ -55,7 +55,14 @@ class Scraper:
                 job_details['job_link'] = utils.parse_indeed_url(indeed_full_url)
                 job_details['hash_id'] = utils.string_to_hash(job_details['job_link'])
                 hash_id = job_details['hash_id']
-                add_to_results = utils.is_valid_indeed_job_link(job_details['job_link'])
+
+                description_element = job_card.find_element(By.CSS_SELECTOR, 'tr.underShelfFooter')
+                description = description_element.text if description_element else 'N/A'
+                job_details['description'] = description
+                
+                # Validate the structure of the job_url and whether the user's configured years of experience meets the minimum on the job description
+                if not utils.is_valid_indeed_job_link(job_details['job_link']) or not utils.is_valid_description_criteria(description):
+                    add_to_results = False
 
                 for header in self.csv_headers:
                     if not add_to_results:
