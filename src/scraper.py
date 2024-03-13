@@ -43,6 +43,13 @@ class Scraper:
             try:
                 job_details = {}
 
+                # Get job_link and hash_id first
+                title_anchor_element = job_card.find_element(By.TAG_NAME, 'a')
+                indeed_full_url = title_anchor_element.get_attribute('href')
+                job_details['job_link'] = utils.parse_indeed_url(indeed_full_url)
+                hash_id = utils.string_to_hash(job_details['job_link'])
+                job_details['hash_id'] = hash_id 
+
                 for header in self.csv_headers:
                     if header == 'title':
                         title_element = job_card.find_element(By.CSS_SELECTOR, 'h2.jobTitle')
@@ -67,31 +74,11 @@ class Scraper:
                         except NoSuchElementException as e:
                             job_details[header] = 'N/A'
 
-                    elif header == 'job_link':
-                        # Possible that 'job_link' and 'hash_id' is already parsed if a dependent attribute is ordered before 'job_link' or 'hash_id'
-                        if 'job_link' not in job_details:
-                            title_anchor_element = job_card.find_element(By.TAG_NAME, 'a')
-                            indeed_full_url = title_anchor_element.get_attribute('href')
-                            job_details[header] = utils.parse_indeed_url(indeed_full_url)
-
-                        if 'hash_id' not in job_details:
-                            hash_id = utils.string_to_hash(job_details[header])
-                            job_details['hash_id'] = hash_id 
-
                     elif header == 'posted_date':
                         posted_date_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="myJobsStateDate"]')
                         job_details[header] = utils.parse_post_date(posted_date_element.text)
 
                     elif header == 'applied':
-                        if 'job_link' not in job_details:
-                            title_anchor_element = job_card.find_element(By.TAG_NAME, 'a')
-                            indeed_full_url = title_anchor_element.get_attribute('href')
-                            job_details[header] = utils.parse_indeed_url(indeed_full_url)
-
-                        if 'hash_id' not in job_details:
-                            hash_id = utils.string_to_hash(job_details[header])
-                            job_details['hash_id'] = hash_id 
-
                         # Fetch pre-existing values or default to "No", for not applied to job yet
                         if hash_id in self.jobs:
                             job_details[header] = self.jobs[hash_id][header]
