@@ -9,18 +9,21 @@ import utils
 import json
 
 class Scraper:
-    def __init__(self, url, excluded_keywords, csv_headers, csv_output_path):
+    def __init__(self, url):
         self.driver = webdriver.Chrome()
         self.url = url
-        self.excluded_keywords = excluded_keywords
-        self.jobs = utils.read_jobs_csv(csv_output_path) # {hash_id : record}
-        self.initial_num_records = len(self.jobs)
-        self.csv_headers = csv_headers
-        self.driver.get(self.url)
-
+        
+        # Initialize the Scraper based on the configuration file
         with open('config.json') as config_file:
             config = json.load(config_file)
+
+        self.excluded_keywords = config['excluded_keywords']
+        self.csv_headers = config['csv_headers']
+        self.jobs = utils.read_jobs_csv(config['csv_output_path'])   # {hash_id : record}
+        self.initial_num_records = len(self.jobs)
         self.search_criteria = '|'.join(list(config['indeed_url_params'].values()))
+
+        self.driver.get(self.url)
 
     def extract_current_page(self):
         # Wait for job cards to load with a maximum of 5 tries
