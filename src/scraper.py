@@ -110,8 +110,9 @@ class Scraper:
     
     def scrape_num_pages(self, num_pages_to_scrape):
         previous_page_hash_ids = set()
+        pages_scraped = 0
 
-        for _ in range(num_pages_to_scrape):
+        while num_pages_to_scrape == 0 or pages_scraped < num_pages_to_scrape:
             extracted_hash_ids = self.extract_current_page()
 
             # Stop parsing when the last page has been parsed twice
@@ -120,6 +121,7 @@ class Scraper:
             else:
                 previous_page_hash_ids = extracted_hash_ids
                 self.navigate_next_page()
+                pages_scraped += 1
 
         self.shutdown()
         return
