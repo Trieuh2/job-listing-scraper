@@ -98,7 +98,7 @@ class Scraper:
     
     def navigate_next_page(self):
         self.url = utils.get_next_page_url(self.url)
-        sleep(randint(2,4)) # Crawl delay
+        sleep(randint(2,3)) # Crawl delay
         self.driver.get(self.url)
         return
         
