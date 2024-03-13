@@ -155,3 +155,13 @@ def parse_post_date(post_date_string):
 
     except:
         return datetime.date.today().strftime("%m/%d/%y")
+
+# Checks if the indeed link is valid based on the prefix of the URL.
+def is_valid_indeed_job_link(url):
+    # In rare cases, a job card may return 'https://www.indeed.com/pagead/clk?mo=r&ad', which isn't a valid link
+    valid_prefix = 'https://www.indeed.com/rc/clk?jk='
+    n = len(valid_prefix)
+
+    if url[:n] == valid_prefix:
+        return True
+    return False

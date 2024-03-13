@@ -48,17 +48,21 @@ class Scraper:
                 title_anchor_element = job_card.find_element(By.TAG_NAME, 'a')
                 indeed_full_url = title_anchor_element.get_attribute('href')
                 job_details['job_link'] = utils.parse_indeed_url(indeed_full_url)
-                hash_id = utils.string_to_hash(job_details['job_link'])
-                job_details['hash_id'] = hash_id
+                job_details['hash_id'] = utils.string_to_hash(job_details['job_link'])
+                hash_id = job_details['hash_id']
+                add_to_results = utils.is_valid_indeed_job_link(job_details['job_link'])
 
                 for header in self.csv_headers:
+                    if not add_to_results:
+                        break
+
                     if header == 'title':
                         title_element = job_card.find_element(By.CSS_SELECTOR, 'h2.jobTitle')
                         job_details[header] = title_element.text if title_element else 'Title not found'
 
                         if title_element and utils.exclude_based_on_title(self.excluded_keywords, title_element.text):
                             add_to_results = False
-                            break
+
                     elif header == 'company':
                         company_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="company-name"]')
                         job_details[header] = company_element.text if company_element else 'Company not found'
