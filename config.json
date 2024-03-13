@@ -7,10 +7,17 @@
     "director",
     "embedded",
     "mobile",
-    "lead"
+    "lead",
+    "frontend",
+    "front end",
+    "ios",
+    "macos",
+    "android",
+    "machine learning",
+    "ML"
   ],
   "indeed_url_params": {
-    "max_days_posted_ago": "14",
+    "max_days_posted_ago": "30",
     "position": "Software Engineer",
     "experience_level": "0kf%3Aexplvl(ENTRY_LEVEL)",
     "job_type": "(fulltime)",
@@ -25,6 +32,7 @@
     "location",
     "salary_preview",
     "job_link",
+    "search_criteria",
     "hash_id"
   ],
   "num_pages_to_scrape": 0,

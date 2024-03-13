@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 from random import randint
 import utils
-
+import json
 
 class Scraper:
     def __init__(self, url, excluded_keywords, csv_headers, csv_output_path):
@@ -16,6 +16,10 @@ class Scraper:
         self.jobs = utils.read_jobs_csv(csv_output_path) # {hash_id : record}
         self.csv_headers = csv_headers
         self.driver.get(self.url)
+
+        with open('config.json') as config_file:
+            config = json.load(config_file)
+        self.search_criteria = '|'.join(list(config['indeed_url_params'].values()))
 
     def extract_current_page(self):
         # Wait for job cards to load with a maximum of 5 tries
@@ -89,6 +93,9 @@ class Scraper:
                             job_details[header] = self.jobs[hash_id][header]
                         else:
                             job_details[header] = 'No'
+
+                    elif header == 'search_criteria':
+                        job_details[header] = self.search_criteria
 
                 if add_to_results:
                     # Update results
