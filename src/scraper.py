@@ -35,6 +35,7 @@ class Scraper:
                     return
 
         # Extract and print job details
+        current_page_added_hash_ids = set()
         job_cards = self.driver.find_elements(By.CSS_SELECTOR, 'div.job_seen_beacon')
 
         for job_card in job_cards:
@@ -48,7 +49,7 @@ class Scraper:
                 indeed_full_url = title_anchor_element.get_attribute('href')
                 job_details['job_link'] = utils.parse_indeed_url(indeed_full_url)
                 hash_id = utils.string_to_hash(job_details['job_link'])
-                job_details['hash_id'] = hash_id 
+                job_details['hash_id'] = hash_id
 
                 for header in self.csv_headers:
                     if header == 'title':
@@ -88,13 +89,14 @@ class Scraper:
                 if add_to_results:
                     # Update results
                     self.jobs[hash_id] = job_details
+                    current_page_added_hash_ids.add(hash_id)
 
                     # Print the details
                     print('\n'.join([f'{header}: {job_details[header]}' for header in self.csv_headers]))
                     print('\n')
             except NoSuchElementException as e:
                 print(f"An element was not found: {e}")
-        return
+        return current_page_added_hash_ids
     
     def navigate_next_page(self):
         self.url = utils.get_next_page_url(self.url)
@@ -107,9 +109,17 @@ class Scraper:
         return
     
     def scrape_num_pages(self, num_pages_to_scrape):
+        previous_page_hash_ids = set()
+
         for _ in range(num_pages_to_scrape):
-            self.extract_current_page()
-            self.navigate_next_page()
+            extracted_hash_ids = self.extract_current_page()
+
+            # Stop parsing when the last page has been parsed twice
+            if extracted_hash_ids == previous_page_hash_ids:
+                break
+            else:
+                previous_page_hash_ids = extracted_hash_ids
+                self.navigate_next_page()
 
         self.shutdown()
         return
