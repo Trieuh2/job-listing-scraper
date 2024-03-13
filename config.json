@@ -1,5 +1,14 @@
 {
-  "excluded_keywords": ["staff", "principal", "senior", "manager", "director"],
+  "excluded_keywords": [
+    "staff",
+    "principal",
+    "senior",
+    "manager",
+    "director",
+    "embedded",
+    "mobile",
+    "lead"
+  ],
   "indeed_url_params": {
     "max_days_posted_ago": "14",
     "position": "Software Engineer",
@@ -10,6 +19,7 @@
   "csv_output_path": "data/data.csv",
   "csv_headers": [
     "posted_date",
+    "applied",
     "title",
     "company",
     "location",
@@ -17,6 +27,6 @@
     "job_link",
     "hash_id"
   ],
-  "num_pages_to_scrape": 5,
+  "num_pages_to_scrape": 0,
   "update_csv_on_completion": true
 }

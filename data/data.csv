@@ -1,89 +1,110 @@
-posted_date,title,company,location,salary_preview,job_link,hash_id
-03/12/24,"Software Engineer, Early Career","Viasat, Inc.","Carlsbad, CA 92009 
+posted_date,applied,title,company,location,salary_preview,job_link,hash_id
+03/07/24,No,"Software Engineer, Early Career","Viasat, Inc.","Carlsbad, CA 92009 
 (North Beach area)","$84,600 - $147,000 a year",https://www.indeed.com/rc/clk?jk=c001397d789f06de&bb,7b39e8590423383f60b3df57aa3997c05ede90e88d4ff431b3b4fddfe55a8b06
-03/12/24,Software Developer,Pikicode Corp,"La Puente, CA 91746",$25 - $40 an hour,https://www.indeed.com/pagead/clk?mo=r&ad,6eb6e6672b92d0cb41fcfecc51b17ec2a6dbb32513da14ee4ae8dec01af6776b
-03/12/24,Fullstack Software Engineer,PermitFlow,"Remote in Ontario, CA","$125,000 - $190,000 a year",https://www.indeed.com/rc/clk?jk=8ed730b76bd9735b&bb,21f86f1af8e075f48cc1c1fe6142bfc4714846cd6a9b30975e2df08b4b63f9d2
-03/12/24,Web UI Engineer (L5) - Games UI,Netflix,"Los Gatos, CA",N/A,https://www.indeed.com/rc/clk?jk=e6aec28a22a797cb&bb,0617c02512b2f474cc6ffe3904aa35c19ef255e9ad5a6740179772d897b52dd5
-03/12/24,Junior Software Developer (Python) (Hybrid Remote),Reli.,"Hybrid remote in Los Angeles, CA","$65,000 a year",https://www.indeed.com/rc/clk?jk=241f02b607af21fe&bb,4678a621c4658dfccb669d6a83fef8040a775f0456df3b8b3707137c0e3aed02
-03/12/24,Software Engineer - Big Data Technologies,Apple,"San Diego, CA","$110,219.20 - $198,100.00 a year",https://www.indeed.com/rc/clk?jk=7ffec3df0531a571&bb,f0bdd1a60c40ab34a0797c101dd3993cf450b9424e304bbfcf8b3e746fcd38f4
-03/12/24,Software Engineer 1 - University Graduate,PayPal,"San Jose, CA",N/A,https://www.indeed.com/rc/clk?jk=326e19506683581c&bb,a360677ca3c086bec21ab5ab34b91496f59211378692d0b66b099df4e9c1dbb5
-03/12/24,"Sensing Software Engineer, Machine Learning",Tesla,"Palo Alto, CA","$104,000 - $348,000 a year",https://www.indeed.com/rc/clk?jk=15ba91e64501c061&bb,8222d43bec05a42b07cfd86f4c9d4e864d42f50f1c64cf6fe80fb19e43b75475
-03/12/24,Frontend Engineer,Hive,"San Francisco, CA","$120,000 - $160,000 a year",https://www.indeed.com/rc/clk?jk=d82236f1c320caab&bb,8c3b9b83a2b67bc2037cf101725955e8a8d839b76d693dd3878c9efe822b7e02
-03/12/24,DevOps Engineer,California Air Resources Board,"Hybrid remote in Sacramento, CA 95814",N/A,https://www.indeed.com/rc/clk?jk=cc0d2acc19063b0b&bb,209402ba5bbde09cf2ad4d9a7334bc96fb8af9e59eb97c0e45e822986b622b2e
-03/12/24,"Software Validation Engineer, Update Systems",Tesla,"Palo Alto, CA","$104,000 - $348,000 a year",https://www.indeed.com/rc/clk?jk=2c9c8796d0d41f4e&bb,5d16b6202b929f5fe87757bb8e860034cac0a7210cc8471c63b23a29eb4f66a4
-03/12/24,Software Engineer,Microsoft,"Mountain View, CA 94043",N/A,https://www.indeed.com/rc/clk?jk=bb88aa58a101ec08&bb,40094066f7f958ab2ef991f931e155dd15335fd079b5bc90fd192d8b847e1d27
-03/12/24,Software Engineering SMTS,Salesforce,"San Francisco, CA 94105 
+03/08/24,No,Software Developer,Pikicode Corp,"La Puente, CA 91746",$25 - $40 an hour,https://www.indeed.com/pagead/clk?mo=r&ad,6eb6e6672b92d0cb41fcfecc51b17ec2a6dbb32513da14ee4ae8dec01af6776b
+02/27/24,No,Fullstack Software Engineer,PermitFlow,"Remote in Ontario, CA","$125,000 - $190,000 a year",https://www.indeed.com/rc/clk?jk=8ed730b76bd9735b&bb,21f86f1af8e075f48cc1c1fe6142bfc4714846cd6a9b30975e2df08b4b63f9d2
+03/08/24,No,Web UI Engineer (L5) - Games UI,Netflix,"Los Gatos, CA",N/A,https://www.indeed.com/rc/clk?jk=e6aec28a22a797cb&bb,0617c02512b2f474cc6ffe3904aa35c19ef255e9ad5a6740179772d897b52dd5
+03/07/24,No,Junior Software Developer (Python) (Hybrid Remote),Reli.,"Hybrid remote in Los Angeles, CA","$65,000 a year",https://www.indeed.com/rc/clk?jk=241f02b607af21fe&bb,4678a621c4658dfccb669d6a83fef8040a775f0456df3b8b3707137c0e3aed02
+03/12/24,No,Software Engineer - Big Data Technologies,Apple,"San Diego, CA","$110,219.20 - $198,100.00 a year",https://www.indeed.com/rc/clk?jk=7ffec3df0531a571&bb,f0bdd1a60c40ab34a0797c101dd3993cf450b9424e304bbfcf8b3e746fcd38f4
+03/07/24,No,Software Engineer 1 - University Graduate,PayPal,"San Jose, CA",N/A,https://www.indeed.com/rc/clk?jk=326e19506683581c&bb,a360677ca3c086bec21ab5ab34b91496f59211378692d0b66b099df4e9c1dbb5
+03/08/24,No,"Sensing Software Engineer, Machine Learning",Tesla,"Palo Alto, CA","$104,000 - $348,000 a year",https://www.indeed.com/rc/clk?jk=15ba91e64501c061&bb,8222d43bec05a42b07cfd86f4c9d4e864d42f50f1c64cf6fe80fb19e43b75475
+03/08/24,No,Frontend Engineer,Hive,"San Francisco, CA","$120,000 - $160,000 a year",https://www.indeed.com/rc/clk?jk=d82236f1c320caab&bb,8c3b9b83a2b67bc2037cf101725955e8a8d839b76d693dd3878c9efe822b7e02
+03/08/24,No,Software Engineer,Microsoft,"Mountain View, CA 94043",N/A,https://www.indeed.com/rc/clk?jk=bb88aa58a101ec08&bb,40094066f7f958ab2ef991f931e155dd15335fd079b5bc90fd192d8b847e1d27
+03/01/24,No,"Software Validation Engineer, Update Systems",Tesla,"Palo Alto, CA","$104,000 - $348,000 a year",https://www.indeed.com/rc/clk?jk=2c9c8796d0d41f4e&bb,5d16b6202b929f5fe87757bb8e860034cac0a7210cc8471c63b23a29eb4f66a4
+03/08/24,No,DevOps Engineer,California Air Resources Board,"Hybrid remote in Sacramento, CA 95814",N/A,https://www.indeed.com/rc/clk?jk=cc0d2acc19063b0b&bb,209402ba5bbde09cf2ad4d9a7334bc96fb8af9e59eb97c0e45e822986b622b2e
+03/07/24,No,Software Engineering SMTS,Salesforce,"San Francisco, CA 94105 
 (Financial District/South Beach area)","$147,368 - $227,700 a year",https://www.indeed.com/rc/clk?jk=263fe9ea6c06ad2c&bb,b38827cd9baf211d5280ca95ef1c7dc201bcf544cd13dfd6a5da73ab66d79312
-03/12/24,Fullstack Software Engineer,Envoy,"Hybrid remote in San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=8654063c5702dc87&bb,91a1630f8d4ce088fcaaa1612a33d8cfd1a39b5721224f924891d1010ddb3c3b
-03/12/24,"Software Engineer, Gateway Validation",Tesla,"Palo Alto, CA",N/A,https://www.indeed.com/rc/clk?jk=bec191c0600fefe3&bb,d3c906aaaad0df64f3cc88a8468f2f18dbeb0c2a25cc1fc74de1c1ec617aeaed
-03/12/24,Software Engineer,Mudrasys,"Pleasanton, CA 94588",N/A,https://www.indeed.com/rc/clk?jk=9b99ab6e0c672d53&bb,e6d6ec7b9efed0e3482a358eb772af593afdd157e90ea7d1e43e0f64a899d538
-03/12/24,Software Engineer (Payments),AppFolio,"San Diego, CA 92123","$106,000 - $125,000 a year",https://www.indeed.com/rc/clk?jk=26e5d5cea3256efe&bb,087a2ccdc51fce921875e19a52f2b2aa818c938800b69350afbbd8c5751bda9c
-03/12/24,Senior Software Engineer II,Wrapbook,Remote in California,"$148,800 - $227,800 a year",https://www.indeed.com/rc/clk?jk=db2eda6a8954c9be&bb,a0512153ae9922d841c4e0c9075ddbf1a3096fd6524298772ece22bb71ff34ee
-03/12/24,Software Development Engineer 4,Adobe,"San Jose, CA 95110 
+03/06/24,No,Fullstack Software Engineer,Envoy,"Hybrid remote in San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=8654063c5702dc87&bb,91a1630f8d4ce088fcaaa1612a33d8cfd1a39b5721224f924891d1010ddb3c3b
+03/01/24,No,"Software Engineer, Gateway Validation",Tesla,"Palo Alto, CA",N/A,https://www.indeed.com/rc/clk?jk=bec191c0600fefe3&bb,d3c906aaaad0df64f3cc88a8468f2f18dbeb0c2a25cc1fc74de1c1ec617aeaed
+03/07/24,No,Software Engineer (Payments),AppFolio,"San Diego, CA 92123","$106,000 - $125,000 a year",https://www.indeed.com/rc/clk?jk=26e5d5cea3256efe&bb,087a2ccdc51fce921875e19a52f2b2aa818c938800b69350afbbd8c5751bda9c
+02/28/24,No,Software Engineer,Mudrasys,"Pleasanton, CA 94588",N/A,https://www.indeed.com/rc/clk?jk=9b99ab6e0c672d53&bb,e6d6ec7b9efed0e3482a358eb772af593afdd157e90ea7d1e43e0f64a899d538
+03/08/24,No,Software Development Engineer 4,Adobe,"San Jose, CA 95110 
 (Downtown area)","$124,000 - $234,200 a year",https://www.indeed.com/rc/clk?jk=2c9af04363478793&bb,5f2d090e62a1710ab9a368ae1bd08bcd01a00aba53e1fd0ae97e90677ebb2058
-03/12/24,WiFi Performance Software Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=8f0f8d1fda732929&bb,3b726061dfc6bd9a0733dad7d04272cc254fd88bdca9208781471fac3fe2cd45
-03/12/24,UI Software Engineer,Zazzle,"Hybrid remote in Menlo Park, CA",N/A,https://www.indeed.com/rc/clk?jk=200a5edf66f3bcc4&bb,ea500c442bc59a1639ce4d06a6471aa12492aca7e5db7fc1d69f3ddd640bb503
-03/12/24,Software Tools Development Engineer - CoreOS,Apple,"Cupertino, CA","$116,105.60 - $208,300.00 a year",https://www.indeed.com/rc/clk?jk=4a179620e3259d8a&bb,ed36aff746eedcf70383d43e0a26670517cb46be74a3d21c57acc3778f7688d2
-03/12/24,iOS/MacOS Software Engineer - iCloud ASE,Apple,"San Diego, CA","$161,700 - $284,900 a year",https://www.indeed.com/rc/clk?jk=4406c27eb78e00bc&bb,ae8cb5b24ef5ee1de534c292c45e45d412d1b3c52c5e8d5754e49a96edc231ea
-03/12/24,"Software Engineer, Audio Infrastructure",Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=1e6a28ec470ede19&bb,f8bb8fdfa57168ea0aea5eb4996af08ed6141758418ad85bbd6b04cdcc9e8f13
-03/12/24,Wireless Bluetooth Software Engineer,Apple,"San Diego, CA","$131,500 - $243,300 a year",https://www.indeed.com/rc/clk?jk=d97780d5f681efce&bb,ea67cf0baa5e6f57f1b08fae69f088ff25849ed0b5f6bab05cd8e7cf0ec72267
-03/12/24,Machine Learning Engineer,Adobe,"San Jose, CA 95110 
+03/10/24,No,WiFi Performance Software Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=8f0f8d1fda732929&bb,3b726061dfc6bd9a0733dad7d04272cc254fd88bdca9208781471fac3fe2cd45
+03/07/24,No,iOS/MacOS Software Engineer - iCloud ASE,Apple,"San Diego, CA","$161,700 - $284,900 a year",https://www.indeed.com/rc/clk?jk=4406c27eb78e00bc&bb,ae8cb5b24ef5ee1de534c292c45e45d412d1b3c52c5e8d5754e49a96edc231ea
+03/08/24,No,Software Tools Development Engineer - CoreOS,Apple,"Cupertino, CA","$116,105.60 - $208,300.00 a year",https://www.indeed.com/rc/clk?jk=4a179620e3259d8a&bb,ed36aff746eedcf70383d43e0a26670517cb46be74a3d21c57acc3778f7688d2
+03/09/24,No,Computer Vision and Machine Learning Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=5af9dcdda87bfa4f&bb,6945a76bb8c68db502217c2e7fac6bcb1f16771b2314c9e848aaa62592520e63
+03/05/24,No,UI Software Engineer,Zazzle,"Hybrid remote in Menlo Park, CA",N/A,https://www.indeed.com/rc/clk?jk=200a5edf66f3bcc4&bb,ea500c442bc59a1639ce4d06a6471aa12492aca7e5db7fc1d69f3ddd640bb503
+02/28/24,No,Wireless Bluetooth Software Engineer,Apple,"San Diego, CA","$131,500 - $243,300 a year",https://www.indeed.com/rc/clk?jk=d97780d5f681efce&bb,ea67cf0baa5e6f57f1b08fae69f088ff25849ed0b5f6bab05cd8e7cf0ec72267
+03/08/24,No,Machine Learning Engineer,Adobe,"San Jose, CA 95110 
 (Downtown area)","$135,200 - $250,900 a year",https://www.indeed.com/rc/clk?jk=f9e00029fd962e63&bb,f254b8f09de86af69cd5f5d2e71ee22f243ceced3172824e43dff55eec834c22
-03/12/24,Full Stack Engineer,Aven,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=a334d9c306eec5b8&bb,75018f40a79f29f41b1b87508581edb09473a623042a5126d8ac9952e2045d20
-03/12/24,Computer Vision and Machine Learning Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=5af9dcdda87bfa4f&bb,6945a76bb8c68db502217c2e7fac6bcb1f16771b2314c9e848aaa62592520e63
-03/12/24,"Software Engineer, Design & Fabrication",Rigetti Computing,"Hybrid remote in Fremont, CA",N/A,https://www.indeed.com/rc/clk?jk=6bab36a18ac8f400&bb,c4667c0facebbed5fbdd4ded674db1fb436de4e44b526d0a39bc5efca274cd09
-03/12/24,Software Engineer (Product Engineering),Velocity Tech Inc,"Sunnyvale, CA",$90 - $110 an hour,https://www.indeed.com/rc/clk?jk=179d5875d3ab8786&bb,71473a68188f3e0d8013525fb414ce14e3e30813a8a123431812ea67c1fc4d82
-03/12/24,"Staff Software Engineer, Web Payment Experience",Afterpay,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=e305aa6a395f6759&bb,ed63da63924acbeef9e008f8e784098368224e44b169e7bc53e5f631ecb4bfd9
-03/12/24,Software Quality Engineer,Lawrence Livermore National Laboratory,"Livermore, CA","$159,330 - $204,636 a year",https://www.indeed.com/rc/clk?jk=7a25e10ffcaca4b5&bb,fd62ede04839684e6aef363907ab4f5e9a2ec067d20858c47f0f002be8c185cc
-03/12/24,"Software Development Engineer in Test, Backup and Migration",Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=e9369cac3d77ac15&bb,f79d62cc0edbc360ce7fc84a66b167c31e20e88b263129a8aeb94b062998f693
-03/12/24,UI Web Engineer / Client - iCloud ASE,Apple,"Cupertino, CA","$170,700 - $300,200 a year",https://www.indeed.com/rc/clk?jk=05be320a96bfaf88&bb,546001f683d025c208dc2de3214ea4ecfc74247a36417deff4e552cc7e3fd957
-03/12/24,"Staff Software Engineer, Lending Products",Parafin,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=8b521f2f534aae2c&bb,b42f72a08f5107ef655c4d12990c0b27187b3931a90f69868d10f8383e35dc36
-03/12/24,AI Software Engineer,Month2Month,"Irvine, CA 92606 
+03/12/24,No,Software Quality Engineer,Lawrence Livermore National Laboratory,"Livermore, CA","$159,330 - $204,636 a year",https://www.indeed.com/rc/clk?jk=7a25e10ffcaca4b5&bb,fd62ede04839684e6aef363907ab4f5e9a2ec067d20858c47f0f002be8c185cc
+03/02/24,No,Full Stack Engineer,Aven,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=a334d9c306eec5b8&bb,75018f40a79f29f41b1b87508581edb09473a623042a5126d8ac9952e2045d20
+03/04/24,No,"Software Engineer, Design & Fabrication",Rigetti Computing,"Hybrid remote in Fremont, CA",N/A,https://www.indeed.com/rc/clk?jk=6bab36a18ac8f400&bb,c4667c0facebbed5fbdd4ded674db1fb436de4e44b526d0a39bc5efca274cd09
+03/12/24,No,"Software Engineer, Audio Infrastructure",Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=1e6a28ec470ede19&bb,f8bb8fdfa57168ea0aea5eb4996af08ed6141758418ad85bbd6b04cdcc9e8f13
+03/07/24,No,Software Engineer (Product Engineering),Velocity Tech Inc,"Sunnyvale, CA",$90 - $110 an hour,https://www.indeed.com/rc/clk?jk=179d5875d3ab8786&bb,71473a68188f3e0d8013525fb414ce14e3e30813a8a123431812ea67c1fc4d82
+03/04/24,No,"Software Development Engineer in Test, Backup and Migration",Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=e9369cac3d77ac15&bb,f79d62cc0edbc360ce7fc84a66b167c31e20e88b263129a8aeb94b062998f693
+02/28/24,No,"Software Integrity Engineer, Photos",Apple,"Cupertino, CA","$107,500 - $223,500 a year",https://www.indeed.com/rc/clk?jk=d9be217fdbdff2af&bb,83957ac1841a38e57dacf8104a6415b4ab056e7a73c43e69b27ac874ff0c489f
+03/11/24,No,Value Engineer - Software,Celonis SE,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=b0e145e7edebf2e9&bb,6809f7ef547f6170b504ea97a8263dee1bbe840353b94096e58069bf1fbd629a
+03/10/24,No,UI Web Engineer / Client - iCloud ASE,Apple,"Cupertino, CA","$170,700 - $300,200 a year",https://www.indeed.com/rc/clk?jk=05be320a96bfaf88&bb,546001f683d025c208dc2de3214ea4ecfc74247a36417deff4e552cc7e3fd957
+03/07/24,No,"Software Integration Engineer, Intelligent System Experience",Apple,"San Diego, CA","$131,500 - $243,300 a year",https://www.indeed.com/rc/clk?jk=ed20f6382f944f48&bb,e9716d9b6d86d8333ee83f54c7e2434422a658f2f9b2367eb73aa7b2da55de73
+03/05/24,No,Developer,SAP,"Palo Alto, CA 94304",N/A,https://www.indeed.com/rc/clk?jk=cfceff00ebc1f83c&bb,7e5f6c5cc1ede39cb9ad2879866625b7657b908c433ee178233cccbb9a12ce8a
+03/02/24,No,Software Data Engineer - Analytical Engineering - Apple Media Products,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=ac796f2adc3f3afc&bb,397c9c46ddeebcd1e2bcf3b30f69e6e9342020af2cdbb1c85da80fc4cce30119
+03/06/24,No,"Software Engineer, Finetuning Infrastructure",Cohere,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=67bba8f5fd710cdc&bb,95b549dbffce88b2ee6633e1fc9f8dc9efd36be81f7e5f78c2762f09f709a3bb
+03/04/24,No,SwiftData Frameworks Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=c39e1e3b03be9772&bb,fad5c8ecee0f143f4e41c6757e0bfa9b4fd62475ae2d48042d7f28a012a74dc0
+02/28/24,No,AI Software Engineer,Month2Month,"Irvine, CA 92606 
 (San Joaquin Marsh area)",N/A,https://www.indeed.com/rc/clk?jk=9a18ff10d648c356&bb,661fd4df1caf623762e1edc8a5d1d90f42e7783ee24ada28a279e89a42d596b1
-03/12/24,Value Engineer - Software,Celonis SE,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=b0e145e7edebf2e9&bb,6809f7ef547f6170b504ea97a8263dee1bbe840353b94096e58069bf1fbd629a
-03/12/24,Developer,SAP,"Palo Alto, CA 94304",N/A,https://www.indeed.com/rc/clk?jk=cfceff00ebc1f83c&bb,7e5f6c5cc1ede39cb9ad2879866625b7657b908c433ee178233cccbb9a12ce8a
-03/12/24,"Software Engineer, Finetuning Infrastructure",Cohere,"San Francisco, CA",N/A,https://www.indeed.com/rc/clk?jk=67bba8f5fd710cdc&bb,95b549dbffce88b2ee6633e1fc9f8dc9efd36be81f7e5f78c2762f09f709a3bb
-03/12/24,"Software Integrity Engineer, Photos",Apple,"Cupertino, CA","$107,500 - $223,500 a year",https://www.indeed.com/rc/clk?jk=d9be217fdbdff2af&bb,83957ac1841a38e57dacf8104a6415b4ab056e7a73c43e69b27ac874ff0c489f
-03/12/24,Software Data Engineer - Analytical Engineering - Apple Media Products,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=ac796f2adc3f3afc&bb,397c9c46ddeebcd1e2bcf3b30f69e6e9342020af2cdbb1c85da80fc4cce30119
-03/12/24,"Software Integration Engineer, Intelligent System Experience",Apple,"San Diego, CA","$131,500 - $243,300 a year",https://www.indeed.com/rc/clk?jk=ed20f6382f944f48&bb,e9716d9b6d86d8333ee83f54c7e2434422a658f2f9b2367eb73aa7b2da55de73
-03/12/24,Mobile Application Developer - IOS,Adidev Technologies Inc,"California City, CA 93505",$30 - $40 an hour,https://www.indeed.com/rc/clk?jk=712b58faf2f58906&bb,3ebead0e8114561d29beb2159c26cbdeb6fd1e8b14594df94d516a64aab78b64
-03/12/24,SwiftData Frameworks Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=c39e1e3b03be9772&bb,fad5c8ecee0f143f4e41c6757e0bfa9b4fd62475ae2d48042d7f28a012a74dc0
-03/12/24,"Firmware Engineer, Memory Subsystem – New College Grad 2024",NVIDIA,"Santa Clara, CA 95051","$104,000 - $189,750 a year",https://www.indeed.com/rc/clk?jk=171dd20a3c0cc147&bb,74bac91d156419122dc8079308794b04e6f375b3dd4d3e265c4186474cea7e8b
-03/12/24,"Hardware Qualification Engineer, Platforms Infrastructure Engineering",Google,"Sunnyvale, CA 
+02/28/24,No,"Hardware Qualification Engineer, Platforms Infrastructure Engineering",Google,"Sunnyvale, CA 
 (Lakewood area)",N/A,https://www.indeed.com/rc/clk?jk=3d0a432c0b3be55f&bb,3714416745af90d65b6513998f022aff93ead01507cb1ef610383c290d4ed01b
-03/12/24,"Software Dev Engineer - Compiler, Annapurna Labs",Annapurna Labs (U.S.) Inc.,"Cupertino, CA",N/A,https://www.indeed.com/rc/clk?jk=a5df92e7e05bf589&bb,d37be7d29e17da690622e6c0e51aa5e16901502e7eefe60f48d41806b973ffb0
-03/12/24,Associate Embedded Software Engineer,Brahma consulting group,"Belmont, CA 94002 
-(Plateau-Skymont area)",N/A,https://www.indeed.com/rc/clk?jk=ced94a8a5cb1f272&bb,0fa4fc7f17e1c6a82aa300f67cccc64326f48405875082587aabef12ea9e0265
-03/12/24,"Software Dev Engineer - Machine Learning Apps, Accelerator, Annapurna Labs",Annapurna Labs (U.S.) Inc.,"Cupertino, CA",N/A,https://www.indeed.com/rc/clk?jk=ba361d5d8c263660&bb,e25b9d845699278ff257a30bba4287962c0737d626a5e615f4fa1143a179b65b
-03/12/24,Software Engineer Real-Time Embedded,"TrellisWare Technologies, Inc","Hybrid remote in San Diego, CA 92131","$115,000 - $165,000 a year",https://www.indeed.com/rc/clk?jk=86b028a7d08a958e&bb,2678aef68652ae6337545277b5373110b24b2af19cea1c6e32e64d57c1686f82
-03/12/24,Engineering Project Manager - Software Delivery,Apple,"San Diego, CA","$125,800 - $229,400 a year",https://www.indeed.com/rc/clk?jk=f08aa35a2534cfc4&bb,6d28b0695f2f5b00f9f5ebbdeb356516a5978f89537249d3ac1859c2ca7c353e
-03/12/24,Software Engineer/ Coder/ System Administrator,"Micro Quality Calibration, Inc.","Chatsworth, CA 91311",N/A,https://www.indeed.com/rc/clk?jk=31a4c17b805a9c4f&bb,e0d87975f7bd1519cbc7ff6f0e3d538c5c4a9016d86382fc361099533bec4c54
-03/12/24,Node.js Developer,Techiumph Technologies,"Willits, CA 95490",N/A,https://www.indeed.com/rc/clk?jk=bb65124a097d2b12&bb,9e0bddef966e4ed84fa52e78b912d5bf8fbf34acc6feb13332c85a03815becf6
-03/12/24,"Manager, Software Engineering",Ritchie Bros.,"Beverly Hills, CA 90211",N/A,https://www.indeed.com/rc/clk?jk=72ca231c90661d3c&bb,ad74fa0c7f3fc53867b48c3055d732065e13935de1e80736bd53321326a6f818
-03/12/24,Junior Full Stack Developer,SpanIdea Systems,"Santa Clara, CA 95050",N/A,https://www.indeed.com/rc/clk?jk=29b1066ddda979b5&bb,6fc72b4f7adc35920beddbed053cb50fca5103889f7e745bf54cca4f98ba7b84
-03/12/24,Augmented & Virtual Reality Engineer,CBS Television Stations,"San Francisco, CA 94111 
+03/05/24,No,"Software Dev Engineer - Compiler, Annapurna Labs",Annapurna Labs (U.S.) Inc.,"Cupertino, CA",N/A,https://www.indeed.com/rc/clk?jk=a5df92e7e05bf589&bb,d37be7d29e17da690622e6c0e51aa5e16901502e7eefe60f48d41806b973ffb0
+03/06/24,No,"Software Dev Engineer - Machine Learning Apps, Accelerator, Annapurna Labs",Annapurna Labs (U.S.) Inc.,"Cupertino, CA",N/A,https://www.indeed.com/rc/clk?jk=ba361d5d8c263660&bb,e25b9d845699278ff257a30bba4287962c0737d626a5e615f4fa1143a179b65b
+03/07/24,No,Software Engineer/ Coder/ System Administrator,"Micro Quality Calibration, Inc.","Chatsworth, CA 91311",N/A,https://www.indeed.com/rc/clk?jk=31a4c17b805a9c4f&bb,e0d87975f7bd1519cbc7ff6f0e3d538c5c4a9016d86382fc361099533bec4c54
+03/11/24,No,"Firmware Engineer, Memory Subsystem – New College Grad 2024",NVIDIA,"Santa Clara, CA 95051","$104,000 - $189,750 a year",https://www.indeed.com/rc/clk?jk=171dd20a3c0cc147&bb,74bac91d156419122dc8079308794b04e6f375b3dd4d3e265c4186474cea7e8b
+03/08/24,No,Augmented & Virtual Reality Engineer,CBS Television Stations,"San Francisco, CA 94111 
 (Financial District area)","$130,000 - $150,000 a year",https://www.indeed.com/rc/clk?jk=41e4c55c6d5d47dc&bb,8dbfcd2500c8d740c0ce07b6ac5b0006f9162ae32d9352b83a9373d12f984cb2
-03/12/24,Staff/Principal Software Engineer: Data Backend,"Observe, Inc.","Hybrid remote in San Mateo, CA",N/A,https://www.indeed.com/rc/clk?jk=650ac4bf47e179b9&bb,4ffa4c43354d3ef332f61b14034d129c0512c2a7e71544bd831ef9a6d9b9c2d8
-03/12/24,Machine Learning Engineer,Hive,"San Francisco, CA","$120,000 - $180,000 a year",https://www.indeed.com/rc/clk?jk=11de1664ad19b29c&bb,8630b83fdc98a80d2f93ef402a944f2f8b6b75a1f5e963d0440db34f1ef49b28
-03/12/24,Software Engineer - Data Platform,Hadrian,"Los Angeles, CA",N/A,https://www.indeed.com/rc/clk?jk=be5ffcdad76dbb80&bb,2ae11f55d41418e91c134076a905d23f57ca6d9b999d71779df1fccdf7944210
-03/12/24,IT Technician / DevOps,PeakLogic,"San Diego, CA 92130 
-(Carmel Valley area)",$28 - $30 an hour,https://www.indeed.com/rc/clk?jk=ca32d3478eb6b87f&bb,b0a4512c96c0687428ccbc769287d94da078ff38336424e9fe4b9aaa9c088ae9
-03/12/24,Software Engineer - MapKit Developer Platform - Apple Maps,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=137efc69ab906583&bb,84fc9181c0ed8f10a49f0fb7e3b6f642297e0e13b4dfcb1db63fe6a64bfde0be
-03/12/24,Streaming Media QE Web Automation Engineer,Apple,"Cupertino, CA","$114,400 - $199,500 a year",https://www.indeed.com/rc/clk?jk=f46bd0b2038f56e0&bb,e778a6330f63f0feefc31433aca06c9b3c58c99592874fff04d17b51313ac6f3
-03/12/24,Nuclear Software Developer Student Employee,Electric Power Research Institute,"Palo Alto, CA 94304",$27 - $34 an hour,https://www.indeed.com/rc/clk?jk=acca03b0e116a231&bb,ac592263cc0b7198ef15546448183e666f973e0e93f20fb7130fbe7c9fce87e7
-03/12/24,Junior Business & Technology Analyst - Application Developer,Axos Bank,"San Diego, CA 92122 
-(University City area)",N/A,https://www.indeed.com/rc/clk?jk=6ec08b133abfdf81&bb,1fd7ca6efecb4d4c0c5716096c251b009db524d751c7d98c7cc4b636b0b1ea9f
-03/12/24,"AIML - Machine Learning Engineer, Machine Learning Platform & Intelligence",Apple,"San Francisco, CA","$170,700 - $300,200 a year",https://www.indeed.com/rc/clk?jk=9e087f6d0c7993a0&bb,99c132d6342e524740ec6c92c17f2205e5aa87fcae1aaf03c22ba402c97e1585
-03/12/24,"AT&T - B2B Sales Development Program - Summer 2024 - West, application via RippleMatch",RippleMatch Opportunities,"Sacramento, CA","$57,000 a year",https://www.indeed.com/rc/clk?jk=5689530ce11a09a9&bb,8e0c2853b49011e53014df949b895fade06357c1a9a001586ae40d96d41a47be
-03/12/24,Large-Scale Developer Tools Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=f49b405498d19c57&bb,ab39d2ca209a50a104ea7c3ff8d95c5b5a37c4db520e47d0a5860d49fe3a2b28
-03/12/24,$300k-$1mm Low Latency Software Engineer (C++/Java),Fionics,"San Francisco, CA 94103 
+03/08/24,No,Machine Learning Engineer,Hive,"San Francisco, CA","$120,000 - $180,000 a year",https://www.indeed.com/rc/clk?jk=11de1664ad19b29c&bb,8630b83fdc98a80d2f93ef402a944f2f8b6b75a1f5e963d0440db34f1ef49b28
+03/08/24,No,Node.js Developer,Techiumph Technologies,"Willits, CA 95490",N/A,https://www.indeed.com/rc/clk?jk=bb65124a097d2b12&bb,9e0bddef966e4ed84fa52e78b912d5bf8fbf34acc6feb13332c85a03815becf6
+02/28/24,No,Software Engineer - Data Platform,Hadrian,"Los Angeles, CA",N/A,https://www.indeed.com/rc/clk?jk=be5ffcdad76dbb80&bb,2ae11f55d41418e91c134076a905d23f57ca6d9b999d71779df1fccdf7944210
+03/08/24,No,Junior Full Stack Developer,SpanIdea Systems,"Santa Clara, CA 95050",N/A,https://www.indeed.com/rc/clk?jk=29b1066ddda979b5&bb,6fc72b4f7adc35920beddbed053cb50fca5103889f7e745bf54cca4f98ba7b84
+03/06/24,No,Streaming Media QE Web Automation Engineer,Apple,"Cupertino, CA","$114,400 - $199,500 a year",https://www.indeed.com/rc/clk?jk=f46bd0b2038f56e0&bb,e778a6330f63f0feefc31433aca06c9b3c58c99592874fff04d17b51313ac6f3
+03/03/24,No,Software Engineer - MapKit Developer Platform - Apple Maps,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=137efc69ab906583&bb,84fc9181c0ed8f10a49f0fb7e3b6f642297e0e13b4dfcb1db63fe6a64bfde0be
+03/06/24,No,Nuclear Software Developer Student Employee,Electric Power Research Institute,"Palo Alto, CA 94304",$27 - $34 an hour,https://www.indeed.com/rc/clk?jk=acca03b0e116a231&bb,ac592263cc0b7198ef15546448183e666f973e0e93f20fb7130fbe7c9fce87e7
+03/10/24,No,Large-Scale Developer Tools Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=f49b405498d19c57&bb,ab39d2ca209a50a104ea7c3ff8d95c5b5a37c4db520e47d0a5860d49fe3a2b28
+02/29/24,No,$300k-$1mm Low Latency Software Engineer (C++/Java),Fionics,"San Francisco, CA 94103 
 (South Of Market area)",N/A,https://www.indeed.com/rc/clk?jk=33bbb4997f093523&bb,5ae6b476712a17c552123acd96b2f917598ed2b416b86b9cb7273adf9e76dda6
-03/12/24,"Software Engineer I, AIX",Alphatec Spine,"Carlsbad, CA",N/A,https://www.indeed.com/rc/clk?jk=e2246d3f38c8d4c3&bb,03f0ba2a99d72deb792fe97da3c0489581493aebebf96ddc6d58b667a8414498
-03/12/24,Front End Developer,Agorus Inc,"San Diego, CA 92106 
+03/10/24,No,"AIML - Machine Learning Engineer, Machine Learning Platform & Intelligence",Apple,"San Francisco, CA","$170,700 - $300,200 a year",https://www.indeed.com/rc/clk?jk=9e087f6d0c7993a0&bb,99c132d6342e524740ec6c92c17f2205e5aa87fcae1aaf03c22ba402c97e1585
+03/06/24,No,"AT&T - B2B Sales Development Program - Summer 2024 - West, application via RippleMatch",RippleMatch Opportunities,"Sacramento, CA","$57,000 a year",https://www.indeed.com/rc/clk?jk=5689530ce11a09a9&bb,8e0c2853b49011e53014df949b895fade06357c1a9a001586ae40d96d41a47be
+03/05/24,No,Junior Business & Technology Analyst - Application Developer,Axos Bank,"San Diego, CA 92122 
+(University City area)",N/A,https://www.indeed.com/rc/clk?jk=6ec08b133abfdf81&bb,1fd7ca6efecb4d4c0c5716096c251b009db524d751c7d98c7cc4b636b0b1ea9f
+03/12/24,No,"Software Engineer I, AIX",Alphatec Spine,"Carlsbad, CA",N/A,https://www.indeed.com/rc/clk?jk=e2246d3f38c8d4c3&bb,03f0ba2a99d72deb792fe97da3c0489581493aebebf96ddc6d58b667a8414498
+02/28/24,No,Front End Developer,Agorus Inc,"San Diego, CA 92106 
 (Midway District area)",N/A,https://www.indeed.com/rc/clk?jk=c1b62ea51718d2f0&bb,9020d87c2f8dfea127ecc435d2a0c8838d75a0d958a78b2e2b56671ae39520af
-03/12/24,Embedded Engineer (Secret Clearance),"Dynamic Placement Services, LLC","Santa Barbara, CA","$120,000 - $170,000 a year",https://www.indeed.com/rc/clk?jk=7495978433d0e219&bb,fc37b6477d959b4cf10cef4c06b2bdfd6e132b8685526eb10eedff6ba4382906
-03/12/24,Software Engineer,Sigma Defense,"San Diego, CA",N/A,https://www.indeed.com/rc/clk?jk=b36fee2b39b7f48e&bb,283d9e357c2f1af8846d5d40647a1c2bfffff2b0686feb3fb6d325e47a50fb3e
-03/12/24,Solutions/Software Analyst/Scientist/Engineer - Workflow,Fulgent Therapeutics Llc,"El Monte, CA 91731",N/A,https://www.indeed.com/rc/clk?jk=7b25e8242fa3023c&bb,91edf5253d2fe7d509a3cc8099a62679144c1c771bf4d1b01a2af9f8fa95fffc
-03/12/24,Software QA Engineer,Maersk Logistics & Services,"Los Angeles, CA 90731 
+03/09/24,No,Solutions/Software Analyst/Scientist/Engineer - Workflow,Fulgent Therapeutics Llc,"El Monte, CA 91731",N/A,https://www.indeed.com/rc/clk?jk=7b25e8242fa3023c&bb,91edf5253d2fe7d509a3cc8099a62679144c1c771bf4d1b01a2af9f8fa95fffc
+03/06/24,No,CoreOS Darwin Virtual Memory Engineer,Apple,"Cupertino, CA","$138,900 - $256,500 a year",https://www.indeed.com/rc/clk?jk=93d2d9a8600fbb70&bb,0ee5d96bddf249540b91d6a6fbd603659fcf3f26f672544f712362c67516f002
+03/08/24,No,Software QA Engineer,Maersk Logistics & Services,"Los Angeles, CA 90731 
 (Terminal Island area)","$155,000 - $165,000 a year",https://www.indeed.com/rc/clk?jk=efc9eac92c242ec6&bb,bef5d914b84315fbf31cc1ea42b6088fcfdd89a17c1bc005a61369221f821cdd
-03/12/24,Embedded GPU Software Engineer,RedBalloon LLC,"Brea, CA","$102,000 - $186,000 a year",https://www.indeed.com/rc/clk?jk=5ea80f8e47e36fba&bb,4e70f0e844f36de0bb7ace2968924b032e36f3ce4390cb82cbf73042d5c1bf13
+03/08/24,No,Software Engineer,Sigma Defense,"San Diego, CA",N/A,https://www.indeed.com/rc/clk?jk=b36fee2b39b7f48e&bb,283d9e357c2f1af8846d5d40647a1c2bfffff2b0686feb3fb6d325e47a50fb3e
+03/12/24,No,IT Technician / DevOps,PeakLogic,"San Diego, CA 92130 
+(Carmel Valley area)",N/A,https://www.indeed.com/rc/clk?jk=ca32d3478eb6b87f&bb,b0a4512c96c0687428ccbc769287d94da078ff38336424e9fe4b9aaa9c088ae9
+02/29/24,No,Application Development Technician,Resonetics,"San Diego, CA 92121 
+(Sorrento Valley area)",N/A,https://www.indeed.com/rc/clk?jk=20ae7a1111875967&bb,cc27f344c85412b381b023f3e77ce4b45c3bd489ca24b9a3a3a04f2aeaf84b52
+02/28/24,No,Full Stack Developer,Sensor Tower,"Hybrid remote in Culver City, CA",N/A,https://www.indeed.com/rc/clk?jk=a0eee0d6d65c5afe&bb,38c5a58d6d14aee65bae64559c373456d2dd96967a3f9ab90c4b33d0a4909e92
+03/06/24,No,FRONT END DEVELOPER,Coalition Technologies,"Culver City, CA 90232",$15 - $35 an hour,https://www.indeed.com/rc/clk?jk=bd1aebac8e43ded9&bb,5366abd4a02f14c1c54b22574c5f2230ad2eefdb511d594c930b6a089cfaaedc
+03/08/24,No,API Review & Design Engineer,Apple,"San Diego, CA","$131,500 - $243,300 a year",https://www.indeed.com/rc/clk?jk=32adb78a64f7c249&bb,a78ed6d6178b5ca837edc678934a80d703ba73ebd653b806e00f7cc3de103d66
+03/06/24,No,"Verizon - Business Sales Acceleration Development Program 2024, application via RippleMatch",RippleMatch Opportunities,"Irvine, CA","$64,000 - $119,000 a year",https://www.indeed.com/rc/clk?jk=8b5f6f489f005759&bb,46e7d67651d64007b7e09ce3960523d0ac896f0afca15859816a3f9cc4fe78a2
+03/06/24,No,Swift Platform Experience Integration Engineer,Apple,"Cupertino, CA","$107,500 - $223,500 a year",https://www.indeed.com/rc/clk?jk=175482a6cf4a570c&bb,d64deae28c968cef8d1cf4cb9655c155db1f2120524cdb23218e86be2e19cb2c
+03/08/24,No,Application Development & Support Supervisor,CALIFORNIA STATE LOTTERY,"Hybrid remote in Sacramento, CA 95811","$8,016 - $10,741 a month",https://www.indeed.com/rc/clk?jk=cb523c793c17ea3c&bb,52c61b07c7e3153c731c39e05514a8a1bf53f0bb2d58b04ace683fd9c6ebd4d0
+03/06/24,No,MAGENTO DEVELOPER,Coalition Technologies,"Culver City, CA 90232",$15 - $35 an hour,https://www.indeed.com/rc/clk?jk=7c0a963f0f6bfd9a&bb,91013f4fb5351343dbe8e151a14b675eebae594422e4d42fab9fdbd4c134a41c
+03/07/24,No,Forms Developer/Programmer - Call Center,The Exchange,"Fresno, CA 93726 
+(Hoover area)",$20 - $22 an hour,https://www.indeed.com/rc/clk?jk=4042098fff180338&bb,6ee11596d713d28735aca4fae88d6ff018c18205cb8152501173a7eb2f913a93
+03/09/24,No,INDUSTRIAL PROGRAMMER/ SCADA,Joseph Gallo Cheese Company LP,"Atwater, CA 95301",$27 - $36 an hour,https://www.indeed.com/rc/clk?jk=78948a6dfd4dfdd6&bb,3c60502f9ccec7134f3df212580707224c5071f203a9dac7a5e2f269148fd77b
+03/12/24,No,Epic Bridges Analyst/ Interface Developer,HiPaaS Inc,"Hybrid remote in Oakland, CA 94612",$90 - $100 an hour,https://www.indeed.com/rc/clk?jk=352407bfec58ccaf&bb,4b29b2d8c521b731b4fff1a3ba9f9ae95829054fbfda07cb34dfae407528a7ae
+03/07/24,No,HIM Specialty Coder III - Health Information - F/T Days,UC Irvine Health,"Orange, CA",$44.42 - $58.63 an hour,https://www.indeed.com/rc/clk?jk=1f38805aa667089a&bb,285a0655299e1bf7cc60f0a2075e92a249adffa63d98aaa3de736e38c3789247
+03/11/24,No,Web Developer,"ADM Flooring, Inc.","Los Angeles, CA 90058",N/A,https://www.indeed.com/rc/clk?jk=b8bfc9377d448fb8&bb,c49866434621842a14e8aed41d2d7f1d8b35699ccbe8067c7fcb667590b61efc
+03/07/24,No,Web Developer/SEO Specialist,Leaktronics,"Agoura Hills, CA 91301 
+(Historic Quarter area)",N/A,https://www.indeed.com/rc/clk?jk=9f7e563008ea2678&bb,b97112950ac1840163471b8315634ccc42e3d7c8606f1c47591ef13b59cf8f5c
+02/28/24,No,"Research Scientist, Sensors and Systems Research (PhD)",Meta,"Burlingame, CA 94010","$117,000 - $173,000 a year",https://www.indeed.com/rc/clk?jk=d8fd97e8fb2a09a3&bb,41440b91057ddd739521b423c3933e65b6638c2a45dc6226ba3988b2fed2ae47
+02/28/24,No,Windows Native Developer (Security and Authentication Focus),Oracle,"Santa Clara, CA 95054",N/A,https://www.indeed.com/rc/clk?jk=806f3b48d427a05a&bb,de67a922a2ea4fa4371cf67324c8da1990c143df9ecfceb9bac9cebf88f6e8e7
+03/05/24,No,SwiftUI Frameworks Widget Engineer,Apple,"Cupertino, CA","$132,300 - $241,500 a year",https://www.indeed.com/rc/clk?jk=26dfe70f0f404fd9&bb,b9e074eb4dbd5ced45af14e69a33311085d4e8301b79a2caeca1922dbef14def
+03/09/24,No,"Lancaster, Ca, Net Meter Surveyor",Net Meter Survey,"Lancaster, CA",N/A,https://www.indeed.com/rc/clk?jk=cff436510c1aa412&bb,14badf4bd04e623d7d425b0ea30cff13fdafab2afc75c77edbbc940bf5be325d
+03/05/24,No,IP System Validation Software Engineer,INTEL,"Folsom, CA","$91,500 - $137,436 a year",https://www.indeed.com/rc/clk?jk=b370da53543f0165&bb,71bf0d9b3d4ff56f151f275ba3a1325648d90e31ce2295bab5b9e7c19d1ad035
+02/29/24,No,Quantum Integrated Circuit (IC) Designer,Rigetti Computing,"Hybrid remote in Fremont, CA","$125,000 - $165,000 a year",https://www.indeed.com/rc/clk?jk=64dc1ceb4e0348a1&bb,0ad707ac345bd10055ab2f898d9be5d723f69e0cb536750eddb23d581fdb6ced
+03/01/24,No,Database Analyst/Programmer- Associate,Spathe Systems,"San Diego, CA 92155",N/A,https://www.indeed.com/rc/clk?jk=95d8eab5fd417278&bb,c6f1554ed97b36e86d017d796d4dfb80ca323d54a54903124222156627ddf5d3
+03/09/24,No,"Poway, Ca, Net Meter Surveyor",Net Meter Survey,"Poway, CA",N/A,https://www.indeed.com/rc/clk?jk=a236dd8c2f534c66&bb,ca612f290388fac7c0f0883f02a33f6ff9fa6303ab67de7235f1bdce2b3f3900
+03/07/24,No,"Machine Learning Engineer, Data & ML Platform",Block,"Oakland, CA",N/A,https://www.indeed.com/rc/clk?jk=ddd6f39d384f8bd9&bb,3f6d45083898f33eba975afe0b64cede9f03ccbd1279926d416dbdd499473a5b
+03/05/24,No,C++ Engineer for Elite HFT firm ($100k-$300k),Fionics,"San Francisco, CA 94103 
+(South Of Market area)",N/A,https://www.indeed.com/rc/clk?jk=aa69f7456e5ee590&bb,62f4f60515d5a8b7ad7f7af1e3601af3ae53bc76bf6a6b7b136ffd1fc635f039
+03/08/24,No,iOS Developer,Adidev Technologies Inc,"San Francisco, CA 94103 
+(South Of Market area)",$30 - $40 an hour,https://www.indeed.com/rc/clk?jk=47741a7adc296b15&bb,cc1c210dd6390d72728bf1166ba042910f8078d4364b536c4d4d96d0ebbda83f
+03/06/24,No,LARAVEL DEVELOPER,Coalition Technologies,"Culver City, CA 90232",$15 - $35 an hour,https://www.indeed.com/rc/clk?jk=bcdf280dd3b9a4fb&bb,106036a52b237a17fda4a3817162de7a0ce7cfc773ba3957b7425eda66a848ca
+03/11/24,No,"Founding Software Engineer, Seed Stage",Recruiting From Scratch,California,"$120,000 - $180,000 a year",https://www.indeed.com/rc/clk?jk=adc35429148c3645&bb,ce4af2aacc8856f9844566c8289f9ac61c30b079b07e41f5382bcfc370c2932d
