@@ -17,11 +17,11 @@
     "ML"
   ],
   "indeed_url_params": {
-    "max_days_posted_ago": "30",
     "position": "Software Engineer",
-    "experience_level": "0kf%3Aexplvl(ENTRY_LEVEL)",
+    "location": "California",
+    "experience_level": "",
     "job_type": "(fulltime)",
-    "location": "California"
+    "max_days_posted_ago": "30"
   },
   "csv_output_path": "data/data.csv",
   "csv_headers": [

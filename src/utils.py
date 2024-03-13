@@ -6,8 +6,26 @@ import csv
 import hashlib
 
 def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):            
-    template = 'https://www.indeed.com/jobs?q={}&l={}&sc={}jt{}%3B&fromage={}'
-    url = template.format(position, location, experience_level, job_type, max_days_posted_ago)
+    template = 'https://www.indeed.com/jobs?{}'
+    formatted_params = []
+
+    # Format the URL parameters into proper HTML parameters
+    if position:
+        formatted_params.append("q=" + position)
+    if location:
+        formatted_params.append("&l=" + location)
+
+    if experience_level and job_type:
+        formatted_params.append("&sc=0kf%3Aexplvl" + experience_level + "jt" + job_type + "%3B")
+    elif experience_level:
+        formatted_params.append("&sc=0kf%3Aexplvl" + experience_level + "%3B")
+    elif job_type:
+        formatted_params.append("&sc=0kf%3Ajt" + job_type + "%3B")
+    
+    if max_days_posted_ago:
+        formatted_params.append("&fromage=" + max_days_posted_ago)
+
+    url = template.format(''.join(formatted_params))
 
     return url
 
