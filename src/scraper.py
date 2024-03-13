@@ -14,6 +14,7 @@ class Scraper:
         self.url = url
         self.excluded_keywords = excluded_keywords
         self.jobs = utils.read_jobs_csv(csv_output_path) # {hash_id : record}
+        self.initial_num_records = len(self.jobs)
         self.csv_headers = csv_headers
         self.driver.get(self.url)
 
@@ -133,6 +134,9 @@ class Scraper:
                 previous_page_hash_ids = extracted_hash_ids
                 self.navigate_next_page()
                 pages_scraped += 1
+
+        print(f"Number of pages scraped: {pages_scraped}")
+        print(f"Number of new records: {len(self.jobs) - self.initial_num_records}\n")
 
         self.shutdown()
         return

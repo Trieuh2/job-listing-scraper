@@ -70,6 +70,7 @@ def read_jobs_csv(filename):
 
 # Updates all records in the CSV to respect new header structure
 def update_jobs_csv_headers(filename, new_headers):
+    print("Updating CSV headers")
     # Read the existing CSV data
     with open(filename, 'r', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -87,9 +88,11 @@ def update_jobs_csv_headers(filename, new_headers):
         writer.writeheader()
         writer.writerows(updated_data)
     
+    print("Done updating CSV headers")
     return
 
 def write_jobs_csv(filename, job_records):
+    print("Updating CSV record data")
     with open('config.json') as config_file:
         config = json.load(config_file)
 
@@ -114,7 +117,7 @@ def write_jobs_csv(filename, job_records):
                     
         for job_record in job_records.values():
             writer.writerow(job_record)
-    
+    print("Done updating CSV records")
     return
 
 def string_to_hash(input_string):
