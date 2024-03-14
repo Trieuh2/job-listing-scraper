@@ -4,6 +4,7 @@ import json
 import os
 import csv
 import hashlib
+from functools import reduce
 
 def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):            
     template = 'https://www.indeed.com/jobs?{}'
@@ -198,10 +199,26 @@ def is_valid_description_criteria(description):
 
         with open('config.json') as config_file:
             config = json.load(config_file)
-        
-        if config['user_years_of_experience'] < min_exp:
+
+        user_years_of_experience = (config['indeed_url_params'])['user_years_of_experience']
+        if int(user_years_of_experience) < min_exp:
             return False
         else:
             return True
     else:
         return True
+    
+def update_config_field(filepath, field_path, new_value):
+    # Read the existing config file
+    with open(filepath, 'r') as file:
+        config = json.load(file)
+
+    # Split the field path into a list of keys
+    keys = field_path.split('.')
+
+    # Update the field value
+    reduce(lambda d, k: d.setdefault(k, {}), keys[:-1], config)[keys[-1]] = new_value
+
+    # Write the updated config back to the file
+    with open(filepath, 'w') as file:
+        json.dump(config, file, indent=4)
