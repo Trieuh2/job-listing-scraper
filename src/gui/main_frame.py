@@ -11,7 +11,7 @@ class MainFrame(ctk.CTk):
         with open('config.json') as config_file:
             config = json.load(config_file)
 
-        self.title='Job Listing Scraper'
+        self.title('Job Listing Scraper')
         self.geometry('800x600')
 
         ctk.set_appearance_mode('System')
