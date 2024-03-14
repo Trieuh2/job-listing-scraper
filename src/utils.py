@@ -209,6 +209,10 @@ def is_valid_description_criteria(description):
         return True
     
 def update_config_field(filepath, field_path, new_value):
+    if field_path == 'excluded_keywords':
+        # Filter out empty strings from the list of new values
+        new_value = sorted([value.lower() for value in new_value if value.strip()])
+
     # Read the existing config file
     with open(filepath, 'r') as file:
         config = json.load(file)

@@ -1,7 +1,8 @@
 import os
 import json
 import customtkinter as ctk
-import indeed_settings_frame
+from indeed_settings_frame import IndeedSettingsFrame
+from excluded_keywords_frame import ExcludedKeywordsFrame 
 
 class MainFrame(ctk.CTk):
     def __init__(self):
@@ -18,9 +19,13 @@ class MainFrame(ctk.CTk):
     
         default_font = ctk.CTkFont(family='Roboto', size=12)
 
-        # Initialize and place other frames or widgets here
-        self.indeed_settings_frame = indeed_settings_frame.IndeedSettingsFrame(self, default_font, config['indeed_criteria'])
+        self.indeed_settings_frame = IndeedSettingsFrame(self, default_font, config['indeed_criteria'])
         self.indeed_settings_frame.pack(fill='x', 
+                                        padx=10, 
+                                        pady=(10, 0))
+
+        self.excluded_keywords_frame = ExcludedKeywordsFrame(self, default_font, config['excluded_keywords'])
+        self.excluded_keywords_frame.pack(fill='x', 
                                         padx=10, 
                                         pady=(10, 0))
 
