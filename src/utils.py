@@ -117,7 +117,7 @@ def write_jobs_csv(filename, job_records):
 
     # Check if the file exists and is non-empty
     file_exists = os.path.isfile(filename) and os.path.getsize(filename) > 0
-    fieldnames = config['csv_headers']
+    fieldnames = config['csv_settings']['csv_headers']
 
     with open(filename, "w", newline='', errors='replace') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames, dialect='excel')

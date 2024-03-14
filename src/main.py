@@ -24,5 +24,5 @@ if __name__ == '__main__':
     scraper = Scraper(indeed_url)
     scraper.scrape_num_pages(config['num_pages_to_scrape'])
 
-    if config['update_csv_on_completion']:
-        utils.write_jobs_csv(config['csv_output_path'], scraper.jobs)
+    if config['csv_settings']['update_csv_on_completion']:
+        utils.write_jobs_csv(config['csv_settings']['csv_output_path'], scraper.jobs)

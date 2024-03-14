@@ -1,42 +1,44 @@
 {
   "excluded_keywords": [
-    "staff",
-    "principal",
-    "senior",
-    "manager",
+    "android",
     "director",
     "embedded",
-    "mobile",
-    "lead",
-    "frontend",
     "front end",
+    "frontend",
     "ios",
-    "macos",
-    "android",
+    "lead",
     "machine learning",
-    "ML"
+    "macos",
+    "manager",
+    "ml",
+    "mobile",
+    "principal",
+    "senior",
+    "staff"
   ],
-    "indeed_criteria": {
-        "position": "Software Engineer",
-        "location": "California",
-        "experience_level": "",
-        "job_type": "(fulltime)",
-        "max_days_posted_ago": "30",
-        "user_years_of_experience": "2"
-    },
-  "csv_output_path": "data/data.csv",
-  "csv_headers": [
-    "posted_date",
-    "applied",
-    "title",
-    "company",
-    "location",
-    "salary_preview",
-    "job_link",
-    "search_criteria",
-    "description",
-    "hash_id"
-  ],
-  "num_pages_to_scrape": 0,
-  "update_csv_on_completion": true
+  "indeed_criteria": {
+    "position": "Software Engineer",
+    "location": "California",
+    "experience_level": "",
+    "job_type": "(fulltime)",
+    "max_days_posted_ago": "30",
+    "user_years_of_experience": "2"
+  },
+  "csv_settings": {
+    "csv_output_path": "data/data.csv",
+    "csv_headers": [
+      "posted_date",
+      "applied",
+      "title",
+      "company",
+      "location",
+      "salary_preview",
+      "job_link",
+      "search_criteria",
+      "description",
+      "hash_id"
+    ],
+    "update_csv_on_completion": true
+  },
+  "num_pages_to_scrape": 0
 }
