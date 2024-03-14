@@ -200,7 +200,7 @@ def is_valid_description_criteria(description):
         with open('config.json') as config_file:
             config = json.load(config_file)
 
-        user_years_of_experience = (config['indeed_url_params'])['user_years_of_experience']
+        user_years_of_experience = (config['indeed_criteria'])['user_years_of_experience']
         if int(user_years_of_experience) < min_exp:
             return False
         else:

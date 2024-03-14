@@ -11,13 +11,13 @@ if __name__ == '__main__':
     with open('config.json') as config_file:
         config = json.load(config_file)
 
-    indeed_url_params = config['indeed_url_params']
+    indeed_criteria = config['indeed_criteria']
     indeed_url = utils.build_indeed_url(
-        max_days_posted_ago = indeed_url_params['max_days_posted_ago'],
-        position            = indeed_url_params['position'],
-        experience_level    = indeed_url_params['experience_level'],
-        job_type            = indeed_url_params['job_type'],
-        location            = indeed_url_params['location']
+        max_days_posted_ago = indeed_criteria['max_days_posted_ago'],
+        position            = indeed_criteria['position'],
+        experience_level    = indeed_criteria['experience_level'],
+        job_type            = indeed_criteria['job_type'],
+        location            = indeed_criteria['location']
     )
 
     # Set up and run the Scraper

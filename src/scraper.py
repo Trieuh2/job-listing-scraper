@@ -21,7 +21,7 @@ class Scraper:
         self.csv_headers = config['csv_headers']
         self.jobs = utils.read_jobs_csv(config['csv_output_path'])   # {hash_id : record}
         self.initial_num_records = len(self.jobs)
-        self.search_criteria = '|'.join(list(config['indeed_url_params'].values()))
+        self.search_criteria = '|'.join(list(config['indeed_criteria'].values()))
 
         self.driver.get(self.url)
 

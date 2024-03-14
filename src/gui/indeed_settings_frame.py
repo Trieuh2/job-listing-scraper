@@ -125,4 +125,4 @@ class IndeedSettingsFrame(ctk.CTkFrame):
     
     def update_field(self, field_name, selected_value_friendly_name):
         updated_value = self.get_field_value(field_name, selected_value_friendly_name)
-        update_config_field('config.json', 'indeed_url_params.' + field_name, updated_value)
+        update_config_field('config.json', 'indeed_criteria.' + field_name, updated_value)

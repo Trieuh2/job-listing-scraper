@@ -16,14 +16,14 @@
     "machine learning",
     "ML"
   ],
-  "indeed_url_params": {
-    "position": "Software Engineer",
-    "location": "California",
-    "experience_level": "",
-    "job_type": "(fulltime)",
-    "max_days_posted_ago": "30",
-    "user_years_of_experience": "2"
-  },
+    "indeed_criteria": {
+        "position": "Software Engineer",
+        "location": "California",
+        "experience_level": "",
+        "job_type": "(fulltime)",
+        "max_days_posted_ago": "30",
+        "user_years_of_experience": "2"
+    },
   "csv_output_path": "data/data.csv",
   "csv_headers": [
     "posted_date",
