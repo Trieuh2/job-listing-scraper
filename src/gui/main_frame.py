@@ -2,7 +2,8 @@ import os
 import json
 import customtkinter as ctk
 from indeed_settings_frame import IndeedSettingsFrame
-from excluded_keywords_frame import ExcludedKeywordsFrame 
+from excluded_keywords_frame import ExcludedKeywordsFrame
+from csv_settings_frame import CsvSettingsFrame
 
 class MainFrame(ctk.CTk):
     def __init__(self):
@@ -12,7 +13,7 @@ class MainFrame(ctk.CTk):
             config = json.load(config_file)
 
         self.title('Job Listing Scraper')
-        self.geometry('800x600')
+        self.geometry('800x800')
 
         ctk.set_appearance_mode('System')
         ctk.set_default_color_theme('dark-blue')
@@ -26,6 +27,11 @@ class MainFrame(ctk.CTk):
 
         self.excluded_keywords_frame = ExcludedKeywordsFrame(self, default_font, config['excluded_keywords'])
         self.excluded_keywords_frame.pack(fill='x', 
+                                        padx=10, 
+                                        pady=(10, 0))
+        
+        self.csv_settings_frame = CsvSettingsFrame(self, default_font, config['csv_settings'])
+        self.csv_settings_frame.pack(fill='x', 
                                         padx=10, 
                                         pady=(10, 0))
 
