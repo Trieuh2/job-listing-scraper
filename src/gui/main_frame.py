@@ -9,12 +9,15 @@ import utils
 from .utils_wrapper import update_config_field
 import threading
 
+DEFAULT_NUM_PAGES_SCRAPE = 5
+
 class MainFrame(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.frames = []
         self.scraping_thread = None
         self.stop_scraping = False
+        self.default_font = ctk.CTkFont(family='Roboto', size=12)
 
         with open('config.json') as config_file:
             self.config = json.load(config_file)
@@ -25,71 +28,87 @@ class MainFrame(ctk.CTk):
 
         ctk.set_appearance_mode('System')
         ctk.set_default_color_theme('dark-blue')
-    
-        self.default_font = ctk.CTkFont(family='Roboto', size=12)
 
-        # Indeed Settings
-        self.indeed_settings_frame = IndeedSettingsFrame(self, self.default_font, self.config['indeed_criteria'])
-        self.indeed_settings_frame.pack(fill='x', 
-                                        padx=10, 
-                                        pady=(10, 0))
+        self.init_frames()
+        self.create_footer()  
+
+    def init_frames(self):
+        self.init_indeed_settings_frame()
+        self.init_excluded_keywords_frame()
+        self.init_csv_settings_frame()
+
+    def init_indeed_settings_frame(self):
+        self.indeed_settings_frame = IndeedSettingsFrame(
+            self, self.default_font, self.config['indeed_criteria'])
+        self.indeed_settings_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.indeed_settings_frame)
 
-        # Excluded Keywords Settings
-        self.excluded_keywords_frame = ExcludedKeywordsFrame(self, self.default_font, self.config['excluded_keywords'])
-        self.excluded_keywords_frame.pack(fill='x', 
-                                        padx=10, 
-                                        pady=(10, 0))
+    def init_excluded_keywords_frame(self):
+        self.excluded_keywords_frame = ExcludedKeywordsFrame(
+            self, self.default_font, self.config['excluded_keywords'])
+        self.excluded_keywords_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.excluded_keywords_frame)
-        
-        # CSV Settings
-        self.csv_settings_frame = CsvSettingsFrame(self, self.default_font, self.config['csv_settings'])
-        self.csv_settings_frame.pack(fill='x', 
-                                        padx=10, 
-                                        pady=(10, 0))
+
+    def init_csv_settings_frame(self):
+        self.csv_settings_frame = CsvSettingsFrame(
+            self, self.default_font, self.config['csv_settings'])
+        self.csv_settings_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.csv_settings_frame)
-        
-        # Create Footer
-        self.create_footer()  
 
     def create_footer(self):
         footer_frame = ctk.CTkFrame(self, bg_color='transparent', fg_color='transparent')
         footer_frame.pack(fill='x')
 
-        # Scrape All Pages / Scrape Num Pages fields
-        scrape_settings_frame = ctk.CTkFrame(footer_frame, bg_color='transparent', fg_color='transparent')
-        scrape_settings_frame.pack(side='left', fill='x')
-        self.scrape_all_checkbox = ctk.CTkCheckBox(scrape_settings_frame, text="Scrape all pages?", command=self.toggle_scrape_all_checkbox)
-        self.scrape_all_checkbox.pack(side='left', padx=(20,10), pady=(20, 10))
+        self.create_scrape_settings_frame(footer_frame)
+        self.create_button_frame(footer_frame)
 
-        default_num_pages_scrape = 5
-        num_pages_scrape_frame = ctk.CTkFrame(scrape_settings_frame, bg_color='transparent', fg_color='transparent')
-        num_pages_scrape_frame.pack(side='left', padx=10, pady=(5,10))
-        num_pages_to_scrape_label = ctk.CTkLabel(num_pages_scrape_frame, text='Number of pages to scrape', font=self.default_font)
+    def create_scrape_settings_frame(self, parent):
+        scrape_settings_frame = ctk.CTkFrame(
+            parent, bg_color='transparent', fg_color='transparent')
+        scrape_settings_frame.pack(side='left', fill='x')
+
+        self.scrape_all_checkbox = ctk.CTkCheckBox(
+            scrape_settings_frame, text="Scrape all pages?", command=self.toggle_scrape_all_checkbox)
+        self.scrape_all_checkbox.pack(side='left', padx=(20, 10), pady=(20, 10))
+
+        self.create_num_pages_scrape_frame(scrape_settings_frame)
+        self.initialize_scrape_settings()
+
+    def create_num_pages_scrape_frame(self, parent):
+        num_pages_scrape_frame = ctk.CTkFrame(
+            parent, bg_color='transparent', fg_color='transparent')
+        num_pages_scrape_frame.pack(side='left', padx=10, pady=(5, 10))
+
+        num_pages_to_scrape_label = ctk.CTkLabel(
+            num_pages_scrape_frame, text='Number of pages to scrape', font=self.default_font)
         num_pages_to_scrape_label.pack(anchor='w')
-        self.num_pages_to_scrape_entry_field = ctk.CTkEntry(num_pages_scrape_frame, 
-                                                            placeholder_text=default_num_pages_scrape,
-                                                            font=self.default_font)
-        self.num_pages_to_scrape_entry_field.bind('<KeyRelease>', command=self.update_config_num_pages_scrape)
+
+        self.num_pages_to_scrape_entry_field = ctk.CTkEntry(
+            num_pages_scrape_frame, placeholder_text=str(DEFAULT_NUM_PAGES_SCRAPE), font=self.default_font)
+        self.num_pages_to_scrape_entry_field.bind(
+            '<KeyRelease>', command=self.update_config_num_pages_scrape)
         self.num_pages_to_scrape_entry_field.pack(anchor='w')
 
-
-        # Initialize the state of the checkbox and field
+    def initialize_scrape_settings(self):
         if self.config['num_pages_to_scrape'] == 0:
             self.scrape_all_checkbox.select()
-            # Disable the entry field when app is configured to scrape all pages
             self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
         else:
-            self.num_pages_to_scrape_entry_field.insert(index=1, string=self.config['num_pages_to_scrape'])
+            self.num_pages_to_scrape_entry_field.insert(
+                index=1, string=str(self.config['num_pages_to_scrape']))
             self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color='#343638')
 
-        # Start / Stop buttons
-        button_frame = ctk.CTkFrame(footer_frame, bg_color='transparent', fg_color='transparent')
+    def create_button_frame(self, parent):
+        button_frame = ctk.CTkFrame(
+            parent, bg_color='transparent', fg_color='transparent')
         button_frame.pack(side='right', anchor='s')
-        quit_button = ctk.CTkButton(button_frame, text='Quit', text_color='white', fg_color='#ff4d4d', hover_color='#ff8080', command=self.destroy)
+
+        quit_button = ctk.CTkButton(
+            button_frame, text='Quit', text_color='white', fg_color='#ff4d4d', hover_color='#ff8080', command=self.destroy)
         quit_button.pack(side='left', padx=(10, 5), pady=(20, 10))
 
-        self.start_stop_button = ctk.CTkButton(button_frame, text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043', command=self.toggle_start_stop)
+        self.start_stop_button = ctk.CTkButton(
+            button_frame, text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043', command=self.toggle_start_stop)
         self.start_stop_button.pack(side='left', padx=(5, 20), pady=(20, 10))
 
     def disable_frame(self, frame):
