@@ -66,31 +66,33 @@ class MainFrame(ctk.CTk):
         self.create_button_frame(footer_frame)
 
     def create_scrape_settings_frame(self, parent):
-        scrape_settings_frame = ctk.CTkFrame(
+        self.scrape_settings_frame = ctk.CTkFrame(
             parent, bg_color='transparent', fg_color='transparent')
-        scrape_settings_frame.pack(side='left', fill='x')
+        self.scrape_settings_frame.pack(side='left', fill='x')
 
         self.scrape_all_checkbox = ctk.CTkCheckBox(
-            scrape_settings_frame, text="Scrape all pages?", command=self.toggle_scrape_all_checkbox)
+            self.scrape_settings_frame, text="Scrape all pages?", command=self.toggle_scrape_all_checkbox)
         self.scrape_all_checkbox.pack(side='left', padx=(20, 10), pady=(20, 10))
 
-        self.create_num_pages_scrape_frame(scrape_settings_frame)
+        self.create_num_pages_scrape_frame(self.scrape_settings_frame)
         self.initialize_scrape_settings()
+        self.frames.append(self.scrape_settings_frame)
 
     def create_num_pages_scrape_frame(self, parent):
-        num_pages_scrape_frame = ctk.CTkFrame(
+        self.num_pages_scrape_frame = ctk.CTkFrame(
             parent, bg_color='transparent', fg_color='transparent')
-        num_pages_scrape_frame.pack(side='left', padx=10, pady=(5, 10))
+        self.num_pages_scrape_frame.pack(side='left', padx=10, pady=(5, 10))
 
         num_pages_to_scrape_label = ctk.CTkLabel(
-            num_pages_scrape_frame, text='Number of pages to scrape', font=self.default_font)
+            self.num_pages_scrape_frame, text='Number of pages to scrape', font=self.default_font)
         num_pages_to_scrape_label.pack(anchor='w')
 
         self.num_pages_to_scrape_entry_field = ctk.CTkEntry(
-            num_pages_scrape_frame, placeholder_text=str(DEFAULT_NUM_PAGES_SCRAPE), font=self.default_font)
+            self.num_pages_scrape_frame, placeholder_text=str(DEFAULT_NUM_PAGES_SCRAPE), font=self.default_font)
         self.num_pages_to_scrape_entry_field.bind(
             '<KeyRelease>', command=self.update_config_num_pages_scrape)
         self.num_pages_to_scrape_entry_field.pack(anchor='w')
+        self.frames.append(self.num_pages_scrape_frame)
 
     def initialize_scrape_settings(self):
         if self.config['num_pages_to_scrape'] == 0:
