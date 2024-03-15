@@ -9,7 +9,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         super().__init__(master)
         self.values = values
         self.update_timer = None
-        self.update_delay = 1.5
+        self.update_delay = 0.25
 
         self._create_title(font)
         self._create_fields_frame(font)
