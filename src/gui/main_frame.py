@@ -20,7 +20,7 @@ class MainFrame(ctk.CTk):
             self.config = json.load(config_file)
 
         self.title('Job Listing Scraper')
-        self.geometry('800x700')
+        self.geometry('800x750')
         self.resizable=False
 
         ctk.set_appearance_mode('System')

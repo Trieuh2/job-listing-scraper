@@ -17,58 +17,94 @@ class IndeedSettingsFrame(ctk.CTkFrame):
 
         # Create a frame for fields: Position, Location, Max Years of Experience
         fields_frame = ctk.CTkFrame(self, fg_color='transparent')
-        fields_frame.pack(pady=(0, 10))
+        fields_frame.pack(pady=(0, 10), anchor='center')
 
-        self.position_field = ctk.CTkEntry(fields_frame, 
+        # Position
+        self.position_frame = ctk.CTkFrame(fields_frame)
+        self.position_frame.pack(side='left', padx=(0, 5), anchor='center')
+        self.position_label = ctk.CTkLabel(self.position_frame, 
+                                           text="Position", 
+                                           font=font)
+        self.position_label.pack()
+        self.position_field = ctk.CTkEntry(self.position_frame, 
                                            placeholder_text="Position", 
                                            font=font)
-        self.position_field.pack(side='left', padx=(0, 5), anchor='center')
+        self.position_field.pack()
         self.position_field.bind('<KeyRelease>', lambda event: self.schedule_update('position', event))
-        ToolTip(self.position_field, "Position")
 
-        self.location_field = ctk.CTkEntry(fields_frame, 
+        # Location
+        self.location_frame = ctk.CTkFrame(fields_frame)
+        self.location_frame.pack(side='left', padx=5, anchor='center')
+        self.location_label = ctk.CTkLabel(self.location_frame, 
+                                           text='Location', 
+                                           font=font)
+        self.location_label.pack()
+        self.location_field = ctk.CTkEntry(self.location_frame, 
                                            placeholder_text="Location", 
                                            font=font)
-        self.location_field.pack(side='left', padx=5, anchor='center')
+        self.location_field.pack()
         self.location_field.bind('<KeyRelease>', lambda event: self.schedule_update('location', event))
-        ToolTip(self.location_field, "Location")
 
 
-        self.years_of_experience_field = ctk.CTkEntry(fields_frame, 
+        # Years of Experience
+        self.years_experience_frame = ctk.CTkFrame(fields_frame)
+        self.years_experience_frame.pack(side='left', padx=(5, 0), anchor='center')
+        self.years_experience_label = ctk.CTkLabel(self.years_experience_frame, 
+                                                   text="Max Years of Experience", 
+                                                   font=font)
+        self.years_experience_label.pack()
+        self.years_experience_field = ctk.CTkEntry(self.years_experience_frame, 
                                                       placeholder_text="Max Years of Experience", 
                                                       font=font)
-        self.years_of_experience_field.pack(side='left', padx=(5, 0), anchor='center')
-        self.years_of_experience_field.bind('<KeyRelease>', lambda event: self.schedule_update('user_years_of_experience', event))
-        ToolTip(self.years_of_experience_field, "Maximum years of experience")
+        self.years_experience_field.pack()
+        self.years_experience_field.bind('<KeyRelease>', lambda event: self.schedule_update('user_years_of_experience', event))
 
-        fields_frame.pack(anchor='center')
 
         # Create a frame to hold the option menus: Date Posted, Job Type, Experience Level
         option_menus_frame = ctk.CTkFrame(self, fg_color='transparent')
-        option_menus_frame.pack(pady=(10, 10))
+        option_menus_frame.pack(pady=(10, 10), anchor='center')
 
-        self.date_posted_option_menu = ctk.CTkOptionMenu(option_menus_frame, 
-                                                         values=['Date posted', 'Last 24 hours', 'Last 3 days', 'Last 7 days', 'Last 30 days'], 
+        # Date Posted
+        self.date_posted_frame = ctk.CTkFrame(option_menus_frame)
+        self.date_posted_frame.pack(side='left', padx=(0, 5), anchor='center')
+        self.date_posted_label = ctk.CTkLabel(self.date_posted_frame,
+                                              text='Date Posted',
+                                              font=font)
+        self.date_posted_label.pack()
+        self.date_posted_option_menu = ctk.CTkOptionMenu(self.date_posted_frame, 
+                                                         values=['Select', 'Last 24 hours', 'Last 3 days', 'Last 7 days', 'Last 30 days'], 
                                                          font=font,
                                                          dropdown_font=font,
                                                          command=lambda selected_value: self.update_config('max_days_posted_ago', selected_value))
-        self.date_posted_option_menu.pack(side='left', padx=(0, 5), anchor='center')
+        self.date_posted_option_menu.pack()
 
-        self.job_type_option_menu = ctk.CTkOptionMenu(option_menus_frame, 
-                                                      values=['Job type', 'Full-time', 'Contract', 'Part-time', 'Temporary', 'Internship'], 
+        # Job Type
+        self.job_type_frame = ctk.CTkFrame(option_menus_frame)
+        self.job_type_frame.pack(side='left', padx=5, anchor='center')
+        self.job_type_label = ctk.CTkLabel(self.job_type_frame,
+                                           text='Job Type',
+                                           font=font)
+        self.job_type_label.pack()
+        self.job_type_option_menu = ctk.CTkOptionMenu(self.job_type_frame, 
+                                                      values=['Select', 'Full-time', 'Contract', 'Part-time', 'Temporary', 'Internship'], 
                                                       font=font,
                                                       dropdown_font=font,
                                                       command=lambda selected_value: self.update_config('job_type', selected_value))
-        self.job_type_option_menu.pack(side='left', padx=5, anchor='center')
+        self.job_type_option_menu.pack()
 
-        self.experience_level_option_menu = ctk.CTkOptionMenu(option_menus_frame,
-                                                              values=["Experience Level", "Entry Level", "Mid Level", "Senior Level"],
+        # Experience Level
+        self.experience_level_frame = ctk.CTkFrame(option_menus_frame)
+        self.experience_level_frame.pack(side='left', padx=(5, 0), anchor='center')
+        self.experience_level_label = ctk.CTkLabel(self.experience_level_frame,
+                                                   text='Experience Level',
+                                                   font=font)
+        self.experience_level_label.pack()
+        self.experience_level_option_menu = ctk.CTkOptionMenu(self.experience_level_frame,
+                                                              values=["Select", "Entry Level", "Mid Level", "Senior Level"],
                                                               font=font,
                                                               dropdown_font=font,
                                                               command=lambda selected_value: self.update_config('experience_level', selected_value))
-
-        self.experience_level_option_menu.pack(side='left', padx=(5, 0), anchor='center')
-        option_menus_frame.pack(anchor='center')
+        self.experience_level_option_menu.pack()
 
         # Load previously via config.json
         self.load_config_values()
@@ -77,14 +113,14 @@ class IndeedSettingsFrame(ctk.CTkFrame):
     def get_field_friendly_name(self, field_name, field_value):
         field_dictionary = {
             'max_days_posted_ago': {
-                '' : 'Date posted',
+                '' : 'Select',
                 '1' : 'Last 24 hours',
                 '3' : 'Last 3 days',
                 '7' : 'Last 7 days',
                 '30' : 'Last 30 days'
             },
             'job_type': {
-                '': 'Job type',
+                '': 'Select',
                 '(fulltime)': 'Full-time',
                 '(contract)': 'Contract',
                 '(parttime)': 'Part-time',
@@ -92,7 +128,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
                 '(internship)': 'Internship'
             },
             'experience_level':{
-                '': 'Experience Level',
+                '': 'Select',
                 '(ENTRY_LEVEL)': 'Entry Level',
                 '(MID_LEVEL)': 'Mid Level',
                 '(SENIOR_LEVEL)': 'Senior Level'
@@ -108,18 +144,18 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         if field_name == 'location':
             return self.location_field.get()
         if field_name == 'user_years_of_experience':
-            return self.years_of_experience_field.get()
+            return self.years_experience_field.get()
 
         field_dictionary = {
             'max_days_posted_ago': {
-                'Date posted': '',
+                'Select': '',
                 'Last 24 hours': '1',
                 'Last 3 days': '3',
                 'Last 7 days': '7',
                 'Last 30 days': '30'
             },
             'job_type': {
-                'Job type': '',
+                'Select': '',
                 'Full-time': '(fulltime)',
                 'Contract': '(contract)',
                 'Part-time': '(parttime)',
@@ -127,7 +163,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
                 'Internship': '(internship)'
             },
             'experience_level': {
-                'Experience Level': '',
+                'Select': '',
                 'Entry Level': '(ENTRY_LEVEL)',
                 'Mid Level': '(MID_LEVEL)',
                 'Senior Level': '(SENIOR_LEVEL)'
@@ -139,7 +175,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
     def load_config_values(self):
         self.position_field.insert(0, self.values['position'])
         self.location_field.insert(0, self.values['location'])
-        self.years_of_experience_field.insert(0, self.values['user_years_of_experience'])
+        self.years_experience_field.insert(0, self.values['user_years_of_experience'])
         
         self.date_posted_option_menu.set(self.get_field_friendly_name('max_days_posted_ago', self.values['max_days_posted_ago']))
         self.job_type_option_menu.set(self.get_field_friendly_name('job_type', self.values['job_type']))
