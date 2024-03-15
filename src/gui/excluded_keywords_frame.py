@@ -9,7 +9,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         super().__init__(master)
         self.values = values
         self.update_timer = None
-        self.update_delay = 1.5
+        self.update_delay = 0.25
 
         self.create_title_label(font)
         self.create_keywords_text_box(font)
