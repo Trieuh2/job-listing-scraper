@@ -13,7 +13,8 @@ class MainFrame(ctk.CTk):
             config = json.load(config_file)
 
         self.title('Job Listing Scraper')
-        self.geometry('800x800')
+        self.geometry('800x700')
+        self.resizable=False
 
         ctk.set_appearance_mode('System')
         ctk.set_default_color_theme('dark-blue')
@@ -34,6 +35,16 @@ class MainFrame(ctk.CTk):
         self.csv_settings_frame.pack(fill='x', 
                                         padx=10, 
                                         pady=(10, 0))
+        
+        footer_frame = ctk.CTkFrame(self, bg_color='transparent', fg_color='transparent')
+        footer_frame.pack(anchor='e')
+
+        quit_button = ctk.CTkButton(footer_frame, text='Quit', fg_color='#ff4d4d', command=self.destroy)
+        quit_button.pack(side='left', padx=10, pady=(20, 10))
+
+        start_button = ctk.CTkButton(footer_frame, text='Start', text_color="#008000", fg_color='#4dff4d')
+        start_button.pack(side='left', padx=(10, 40), pady=(20, 10))
+
 
 # Clear console
 os.system('cls' if os.name == 'nt' else 'clear')
