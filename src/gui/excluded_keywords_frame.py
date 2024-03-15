@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from utils_wrapper import update_config_field
+from .utils_wrapper import update_config_field
 import threading
 
 class ExcludedKeywordsFrame(ctk.CTkFrame):
