@@ -1,4 +1,6 @@
 import customtkinter as ctk
+
+from gui.tooltip import ToolTip
 from .utils_wrapper import update_config_field
 import threading
 
@@ -22,12 +24,14 @@ class IndeedSettingsFrame(ctk.CTkFrame):
                                            font=font)
         self.position_field.pack(side='left', padx=(0, 5), anchor='center')
         self.position_field.bind('<KeyRelease>', lambda event: self.schedule_update('position', event))
+        ToolTip(self.position_field, "Position")
 
         self.location_field = ctk.CTkEntry(fields_frame, 
                                            placeholder_text="Location", 
                                            font=font)
         self.location_field.pack(side='left', padx=5, anchor='center')
         self.location_field.bind('<KeyRelease>', lambda event: self.schedule_update('location', event))
+        ToolTip(self.location_field, "Location")
 
 
         self.years_of_experience_field = ctk.CTkEntry(fields_frame, 
@@ -35,7 +39,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
                                                       font=font)
         self.years_of_experience_field.pack(side='left', padx=(5, 0), anchor='center')
         self.years_of_experience_field.bind('<KeyRelease>', lambda event: self.schedule_update('user_years_of_experience', event))
-
+        ToolTip(self.years_of_experience_field, "Maximum years of experience")
 
         fields_frame.pack(anchor='center')
 
