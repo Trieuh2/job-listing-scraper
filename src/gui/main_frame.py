@@ -6,6 +6,7 @@ from .excluded_keywords_frame import ExcludedKeywordsFrame
 from .csv_settings_frame import CsvSettingsFrame
 from scraper import Scraper
 import utils
+from .utils_wrapper import update_config_field
 import threading
 
 class MainFrame(ctk.CTk):
@@ -16,7 +17,7 @@ class MainFrame(ctk.CTk):
         self.stop_scraping = False
 
         with open('config.json') as config_file:
-            config = json.load(config_file)
+            self.config = json.load(config_file)
 
         self.title('Job Listing Scraper')
         self.geometry('800x700')
@@ -25,38 +26,71 @@ class MainFrame(ctk.CTk):
         ctk.set_appearance_mode('System')
         ctk.set_default_color_theme('dark-blue')
     
-        default_font = ctk.CTkFont(family='Roboto', size=12)
+        self.default_font = ctk.CTkFont(family='Roboto', size=12)
 
         # Indeed Settings
-        self.indeed_settings_frame = IndeedSettingsFrame(self, default_font, config['indeed_criteria'])
+        self.indeed_settings_frame = IndeedSettingsFrame(self, self.default_font, self.config['indeed_criteria'])
         self.indeed_settings_frame.pack(fill='x', 
                                         padx=10, 
                                         pady=(10, 0))
         self.frames.append(self.indeed_settings_frame)
 
         # Excluded Keywords Settings
-        self.excluded_keywords_frame = ExcludedKeywordsFrame(self, default_font, config['excluded_keywords'])
+        self.excluded_keywords_frame = ExcludedKeywordsFrame(self, self.default_font, self.config['excluded_keywords'])
         self.excluded_keywords_frame.pack(fill='x', 
                                         padx=10, 
                                         pady=(10, 0))
         self.frames.append(self.excluded_keywords_frame)
         
         # CSV Settings
-        self.csv_settings_frame = CsvSettingsFrame(self, default_font, config['csv_settings'])
+        self.csv_settings_frame = CsvSettingsFrame(self, self.default_font, self.config['csv_settings'])
         self.csv_settings_frame.pack(fill='x', 
                                         padx=10, 
                                         pady=(10, 0))
         self.frames.append(self.csv_settings_frame)
         
-        # Footer - quit and start/stop buttons
+        # Create Footer
+        self.create_footer()  
+
+    def create_footer(self):
         footer_frame = ctk.CTkFrame(self, bg_color='transparent', fg_color='transparent')
-        footer_frame.pack(anchor='e')
+        footer_frame.pack(fill='x')
 
-        quit_button = ctk.CTkButton(footer_frame, text='Quit', text_color='white', fg_color='#ff4d4d', hover_color='#ff8080', command=self.destroy)
-        quit_button.pack(side='left', padx=10, pady=(20, 10))
+        # Scrape All Pages / Scrape Num Pages fields
+        scrape_settings_frame = ctk.CTkFrame(footer_frame, bg_color='transparent', fg_color='transparent')
+        scrape_settings_frame.pack(side='left', fill='x')
+        self.scrape_all_checkbox = ctk.CTkCheckBox(scrape_settings_frame, text="Scrape all pages?", command=self.toggle_scrape_all_checkbox)
+        self.scrape_all_checkbox.pack(side='left', padx=(20,10), pady=(20, 10))
 
-        self.start_stop_button = ctk.CTkButton(footer_frame, text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043', command=self.toggle_start_stop)
-        self.start_stop_button.pack(side='left', padx=(10, 40), pady=(20, 10))
+        default_num_pages_scrape = 5
+        num_pages_scrape_frame = ctk.CTkFrame(scrape_settings_frame, bg_color='transparent', fg_color='transparent')
+        num_pages_scrape_frame.pack(side='left', padx=10, pady=(5,10))
+        num_pages_to_scrape_label = ctk.CTkLabel(num_pages_scrape_frame, text='Number of pages to scrape', font=self.default_font)
+        num_pages_to_scrape_label.pack(anchor='w')
+        self.num_pages_to_scrape_entry_field = ctk.CTkEntry(num_pages_scrape_frame, 
+                                                            placeholder_text=default_num_pages_scrape,
+                                                            font=self.default_font)
+        self.num_pages_to_scrape_entry_field.bind('<KeyRelease>', command=self.update_config_num_pages_scrape)
+        self.num_pages_to_scrape_entry_field.pack(anchor='w')
+
+
+        # Initialize the state of the checkbox and field
+        if self.config['num_pages_to_scrape'] == 0:
+            self.scrape_all_checkbox.select()
+            # Disable the entry field when app is configured to scrape all pages
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
+        else:
+            self.num_pages_to_scrape_entry_field.insert(index=1, string=self.config['num_pages_to_scrape'])
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color='#343638')
+
+        # Start / Stop buttons
+        button_frame = ctk.CTkFrame(footer_frame, bg_color='transparent', fg_color='transparent')
+        button_frame.pack(side='right', anchor='s')
+        quit_button = ctk.CTkButton(button_frame, text='Quit', text_color='white', fg_color='#ff4d4d', hover_color='#ff8080', command=self.destroy)
+        quit_button.pack(side='left', padx=(10, 5), pady=(20, 10))
+
+        self.start_stop_button = ctk.CTkButton(button_frame, text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043', command=self.toggle_start_stop)
+        self.start_stop_button.pack(side='left', padx=(5, 20), pady=(20, 10))
 
     def disable_frame(self, frame):
         for child in frame.winfo_children():
@@ -65,7 +99,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkCheckBox):
                 child.configure(state=ctk.DISABLED)
             elif isinstance(child, ctk.CTkEntry):
-                child.configure(state=ctk.DISABLED)
+                child.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
             elif isinstance(child, ctk.CTkOptionMenu):
                 child.configure(state=ctk.DISABLED)
             elif isinstance(child, ctk.CTkTextbox):
@@ -80,7 +114,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkCheckBox):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkEntry):
-                child.configure(state=ctk.NORMAL)
+                child.configure(state=ctk.NORMAL, fg_color='#343638')
             elif isinstance(child, ctk.CTkOptionMenu):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkTextbox):
@@ -109,6 +143,23 @@ class MainFrame(ctk.CTk):
 
             self.start_stop_button.configure(text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043')
 
+    def toggle_scrape_all_checkbox(self):
+        if self.scrape_all_checkbox.get() == 0:
+            # Configured to scrape a specific num of pages
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color='#343638')
+            self.num_pages_to_scrape_entry_field.delete(0, len(self.num_pages_to_scrape_entry_field.get()))
+            self.num_pages_to_scrape_entry_field.insert(0, 5)
+            update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=5)
+        else:
+            # Configured to scrape all pages
+            self.num_pages_to_scrape_entry_field.delete(0, len(self.num_pages_to_scrape_entry_field.get()))
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
+            update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=0)
+
+    def update_config_num_pages_scrape(self, event):
+        new_value = int(self.num_pages_to_scrape_entry_field.get())
+        update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=new_value)
+
     def run_scraper(self):
         # Load configuration variables scraper
         with open('config.json') as config_file:
@@ -133,7 +184,7 @@ class MainFrame(ctk.CTk):
             extracted_hash_ids = scraper.extract_current_page()
 
             # Stop parsing when the last page has been parsed twice
-            if extracted_hash_ids == scraper.previous_page_hash_ids or self.stop_scraping:
+            if self.stop_scraping or extracted_hash_ids == scraper.previous_page_hash_ids:
                 break
             else:
                 scraper.previous_page_hash_ids = extracted_hash_ids
