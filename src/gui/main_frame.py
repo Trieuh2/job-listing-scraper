@@ -1,13 +1,16 @@
-import os
 import json
+import threading
+import os
+from time import sleep
+
 import customtkinter as ctk
+
+from scraper import Scraper
+import utils
 from .indeed_settings_frame import IndeedSettingsFrame
 from .excluded_keywords_frame import ExcludedKeywordsFrame
 from .csv_settings_frame import CsvSettingsFrame
-from scraper import Scraper
-import utils
 from .utils_wrapper import update_config_field
-import threading
 
 DEFAULT_NUM_PAGES_SCRAPE = 5
 
@@ -118,6 +121,8 @@ class MainFrame(ctk.CTk):
             self.begin_scraping()
         elif self.start_stop_button.cget('text') == 'Stop':
             self.stop_scraping = True
+            while self.scraping_thread:
+                sleep(0.1)
             self.enable_frames()
             self.start_stop_button.configure(text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043')
 
@@ -183,6 +188,7 @@ class MainFrame(ctk.CTk):
         if self.config['csv_settings']['update_csv_on_completion']:
             utils.write_jobs_csv(self.config['csv_settings']['csv_output_path'], scraper.jobs)
 
+        self.scraping_thread = None
         self.enable_frames()
         self.reset_start_stop_button()
 
