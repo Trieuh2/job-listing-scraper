@@ -121,6 +121,10 @@ class MainFrame(ctk.CTk):
             self.enable_frames()
             self.start_stop_button.configure(text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043')
 
+    def reset_start_stop_button(self):
+        self.stop_scraping = True
+        self.start_stop_button.configure(text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043')
+
     def toggle_scrape_all_checkbox(self):
         if self.scrape_all_checkbox.get() == 0:
             # Configured to scrape a specific num of pages
@@ -180,6 +184,7 @@ class MainFrame(ctk.CTk):
             utils.write_jobs_csv(self.config['csv_settings']['csv_output_path'], scraper.jobs)
 
         self.enable_frames()
+        self.reset_start_stop_button()
 
     def disable_frames(self):
         for frame in self.frames:
