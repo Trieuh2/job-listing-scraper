@@ -218,10 +218,11 @@ def write_jobs_excel(filename, job_records):
     if table_exists:
         table = ws.tables[next(iter(ws.tables))]
         table.ref = f"A1:{chr(64 + len(fieldnames))}{ws.max_row}"
+        table.tableStyleInfo.showRowStripes = True 
     else:
         table = Table(displayName="JobTable", ref=f"A1:{chr(64 + len(fieldnames))}{ws.max_row}")
         style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False,
-                               showLastColumn=False, showRowStripes=False, showColumnStripes=False)
+                               showLastColumn=False, showRowStripes=True, showColumnStripes=False)
         table.tableStyleInfo = style
         ws.add_table(table)
 
