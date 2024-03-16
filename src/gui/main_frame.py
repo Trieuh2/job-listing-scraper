@@ -16,6 +16,7 @@ DEFAULT_NUM_PAGES_SCRAPE = 5
 DEFAULT_CRAWL_DELAY = 10
 
 class MainFrame(ctk.CTk):
+    # Initialization Functions
     def __init__(self):
         super().__init__()
         self.frames = []
@@ -60,6 +61,7 @@ class MainFrame(ctk.CTk):
         self.csv_settings_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.csv_settings_frame)
 
+    # Footer and Settings Functions
     def create_footer(self):
         footer_frame = ctk.CTkFrame(self, bg_color='transparent', fg_color='transparent')
         footer_frame.pack(fill='x', pady=10)
@@ -129,6 +131,7 @@ class MainFrame(ctk.CTk):
         # Initialize crawl delay value
         self.crawl_delay_entry_field.insert(0, self.config['crawl_delay'])
 
+    # Footer Button and Checkbox Functions
     def create_button_frame(self, parent):
         button_frame = ctk.CTkFrame(
             parent, bg_color='transparent', fg_color='transparent')
@@ -169,6 +172,7 @@ class MainFrame(ctk.CTk):
             self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
             update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=0)
 
+    # Configuration Update Functions
     def update_config_num_pages_scrape(self, event):
         new_value = self.num_pages_to_scrape_entry_field.get()
 
@@ -195,6 +199,7 @@ class MainFrame(ctk.CTk):
         self.crawl_delay_entry_field.insert(0, DEFAULT_CRAWL_DELAY)
         update_config_field(filepath='config.json', field_path='crawl_delay', new_value=DEFAULT_CRAWL_DELAY)
 
+    # Scraper Functions
     def begin_scraping(self):
         self.stop_scraping = False
         self.scraping_thread = threading.Thread(target=self.run_scraper)
@@ -244,6 +249,7 @@ class MainFrame(ctk.CTk):
         self.enable_frames()
         self.reset_start_stop_button()
 
+    # Frame Enable/Disable Functions
     def disable_frames(self):
         for frame in self.frames:
             self.disable_frame(frame)
