@@ -193,7 +193,11 @@ def write_jobs_excel(filename, job_records):
     for job_record in sorted_job_records:
         col_num = 1
         for header in fieldnames:
-            ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
+            cell = ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
+            
+            if header == 'job_link' and cell.value:  # Check if the column is 'job_link' and has a value
+                cell.hyperlink = cell.value  # Set the hyperlink
+                cell.style = 'Hyperlink'  # Apply the hyperlink style
             col_num += 1
         row_num += 1
 
