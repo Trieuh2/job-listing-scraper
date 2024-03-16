@@ -201,6 +201,10 @@ class MainFrame(ctk.CTk):
         self.scraping_thread.start()
 
     def setup_scraper(self):
+        # Set self.config to the the latest values
+        with open('config.json') as config_file:
+            self.config = json.load(config_file)
+
         indeed_criteria = self.config['indeed_criteria']
         indeed_url = utils.build_indeed_url(
             max_days_posted_ago=indeed_criteria['max_days_posted_ago'],
@@ -234,7 +238,7 @@ class MainFrame(ctk.CTk):
         scraper.shutdown()
     
         if self.config['csv_settings']['update_csv_on_completion']:
-            utils.write_jobs_csv(self.config['csv_settings']['csv_output_path'], scraper.jobs)
+            utils.write_jobs_excel(self.config['csv_settings']['excel_output_path'], scraper.jobs)
 
         self.scraping_thread = None
         self.enable_frames()

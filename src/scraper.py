@@ -24,7 +24,7 @@ class Scraper:
         self.excluded_keywords = config['excluded_keywords']
         self.csv_headers = config['csv_settings']['csv_headers']
         self.crawl_delay = config['crawl_delay']
-        self.jobs = utils.read_jobs_csv(config['csv_settings']['csv_output_path'])   # {hash_id : record}
+        self.jobs = utils.read_jobs_excel(config['csv_settings']['excel_output_path']) # {hash_id : record}
         self.initial_num_records = len(self.jobs)
         self.search_criteria = '|'.join(list(config['indeed_criteria'].values()))
         self.previous_page_hash_ids = set()

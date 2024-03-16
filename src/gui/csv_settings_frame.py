@@ -28,7 +28,7 @@ class CsvSettingsFrame(ctk.CTkFrame):
         outline_frame = ctk.CTkFrame(output_path_frame, corner_radius=10, fg_color="black")
         outline_frame.pack(side='left', padx=5, pady=(0, 10))
 
-        self.current_path_label = ctk.CTkLabel(outline_frame, font=self.font, text=self.values['csv_output_path'])
+        self.current_path_label = ctk.CTkLabel(outline_frame, font=self.font, text=self.values['excel_output_path'])
         self.current_path_label.pack(side='left', padx=10, pady=5)
 
         browse_button = ctk.CTkButton(output_path_frame, font=self.font, text='Browse', command=self.browse_folder)
@@ -48,8 +48,8 @@ class CsvSettingsFrame(ctk.CTkFrame):
     def browse_folder(self):
         folder_path = filedialog.askdirectory()
         if folder_path:
-            new_path = f"{folder_path}/data.csv"
-            update_config_field('config.json', 'csv_settings.csv_output_path', new_path)
+            new_path = f"{folder_path}/data.xlsx"
+            update_config_field('config.json', 'csv_settings.excel_output_path', new_path)
             self.current_path_label.configure(text=new_path)
 
     def update_csv_on_completion(self):

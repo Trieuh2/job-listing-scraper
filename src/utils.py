@@ -5,6 +5,9 @@ import os
 import csv
 import hashlib
 from functools import reduce
+from openpyxl import Workbook, load_workbook
+from openpyxl.worksheet.table import Table, TableStyleInfo
+from openpyxl.worksheet.filters import AutoFilter, SortState, SortCondition
 
 def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):            
     template = 'https://www.indeed.com/jobs?{}'
@@ -82,10 +85,130 @@ def read_jobs_csv(filename):
         csv_reader = csv.DictReader(csv_file)
 
         # Iterate over each row in the csv file
-        for row in csv_reader:
-            data[row['hash_id']] = row
+        for record in csv_reader:
+            data[record['hash_id']] = record
     
     return data
+
+# TODO: Create a read_jobs_excel(filename) method
+def read_jobs_excel(filename):
+    data = {}  # hash_id : record
+    file_exists = os.path.isfile(filename)
+
+    if not file_exists:
+        return data
+
+    # Load the workbook and get the active sheet
+    wb = load_workbook(filename)
+    ws = wb.active
+
+    # Get the headers from the first row
+    headers = [cell for cell in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
+
+    # Iterate over each row in the Excel sheet
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        record = dict(zip(headers, row))
+        data[record['hash_id']] = record
+
+    return data
+
+
+# TODO: Create a update_jobs_xlsx_headers(filename) method
+def update_jobs_excel_headers(filename, new_headers):
+    print("Updating Excel headers")
+
+    # Check if the file exists
+    file_exists = os.path.isfile(filename)
+    if not file_exists:
+        print(f"File {filename} does not exist.")
+        return
+
+    # Load the workbook and get the active sheet
+    wb = load_workbook(filename)
+    ws = wb.active
+
+    # Read the existing data
+    existing_data = []
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        existing_data.append(row)
+
+    # Clear the sheet
+    ws.delete_rows(1, ws.max_row)
+
+    # Write the new headers
+    ws.append(new_headers)
+
+    # Update the data with empty values for the new headers
+    updated_data = []
+    for row in existing_data:
+        updated_row = {header: '' for header in new_headers}
+        for i, cell in enumerate(row):
+            header = ws.cell(row=1, column=i + 1).value
+            if header in updated_row:
+                updated_row[header] = cell
+        updated_data.append(list(updated_row.values()))
+
+    # Write the updated data
+    for row in updated_data:
+        ws.append(row)
+
+    # Save the workbook
+    wb.save(filename)
+
+    print("Done updating Excel headers")
+
+
+# TODO: Create a write_jobs_xlsx(filename) method
+def write_jobs_excel(filename, job_records):
+    print("Updating Excel record data")
+
+    with open('config.json') as config_file:
+        config = json.load(config_file)
+
+    # Check if the file exists
+    file_exists = os.path.isfile(filename)
+    fieldnames = config['csv_settings']['csv_headers']
+
+    # Create a new workbook or load the existing one
+    if file_exists:
+        wb = load_workbook(filename)
+        ws = wb.active
+    else:
+        wb = Workbook()
+        ws = wb.active
+        # Write the headers in the new file
+        ws.append(fieldnames)
+
+    # Clear existing data if the file already exists
+    if file_exists:
+        for row in ws.iter_rows(min_row=2, max_col=len(fieldnames), max_row=ws.max_row):
+            for cell in row:
+                cell.value = None
+
+    # Write the new data starting from row 2
+    row_num = 2
+    for job_record in job_records.values():
+        col_num = 1
+        for header in fieldnames:
+            ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
+            col_num += 1
+        row_num += 1
+
+    # Update or create the table with the correct reference starting from row 2
+    table_exists = len(ws.tables) > 0
+    if table_exists:
+        table = ws.tables[next(iter(ws.tables))]
+        table.ref = f"A1:{chr(64 + len(fieldnames))}{ws.max_row}"
+    else:
+        table = Table(displayName="JobTable", ref=f"A1:{chr(64 + len(fieldnames))}{ws.max_row}")
+        style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False,
+                               showLastColumn=False, showRowStripes=False, showColumnStripes=False)
+        table.tableStyleInfo = style
+        ws.add_table(table)
+
+    # Save the workbook
+    wb.save(filename)
+    print("Done updating Excel records")
 
 # Updates all records in the CSV to respect new header structure
 def update_jobs_csv_headers(filename, new_headers):
@@ -166,17 +289,17 @@ def parse_post_date(post_date_string):
 
     # Case: Posted today
     if post_date_string == "Today" or post_date_string == "Just posted" or split_post_date[0] == "Visited":
-        return datetime.date.today().strftime("%m/%d/%y")
+        return datetime.date.today().strftime("%m/%d/%Y")
 
     try:
         num_days_ago = int(split_post_date[2])
 
         today = datetime.date.today()
         posted_date = today - datetime.timedelta(days=num_days_ago)
-        return posted_date.strftime("%m/%d/%y")
+        return posted_date.strftime("%m/%d/%Y")
 
     except:
-        return datetime.date.today().strftime("%m/%d/%y")
+        return datetime.date.today().strftime("%m/%d/%Y")
 
 # Checks if the indeed link is valid based on the prefix of the URL.
 def is_valid_indeed_job_link(url):
