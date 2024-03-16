@@ -5,12 +5,14 @@ import os
 import csv
 import hashlib
 from functools import reduce
+from typing import cast
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.table import Table, TableStyleInfo
+from openpyxl.worksheet.worksheet import Worksheet
 
 
 def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):            
@@ -103,7 +105,7 @@ def read_jobs_excel(filename):
 
     # Load the workbook and get the active sheet
     wb = load_workbook(filename)
-    ws = wb.active
+    ws = cast(Worksheet, wb.active)
 
     # Get the headers from the first row
     headers = [cell for cell in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
@@ -127,7 +129,7 @@ def update_jobs_excel_headers(filename, new_headers):
 
     # Load the workbook and get the active sheet
     wb = load_workbook(filename)
-    ws = wb.active
+    ws = cast(Worksheet, wb.active)
 
     # Read the existing data
     existing_data = []
@@ -173,10 +175,10 @@ def write_jobs_excel(filename, job_records):
     # Create a new workbook or load the existing one
     if file_exists:
         wb = load_workbook(filename)
-        ws = wb.active
+        ws = cast(Worksheet, wb.active)
     else:
         wb = Workbook()
-        ws = wb.active
+        ws = cast(Worksheet, wb.active)
         # Write the headers in the new file
         ws.append(fieldnames)
 
@@ -198,7 +200,7 @@ def write_jobs_excel(filename, job_records):
             cell = ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
 
             if header == 'job_link' and cell.value:  # Check if the column is 'job_link' and has a value
-                cell.hyperlink = cell.value  # Set the hyperlink
+                setattr(cell, "hyperlink", cell.value) # Set the hyperlink
                 cell.style = 'Hyperlink'  # Apply the hyperlink style
             col_num += 1
         row_num += 1
