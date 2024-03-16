@@ -6,7 +6,7 @@ from time import sleep
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -136,7 +136,10 @@ class Scraper:
                     self.logger.warning(f"Timeout encountered on attempt {attempt + 1}, refreshing the page and retrying...")
                     self.driver.refresh()
                 else:
+                    # Explicitly return a failure tuple if all attempts fail
                     return (False, f"Failed to load the job cards after {max_tries} attempts.")
+        # Return a failure tuple if the loop completes without success
+        return (False, f"Failed to load the job cards after {max_tries} attempts.")
 
     def navigate_next_page(self):
         self.url = utils.get_next_page_url(self.url)
