@@ -159,7 +159,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
 
         return field_dictionary[field_name][field_value]
 
-    def get_field_value(self, field_name, friendly_name=None):
+    def get_field_value(self, field_name, friendly_name):
         if field_name in ['position', 'location', 'user_years_of_experience']:
             return getattr(self, f"{field_name}_field").get()
 
@@ -189,7 +189,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
 
         return field_dictionary[field_name][friendly_name]
 
-    def update_config(self, field_name, selected_value_friendly_name=None):
+    def update_config(self, field_name, selected_value_friendly_name):
         updated_value = self.get_field_value(field_name, selected_value_friendly_name)
         update_config_field('config.json', 'indeed_criteria.' + field_name, updated_value)
 
