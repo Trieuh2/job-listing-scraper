@@ -125,7 +125,6 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     else:
         wb = Workbook()
         ws = cast(Worksheet, wb.active)
-        # Write the headers in the new file
         ws.append(fieldnames)
 
     # Clear existing data if the file already exists
@@ -134,7 +133,7 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
             for cell in row:
                 cell.value = None
 
-    # Sort the job records first by 'posted_date' in reverse, then by 'company' in normal order
+    # Sort the job records first by 'posted_date' from newest to oldest, then by 'company' in alphabetical order
     sorted_job_records = sorted(job_records.values(), key=lambda x: x.get('company', ''))
     sorted_job_records.sort(key=lambda x: x['posted_date'], reverse=True)
 
@@ -151,17 +150,12 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
             col_num += 1
         row_num += 1
 
-    # Remove existing conditional formatting rules for the worksheet
-    ws.conditional_formatting = ConditionalFormattingList()
+    apply_worksheet_conditional_formatting(ws)
+    update_or_create_worksheet_table(ws, fieldnames)
+    wb.save(filename)
+    print("Done updating Excel records")
 
-    # Apply conditional formatting to the 'applied' column
-    green_fill = PatternFill(start_color='CCFFCC', end_color='CCFFCC', fill_type='solid')
-    red_fill = PatternFill(start_color='FFCCCC', end_color='FFCCCC', fill_type='solid')
-    yellow_fill = PatternFill(start_color='FFFF99', end_color='FFFF99', fill_type='solid')
-    ws.conditional_formatting.add('B2:B{}'.format(ws.max_row), CellIsRule(operator='equal', formula=['"Yes"'], fill=green_fill))
-    ws.conditional_formatting.add('B2:B{}'.format(ws.max_row), CellIsRule(operator='equal', formula=['"No"'], fill=red_fill))
-    ws.conditional_formatting.add('B2:B{}'.format(ws.max_row), CellIsRule(operator='equal', formula=['"Skip"'], fill=yellow_fill))
-
+def update_or_create_worksheet_table(ws, fieldnames):
     # Update or create the table with starting from row 2
     table_exists = len(ws.tables) > 0
     if table_exists:
@@ -175,9 +169,18 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
         table.tableStyleInfo = style
         ws.add_table(table)
 
-    # Save the workbook
-    wb.save(filename)
-    print("Done updating Excel records")
+
+def apply_worksheet_conditional_formatting(worksheet):
+    # Remove existing conditional formatting rules for the worksheet
+    worksheet.conditional_formatting = ConditionalFormattingList()
+
+    # Apply conditional formatting to the 'applied' column in column 'B'
+    green_fill = PatternFill(start_color='CCFFCC', end_color='CCFFCC', fill_type='solid')
+    red_fill = PatternFill(start_color='FFCCCC', end_color='FFCCCC', fill_type='solid')
+    yellow_fill = PatternFill(start_color='FFFF99', end_color='FFFF99', fill_type='solid')
+    worksheet.conditional_formatting.add('B2:B{}'.format(worksheet.max_row), CellIsRule(operator='equal', formula=['"Yes"'], fill=green_fill))
+    worksheet.conditional_formatting.add('B2:B{}'.format(worksheet.max_row), CellIsRule(operator='equal', formula=['"No"'], fill=red_fill))
+    worksheet.conditional_formatting.add('B2:B{}'.format(worksheet.max_row), CellIsRule(operator='equal', formula=['"Skip"'], fill=yellow_fill))
 
 def string_to_hash(input_string: str) -> str:
     """Converts a string to a SHA-256 hash."""
