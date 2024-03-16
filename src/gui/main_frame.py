@@ -10,7 +10,7 @@ import utils
 from .indeed_settings_frame import IndeedSettingsFrame
 from .excluded_keywords_frame import ExcludedKeywordsFrame
 from .csv_settings_frame import CsvSettingsFrame
-from .utils_wrapper import update_config_field
+from .utils_wrapper import update_config_field, is_valid_numerical_field_input
 
 DEFAULT_NUM_PAGES_SCRAPE = 5
 
@@ -21,6 +21,7 @@ class MainFrame(ctk.CTk):
         self.scraping_thread = None
         self.stop_scraping = False
         self.default_font = ctk.CTkFont(family='Roboto', size=12)
+        self.validate_command = self.register(is_valid_numerical_field_input)
 
         with open('config.json') as config_file:
             self.config = json.load(config_file)
@@ -42,7 +43,7 @@ class MainFrame(ctk.CTk):
 
     def init_indeed_settings_frame(self):
         self.indeed_settings_frame = IndeedSettingsFrame(
-            self, self.default_font, self.config['indeed_criteria'])
+        self, self.default_font, self.config['indeed_criteria'], self.validate_command)
         self.indeed_settings_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.indeed_settings_frame)
 
@@ -94,6 +95,7 @@ class MainFrame(ctk.CTk):
         self.num_pages_to_scrape_entry_field.bind(
             '<KeyRelease>', command=self.update_config_num_pages_scrape)
         self.num_pages_to_scrape_entry_field.pack(anchor='w')
+        self.num_pages_to_scrape_entry_field.configure(validate='key', validatecommand=(self.validate_command, '%P'))
 
         self.frames.append(self.num_pages_scrape_frame)
 
@@ -109,6 +111,7 @@ class MainFrame(ctk.CTk):
         self.crawl_delay_entry_field = ctk.CTkEntry(self.crawl_delay_frame, font=self.default_font)
         self.crawl_delay_entry_field.pack(anchor='w')
         self.crawl_delay_entry_field.bind('<KeyRelease>', command=self.update_config_crawl_delay)
+        self.crawl_delay_entry_field.configure(validate='key', validatecommand=(self.validate_command, '%P'))
 
         self.frames.append(self.crawl_delay_frame)
 

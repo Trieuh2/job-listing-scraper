@@ -226,3 +226,6 @@ def update_config_field(filepath, field_path, new_value):
     # Write the updated config back to the file
     with open(filepath, 'w') as file:
         json.dump(config, file, indent=4)
+
+def is_valid_numerical_field_input(input):
+    return input.isdigit() or input== ""

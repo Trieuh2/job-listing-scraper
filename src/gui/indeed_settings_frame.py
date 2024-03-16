@@ -5,11 +5,12 @@ import threading
 
 
 class IndeedSettingsFrame(ctk.CTkFrame):
-    def __init__(self, master, font, values):
+    def __init__(self, master, font, values, validate_command):
         super().__init__(master)
         self.values = values
         self.update_timer = None
         self.update_delay = 0.25
+        self.validate_command = validate_command
 
         self._create_title(font)
         self._create_fields_frame(font)
@@ -61,6 +62,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self.user_years_of_experience_field = ctk.CTkEntry(years_experience_frame, placeholder_text="Max Years of Experience", font=font)
         self.user_years_of_experience_field.pack()
         self.user_years_of_experience_field.bind('<KeyRelease>', lambda event: self.schedule_update('user_years_of_experience', event))
+        self.user_years_of_experience_field.configure(validate='key', validatecommand=(self.validate_command, '%P'))
 
     def _create_option_menus_frame(self, font):
         option_menus_frame = ctk.CTkFrame(self, fg_color='transparent')
@@ -121,6 +123,9 @@ class IndeedSettingsFrame(ctk.CTkFrame):
     def load_config_values(self):
         self.position_field.insert(0, self.values['position'])
         self.location_field.insert(0, self.values['location'])
+        
+        # Set the initial value of the user_years_of_experience_field after configuring the validation
+        self.user_years_of_experience_field.delete(0, 'end')
         self.user_years_of_experience_field.insert(0, self.values['user_years_of_experience'])
 
         self.date_posted_option_menu.set(self.get_field_friendly_name('max_days_posted_ago', self.values['max_days_posted_ago']))
