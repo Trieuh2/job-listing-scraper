@@ -97,7 +97,13 @@ class Scraper:
 
                     elif header == 'posted_date':
                         posted_date_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="myJobsStateDate"]')
-                        job_details[header] = utils.parse_post_date(posted_date_element.text)
+                        scraped_date_str = utils.parse_post_date(posted_date_element.text)
+
+                        if hash_id in self.jobs:
+                            job_details[header] = self.jobs[hash_id][header]
+                        else:
+                            job_details[header] = scraped_date_str
+
 
                     elif header == 'applied':
                         # Fetch pre-existing values or default to "No", for not applied to job yet
