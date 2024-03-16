@@ -5,9 +5,13 @@ import os
 import csv
 import hashlib
 from functools import reduce
+
 from openpyxl import Workbook, load_workbook
+from openpyxl.formatting.rule import CellIsRule
+from openpyxl.formatting.formatting import ConditionalFormattingList
+from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.table import Table, TableStyleInfo
-from openpyxl.worksheet.filters import AutoFilter, SortState, SortCondition
+
 
 def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):            
     template = 'https://www.indeed.com/jobs?{}'
@@ -90,7 +94,6 @@ def read_jobs_csv(filename):
     
     return data
 
-# TODO: Create a read_jobs_excel(filename) method
 def read_jobs_excel(filename):
     data = {}  # hash_id : record
     file_exists = os.path.isfile(filename)
@@ -113,7 +116,6 @@ def read_jobs_excel(filename):
     return data
 
 
-# TODO: Create a update_jobs_xlsx_headers(filename) method
 def update_jobs_excel_headers(filename, new_headers):
     print("Updating Excel headers")
 
@@ -158,7 +160,6 @@ def update_jobs_excel_headers(filename, new_headers):
     print("Done updating Excel headers")
 
 
-# TODO: Create a write_jobs_xlsx(filename) method
 def write_jobs_excel(filename, job_records):
     print("Updating Excel record data")
 
@@ -194,14 +195,25 @@ def write_jobs_excel(filename, job_records):
         col_num = 1
         for header in fieldnames:
             cell = ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
-            
+
             if header == 'job_link' and cell.value:  # Check if the column is 'job_link' and has a value
                 cell.hyperlink = cell.value  # Set the hyperlink
                 cell.style = 'Hyperlink'  # Apply the hyperlink style
             col_num += 1
         row_num += 1
 
-    # Update or create the table with the correct reference starting from row 2
+    # Remove existing conditional formatting rules for the worksheet
+    ws.conditional_formatting = ConditionalFormattingList()
+
+    # Apply conditional formatting to the 'applied' column
+    green_fill = PatternFill(start_color='CCFFCC', end_color='CCFFCC', fill_type='solid')
+    red_fill = PatternFill(start_color='FFCCCC', end_color='FFCCCC', fill_type='solid')
+    yellow_fill = PatternFill(start_color='FFFF99', end_color='FFFF99', fill_type='solid')
+    ws.conditional_formatting.add('B2:B{}'.format(ws.max_row), CellIsRule(operator='equal', formula=['"Yes"'], fill=green_fill))
+    ws.conditional_formatting.add('B2:B{}'.format(ws.max_row), CellIsRule(operator='equal', formula=['"No"'], fill=red_fill))
+    ws.conditional_formatting.add('B2:B{}'.format(ws.max_row), CellIsRule(operator='equal', formula=['"Skip"'], fill=yellow_fill))
+
+    # Update or create the table with starting from row 2
     table_exists = len(ws.tables) > 0
     if table_exists:
         table = ws.tables[next(iter(ws.tables))]
