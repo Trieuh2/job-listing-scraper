@@ -211,20 +211,14 @@ def parse_indeed_url(url: str) -> str:
 
 def parse_post_date(post_date_string: str) -> str:
     """Parses a post date string and returns the formatted date."""
-    split_post_date = post_date_string.split()
-
-    # Case: Posted today
-    if post_date_string == "Today" or post_date_string == "Just posted" or split_post_date[0] == "Visited":
+    if post_date_string in ["Today", "Just posted"]:
         return datetime.date.today().strftime("%m/%d/%Y")
-
-    try:
-        num_days_ago = int(split_post_date[2])
-
-        today = datetime.date.today()
-        posted_date = today - datetime.timedelta(days=num_days_ago)
-        return posted_date.strftime("%m/%d/%Y")
-
-    except:
+    elif " day ago" in post_date_string:
+        return (datetime.date.today() - datetime.timedelta(days=1)).strftime("%m/%d/%Y")
+    elif " days ago" in post_date_string:
+        days_ago = int(post_date_string.split()[2])
+        return (datetime.date.today() - datetime.timedelta(days=days_ago)).strftime("%m/%d/%Y")
+    else:
         return datetime.date.today().strftime("%m/%d/%Y")
 
 def is_valid_indeed_job_link(url: str) -> bool:
