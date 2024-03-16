@@ -15,70 +15,49 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 def build_indeed_url(position: str, location: str, experience_level: str, job_type: str, max_days_posted_ago: str) -> str:
     """Builds a URL for Indeed job search based on the given parameters."""
-    template = 'https://www.indeed.com/jobs?{}'
-    formatted_params = []
+    base_url = 'https://www.indeed.com/jobs?'
+    params = []
 
-    # Format the URL parameters into proper HTML parameters
     if position:
-        formatted_params.append("q=" + position)
+        params.append(f"q={position}")
     if location:
-        formatted_params.append("&l=" + location)
-
+        params.append(f"l={location}")
     if experience_level and job_type:
-        formatted_params.append("&sc=0kf%3Aexplvl" + experience_level + "jt" + job_type + "%3B")
+        params.append(f"sc=0kf%3Aexplvl{experience_level}jt{job_type}%3B")
     elif experience_level:
-        formatted_params.append("&sc=0kf%3Aexplvl" + experience_level + "%3B")
+        params.append(f"sc=0kf%3Aexplvl{experience_level}%3B")
     elif job_type:
-        formatted_params.append("&sc=0kf%3Ajt" + job_type + "%3B")
-    
+        params.append(f"sc=0kf%3Ajt{job_type}%3B")
     if max_days_posted_ago:
-        formatted_params.append("&fromage=" + max_days_posted_ago)
+        params.append(f"fromage={max_days_posted_ago}")
 
-    url = template.format(''.join(formatted_params))
-
-    return url
+    return base_url + '&'.join(params)
 
 def exclude_based_on_title(excluded_keywords: List[str], cleaned_title: str) -> bool:
     """Returns True if the cleaned title contains any excluded keywords."""
     cleaned_title = re.sub(r'[^a-zA-Z0-9]', ' ', cleaned_title)
-    title_split = cleaned_title.split()
-    n = len(title_split)
-
-    for idx, word in enumerate(title_split):
-        if (
-            word.lower() in excluded_keywords or 
-            (idx < n-1 and (word + ' ' + title_split[idx+1]).lower() in excluded_keywords)
-        ):
+    title_words = cleaned_title.split()
+    for idx, word in enumerate(title_words):
+        if word.lower() in excluded_keywords:
             return True
-        
+        if idx < len(title_words) - 1:
+            combined_word = f"{word} {title_words[idx + 1]}".lower()
+            if combined_word in excluded_keywords:
+                return True
     return False
 
 def get_next_page_url(url: str) -> str:
     """Returns the URL for the next page of job listings."""
-    # Locate 'start' tag in the URL
-    html_param_length = len("&start=")
-    tag_start_idx = 0
-    tag_end_idx = html_param_length
-
-    while tag_end_idx < len(url):
-        if url[tag_start_idx:tag_end_idx] == "&start=":
-            break
-        tag_start_idx += 1
-        tag_end_idx += 1
-
-    if tag_end_idx == len(url):
-        return url + "&start=10"
+    start_tag = "&start="
+    start_index = url.find(start_tag)
+    if start_index == -1:
+        return url + f"{start_tag}10"
     else:
-        # Locate last digit of the start tag
-        digit_start_idx = tag_end_idx
-        digit_end_idx = tag_end_idx
-        
-        while digit_end_idx < len(url) and url[digit_end_idx].isdigit():
-            digit_end_idx += 1
-        
-        curr_start_num = int(url[digit_start_idx:digit_end_idx])
-
-        return url[:tag_end_idx] + str(curr_start_num + 10) + url[digit_end_idx:]
+        end_index = start_index + len(start_tag)
+        while end_index < len(url) and url[end_index].isdigit():
+            end_index += 1
+        current_page = int(url[start_index + len(start_tag):end_index])
+        return url[:start_index] + f"{start_tag}{current_page + 10}" + url[end_index:]
 
 def read_jobs_excel(filename: str) -> Dict[str, Dict[str, Union[str, int, float]]]:
     """Reads job records from an Excel file and returns a dictionary of data."""
@@ -222,27 +201,13 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
 
 def string_to_hash(input_string: str) -> str:
     """Converts a string to a SHA-256 hash."""
-    # Encode the string to bytes
-    encoded_string = input_string.encode()
-
-    # Create a SHA-256 hash object
-    hash_object = hashlib.sha256(encoded_string)
-
-    # Get the hexadecimal representation of the hash
-    hex_hash = hash_object.hexdigest()
-
-    return hex_hash
+    return hashlib.sha256(input_string.encode()).hexdigest()
 
 def parse_indeed_url(url: str) -> str:
     """Parses an Indeed URL and returns the base URL."""
-    count = 0
+    second_equal_index = url.find('=', url.find('=') + 1)
+    return url if second_equal_index == -1 else url[:second_equal_index]
 
-    for idx, char in enumerate(url):
-        if char == '=':
-            count += 1
-            if count == 2:
-                return url[:idx]
-    return url
 
 def parse_post_date(post_date_string: str) -> str:
     """Parses a post date string and returns the formatted date."""
@@ -262,16 +227,9 @@ def parse_post_date(post_date_string: str) -> str:
     except:
         return datetime.date.today().strftime("%m/%d/%Y")
 
-# Checks if the indeed link is valid based on the prefix of the URL.
 def is_valid_indeed_job_link(url: str) -> bool:
     """Checks if an Indeed job link is valid."""
-    # In rare cases, a job card may return 'https://www.indeed.com/pagead/clk?mo=r&ad', which isn't a valid link
-    valid_prefix = 'https://www.indeed.com/rc/clk?jk='
-    n = len(valid_prefix)
-
-    if url[:n] == valid_prefix:
-        return True
-    return False
+    return url.startswith('https://www.indeed.com/rc/clk?jk=')
 
 def is_valid_description_criteria(description: str) -> bool:
     """Checks if a job description meets the specified years of experience criteria."""
@@ -286,31 +244,21 @@ def is_valid_description_criteria(description: str) -> bool:
         with open('config.json') as config_file:
             config = json.load(config_file)
 
-        user_years_of_experience = (config['indeed_criteria'])['user_years_of_experience']
-        if int(user_years_of_experience) < min_exp:
+        user_years_of_experience = int(config['indeed_criteria']['user_years_of_experience'])
+        if user_years_of_experience < min_exp:
             return False
-        else:
-            return True
-    else:
-        return True
+    return True
     
 def update_config_field(filepath: str, field_path: str, new_value) -> None:
     """Updates a specific field in the config.json configuration file."""
     if field_path == 'excluded_keywords':
-        # Filter out empty strings from the list of new values
         new_value = sorted([value.lower() for value in new_value if value.strip()])
 
-    # Read the existing config file
     with open(filepath, 'r') as file:
         config = json.load(file)
 
-    # Split the field path into a list of keys
     keys = field_path.split('.')
-
-    # Update the field value
     reduce(lambda d, k: d.setdefault(k, {}), keys[:-1], config)[keys[-1]] = new_value
-
-    # Write the updated config back to the file
     with open(filepath, 'w') as file:
         json.dump(config, file, indent=4)
 
