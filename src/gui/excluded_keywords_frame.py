@@ -11,37 +11,37 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         self.update_timer = None
         self.update_delay = 0.25
 
-        self.create_title_label(font)
-        self.create_keywords_text_box(font)
-        self.create_filter_description_frame(font)
+        self._create_title_label(font)
+        self._create_keywords_text_box(font)
+        self._create_filter_description_frame(font)
         self.bind_events()
 
-    def create_title_label(self, font):
+    def _create_title_label(self, font):
         # Create the title label for the frame
         title_label = ctk.CTkLabel(self, text='Excluded Keywords', font=(font, 18))
         title_label.pack(pady=(10, 20))
 
-    def create_keywords_text_box(self, font):
+    def _create_keywords_text_box(self, font):
         # Create the text box for entering excluded keywords
-        self.create_filter_frame(font)
+        self._create_filter_frame(font)
         self.keywords_text_box = ctk.CTkTextbox(self.filter_frame, font=font)
         self.keywords_text_box.insert(index='1.0', text="\n".join(self.values))
         self.keywords_text_box.pack(padx=10, pady=(0, 10))
 
-    def create_filter_frame(self, font):
+    def _create_filter_frame(self, font):
         # Create the frame for the filter list
         self.filter_frame = ctk.CTkFrame(self, fg_color='transparent')
         self.filter_frame.pack(side='left', padx=10, pady=(0, 10))
         filter_title = ctk.CTkLabel(self.filter_frame, text='Filter List', font=font)
         filter_title.pack()
 
-    def create_filter_description_frame(self, font):
+    def _create_filter_description_frame(self, font):
         # Create the frame for the filter description
         filter_description_frame = ctk.CTkFrame(self, fg_color='transparent')
         filter_description_frame.pack(anchor='center')
-        self.create_description_label(font, filter_description_frame)
+        self._create_description_label(font, filter_description_frame)
 
-    def create_description_label(self, font, parent_frame):
+    def _create_description_label(self, font, parent_frame):
         # Create the description label
         description = ('New scrape results will exclude any job titles that contain any of the excluded keywords.\n\n'
                        'Previously scraped data will not be deleted if a record contains keywords in the filter list.')

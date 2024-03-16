@@ -7,18 +7,18 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         super().__init__(master)
         self.values = values
         self.font = font
-        self.create_widgets()
+        self._create_widgets()
 
-    def create_widgets(self):
-        self.create_title_label()
-        self.create_output_path_frame()
-        self.create_update_excel_frame()
+    def _create_widgets(self):
+        self._create_title_label()
+        self._create_output_path_frame()
+        self._create_update_excel_frame()
 
-    def create_title_label(self):
+    def _create_title_label(self):
         title_label = ctk.CTkLabel(self, text="Excel Settings", font=(self.font, 18))
         title_label.pack(pady=(10, 20))
 
-    def create_output_path_frame(self):
+    def _create_output_path_frame(self):
         output_path_frame = ctk.CTkFrame(self, fg_color='transparent')
         output_path_frame.pack(anchor='center')
 
@@ -34,7 +34,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         browse_button = ctk.CTkButton(output_path_frame, font=self.font, text='Browse', command=self.browse_folder)
         browse_button.pack(side='left', padx=10, pady=(0, 10))
 
-    def create_update_excel_frame(self):
+    def _create_update_excel_frame(self):
         update_excel_frame = ctk.CTkFrame(self, fg_color='transparent')
         update_excel_frame.pack(anchor="center")
 
