@@ -1,7 +1,9 @@
 import json
+import logging
 import math
-from time import sleep
+from datetime import datetime
 from random import randint
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -13,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import utils
 
 class Scraper:
+
     def __init__(self, url):
         self.driver = webdriver.Chrome()
         self.url = url
@@ -28,28 +31,20 @@ class Scraper:
         self.initial_num_records = len(self.jobs)
         self.search_criteria = '|'.join(list(config['indeed_criteria'].values()))
         self.previous_page_hash_ids = set()
+        self.logger = logging.getLogger(__name__)
+
 
         self.driver.get(self.url)
 
     def extract_current_page(self):
-        # Wait for job cards to load with a maximum of 5 tries
-        max_tries = 5
-
-        for attempt in range(max_tries):
-            try:
-                wait = WebDriverWait(self.driver, 5)
-                wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.job_seen_beacon')))
-                break  # If successful, break out of the loop
-            except TimeoutException:
-                if attempt < max_tries - 1:
-                    print(f"Timeout encountered on attempt {attempt + 1}, refreshing the page and retrying...")
-                    self.driver.refresh()
-                else:
-                    print(f"Failed to load the page after {max_tries} attempts. Proceeding with the next steps.")
-                    return
-
         # Extract and print job details
         current_page_added_hash_ids = set()
+
+        success, message = self.wait_for_job_cards_to_load()
+        if not success:
+            print(message)
+            return current_page_added_hash_ids
+
         job_cards = self.driver.find_elements(By.CSS_SELECTOR, 'div.job_seen_beacon')
 
         for job_card in job_cards:
@@ -102,7 +97,13 @@ class Scraper:
 
                     elif header == 'posted_date':
                         posted_date_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="myJobsStateDate"]')
-                        job_details[header] = utils.parse_post_date(posted_date_element.text)
+                        scraped_date_str = utils.parse_post_date(posted_date_element.text)
+
+                        if hash_id in self.jobs:
+                            job_details[header] = self.jobs[hash_id][header]
+                        else:
+                            job_details[header] = scraped_date_str
+
 
                     elif header == 'applied':
                         # Fetch pre-existing values or default to "No", for not applied to job yet
@@ -126,6 +127,19 @@ class Scraper:
                 print(f"An element was not found: {e}")
         return current_page_added_hash_ids
     
+    def wait_for_job_cards_to_load(self, wait_time=5, max_tries=5):
+        for attempt in range(max_tries):
+            try:
+                wait = WebDriverWait(self.driver, wait_time)
+                wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.job_seen_beacon')))
+                return (True, f"Job cards loaded successfully on attempt {attempt + 1}.")
+            except TimeoutException:
+                if attempt < max_tries - 1:
+                    self.logger.warning(f"Timeout encountered on attempt {attempt + 1}, refreshing the page and retrying...")
+                    self.driver.refresh()
+                else:
+                    return (False, f"Failed to load the job cards after {max_tries} attempts.")
+
     def navigate_next_page(self):
         self.url = utils.get_next_page_url(self.url)
         sleep(randint(self.crawl_delay, math.floor(self.crawl_delay * 1.5)))
