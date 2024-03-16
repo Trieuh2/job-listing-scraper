@@ -1,5 +1,4 @@
 import customtkinter as ctk
-from gui.tooltip import ToolTip
 from .utils_wrapper import update_config_field
 import threading
 

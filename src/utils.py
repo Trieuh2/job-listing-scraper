@@ -2,7 +2,6 @@ import re
 import datetime
 import json
 import os
-import csv
 import hashlib
 from functools import reduce
 from typing import cast
