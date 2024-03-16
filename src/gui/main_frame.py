@@ -13,6 +13,7 @@ from .csv_settings_frame import CsvSettingsFrame
 from .utils_wrapper import update_config_field, is_valid_numerical_field_input
 
 DEFAULT_NUM_PAGES_SCRAPE = 5
+DEFAULT_CRAWL_DELAY = 10
 
 class MainFrame(ctk.CTk):
     def __init__(self):
@@ -161,9 +162,7 @@ class MainFrame(ctk.CTk):
         if self.scrape_all_checkbox.get() == 0:
             # Configured to scrape a specific num of pages
             self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color='#343638')
-            self.num_pages_to_scrape_entry_field.delete(0, len(self.num_pages_to_scrape_entry_field.get()))
-            self.num_pages_to_scrape_entry_field.insert(0, 5)
-            update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=5)
+            self.set_default_config_num_pages_scrape()
         else:
             # Configured to scrape all pages
             self.num_pages_to_scrape_entry_field.delete(0, len(self.num_pages_to_scrape_entry_field.get()))
@@ -171,12 +170,30 @@ class MainFrame(ctk.CTk):
             update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=0)
 
     def update_config_num_pages_scrape(self, event):
-        new_value = int(self.num_pages_to_scrape_entry_field.get())
-        update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=new_value)
+        new_value = self.num_pages_to_scrape_entry_field.get()
+
+        if new_value:
+            update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=int(new_value))
+        else:
+            self.set_default_config_num_pages_scrape()
+
+    def set_default_config_num_pages_scrape(self):
+        self.num_pages_to_scrape_entry_field.delete(0, len(self.num_pages_to_scrape_entry_field.get()))
+        self.num_pages_to_scrape_entry_field.insert(0, DEFAULT_NUM_PAGES_SCRAPE)
+        update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=DEFAULT_NUM_PAGES_SCRAPE)
 
     def update_config_crawl_delay(self, event):
-        new_value = int(self.crawl_delay_entry_field.get())
-        update_config_field(filepath='config.json', field_path='crawl_delay', new_value=new_value)
+        new_value = self.crawl_delay_entry_field.get()
+
+        if new_value:
+            update_config_field(filepath='config.json', field_path='crawl_delay', new_value=int(new_value))
+        else:
+            self.set_default_config_crawl_delay()
+
+    def set_default_config_crawl_delay(self):
+        self.crawl_delay_entry_field.delete(0, len(self.crawl_delay_entry_field.get()))
+        self.crawl_delay_entry_field.insert(0, DEFAULT_CRAWL_DELAY)
+        update_config_field(filepath='config.json', field_path='crawl_delay', new_value=DEFAULT_CRAWL_DELAY)
 
     def begin_scraping(self):
         self.stop_scraping = False
