@@ -25,7 +25,7 @@
         "user_years_of_experience": "2"
     },
     "csv_settings": {
-        "csv_output_path": "C:/VSC Workspaces/Python Projects/job-listing-scraper/data/data.csv",
+        "excel_output_path": "C:/VSC Workspaces/Python Projects/job-listing-scraper/data/data.xlsx",
         "csv_headers": [
             "posted_date",
             "applied",
@@ -38,7 +38,7 @@
             "description",
             "hash_id"
         ],
-        "update_csv_on_completion": true
+        "update_spreadsheet_on_completion": true
     },
     "num_pages_to_scrape": 10,
     "crawl_delay": 10

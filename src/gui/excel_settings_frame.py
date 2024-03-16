@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import filedialog
 from utils import update_config_field
 
-class CsvSettingsFrame(ctk.CTkFrame):
+class ExcelSettingsFrame(ctk.CTkFrame):
     def __init__(self, master, font, values):
         super().__init__(master)
         self.values = values
@@ -12,10 +12,10 @@ class CsvSettingsFrame(ctk.CTkFrame):
     def create_widgets(self):
         self.create_title_label()
         self.create_output_path_frame()
-        self.create_update_csv_frame()
+        self.create_update_excel_frame()
 
     def create_title_label(self):
-        title_label = ctk.CTkLabel(self, text="CSV Settings", font=(self.font, 18))
+        title_label = ctk.CTkLabel(self, text="Excel Settings", font=(self.font, 18))
         title_label.pack(pady=(10, 20))
 
     def create_output_path_frame(self):
@@ -34,16 +34,16 @@ class CsvSettingsFrame(ctk.CTkFrame):
         browse_button = ctk.CTkButton(output_path_frame, font=self.font, text='Browse', command=self.browse_folder)
         browse_button.pack(side='left', padx=10, pady=(0, 10))
 
-    def create_update_csv_frame(self):
-        update_csv_frame = ctk.CTkFrame(self, fg_color='transparent')
-        update_csv_frame.pack(anchor="center")
+    def create_update_excel_frame(self):
+        update_excel_frame = ctk.CTkFrame(self, fg_color='transparent')
+        update_excel_frame.pack(anchor="center")
 
-        self.update_csv_upon_completion_checkbox = ctk.CTkCheckBox(update_csv_frame, onvalue=True, offvalue=False,
-                                                                   font=self.font, text="Update CSV on completion",
-                                                                   command=self.update_csv_on_completion)
-        if self.values['update_csv_on_completion']:
-            self.update_csv_upon_completion_checkbox.select()
-        self.update_csv_upon_completion_checkbox.pack(side="left", padx=10, pady=(0, 10))
+        self.update_excel_upon_completion_checkbox = ctk.CTkCheckBox(update_excel_frame, onvalue=True, offvalue=False,
+                                                                   font=self.font, text="Update spreadsheet on completion",
+                                                                   command=self.update_spreadsheet_on_completion)
+        if self.values['update_spreadsheet_on_completion']:
+            self.update_excel_upon_completion_checkbox.select()
+        self.update_excel_upon_completion_checkbox.pack(side="left", padx=10, pady=(0, 10))
 
     def browse_folder(self):
         folder_path = filedialog.askdirectory()
@@ -52,6 +52,6 @@ class CsvSettingsFrame(ctk.CTkFrame):
             update_config_field('config.json', 'csv_settings.excel_output_path', new_path)
             self.current_path_label.configure(text=new_path)
 
-    def update_csv_on_completion(self):
-        checkbox_value = self.update_csv_upon_completion_checkbox.get()
-        update_config_field('config.json', 'csv_settings.update_csv_on_completion', checkbox_value)
+    def update_spreadsheet_on_completion(self):
+        checkbox_value = self.update_excel_upon_completion_checkbox.get()
+        update_config_field('config.json', 'csv_settings.update_spreadsheet_on_completion', checkbox_value)

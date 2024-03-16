@@ -9,7 +9,7 @@ from scraper import Scraper
 import utils
 from .indeed_settings_frame import IndeedSettingsFrame
 from .excluded_keywords_frame import ExcludedKeywordsFrame
-from .csv_settings_frame import CsvSettingsFrame
+from .excel_settings_frame import ExcelSettingsFrame
 from .utils_wrapper import update_config_field, is_valid_numerical_field_input
 
 DEFAULT_NUM_PAGES_SCRAPE = 5
@@ -55,7 +55,7 @@ class MainFrame(ctk.CTk):
         self.frames.append(self.excluded_keywords_frame)
 
     def init_csv_settings_frame(self):
-        self.csv_settings_frame = CsvSettingsFrame(
+        self.csv_settings_frame = ExcelSettingsFrame(
             self, self.default_font, self.config['csv_settings'])
         self.csv_settings_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.csv_settings_frame)
@@ -237,7 +237,7 @@ class MainFrame(ctk.CTk):
 
         scraper.shutdown()
     
-        if self.config['csv_settings']['update_csv_on_completion']:
+        if self.config['csv_settings']['update_spreadsheet_on_completion']:
             utils.write_jobs_excel(self.config['csv_settings']['excel_output_path'], scraper.jobs)
 
         self.scraping_thread = None
