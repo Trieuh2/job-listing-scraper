@@ -185,9 +185,12 @@ def write_jobs_excel(filename, job_records):
             for cell in row:
                 cell.value = None
 
+    # Sort the job records by 'posted_date'
+    sorted_job_records = sorted(job_records.values(), key=lambda x: x['posted_date'], reverse=True)
+
     # Write the new data starting from row 2
     row_num = 2
-    for job_record in job_records.values():
+    for job_record in sorted_job_records:
         col_num = 1
         for header in fieldnames:
             ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
