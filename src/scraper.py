@@ -1,12 +1,10 @@
 import json
 import logging
 import math
-from datetime import datetime
 from random import randint
 from time import sleep
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
