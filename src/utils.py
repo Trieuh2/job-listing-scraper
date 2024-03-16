@@ -61,50 +61,34 @@ def get_next_page_url(url: str) -> str:
 
 def read_jobs_excel(filename: str) -> Dict[str, Dict[str, Union[str, int, float]]]:
     """Reads job records from an Excel file and returns a dictionary of data."""
+    if not os.path.isfile(filename):
+        return {}
+    
     data = {}  # hash_id : record
-    file_exists = os.path.isfile(filename)
-
-    if not file_exists:
-        return data
-
-    # Load the workbook and get the active sheet
     wb = load_workbook(filename)
     ws = cast(Worksheet, wb.active)
-
-    # Get the headers from the first row
     headers = [cell for cell in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
 
-    # Iterate over each row in the Excel sheet
     for row in ws.iter_rows(min_row=2, values_only=True):
         record = dict(zip(headers, row))
         data[record['hash_id']] = record
-
     return data
-
 
 def update_jobs_excel_headers(filename: str, new_headers: List[str]) -> None:
     """Updates the headers of the Excel file with the new headers."""
     print("Updating Excel headers")
 
-    # Check if the file exists
-    file_exists = os.path.isfile(filename)
-    if not file_exists:
+    if not os.path.isfile(filename):
         print(f"File {filename} does not exist.")
         return
 
-    # Load the workbook and get the active sheet
     wb = load_workbook(filename)
     ws = cast(Worksheet, wb.active)
 
-    # Read the existing data
     existing_data = []
     for row in ws.iter_rows(min_row=2, values_only=True):
         existing_data.append(row)
-
-    # Clear the sheet
     ws.delete_rows(1, ws.max_row)
-
-    # Write the new headers
     ws.append(new_headers)
 
     # Update the data with empty values for the new headers
@@ -117,13 +101,9 @@ def update_jobs_excel_headers(filename: str, new_headers: List[str]) -> None:
                 updated_row[header] = cell
         updated_data.append(list(updated_row.values()))
 
-    # Write the updated data
     for row in updated_data:
         ws.append(row)
-
-    # Save the workbook
     wb.save(filename)
-
     print("Done updating Excel headers")
 
 
