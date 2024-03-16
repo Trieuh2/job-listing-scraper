@@ -4,7 +4,7 @@ import json
 import os
 import hashlib
 from functools import reduce
-from typing import cast
+from typing import List, Dict, Union, cast
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.formatting.rule import CellIsRule
@@ -13,7 +13,7 @@ from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.worksheet import Worksheet
 
-def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):
+def build_indeed_url(position: str, location: str, experience_level: str, job_type: str, max_days_posted_ago: str) -> str:
     """Builds a URL for Indeed job search based on the given parameters."""
     template = 'https://www.indeed.com/jobs?{}'
     formatted_params = []
@@ -38,7 +38,7 @@ def build_indeed_url(position, location, experience_level, job_type, max_days_po
 
     return url
 
-def exclude_based_on_title(excluded_keywords, cleaned_title) -> bool:
+def exclude_based_on_title(excluded_keywords: List[str], cleaned_title: str) -> bool:
     """Returns True if the cleaned title contains any excluded keywords."""
     cleaned_title = re.sub(r'[^a-zA-Z0-9]', ' ', cleaned_title)
     title_split = cleaned_title.split()
@@ -53,7 +53,7 @@ def exclude_based_on_title(excluded_keywords, cleaned_title) -> bool:
         
     return False
 
-def get_next_page_url(url):
+def get_next_page_url(url: str) -> str:
     """Returns the URL for the next page of job listings."""
     # Locate 'start' tag in the URL
     html_param_length = len("&start=")
@@ -80,7 +80,7 @@ def get_next_page_url(url):
 
         return url[:tag_end_idx] + str(curr_start_num + 10) + url[digit_end_idx:]
 
-def read_jobs_excel(filename):
+def read_jobs_excel(filename: str) -> Dict[str, Dict[str, Union[str, int, float]]]:
     """Reads job records from an Excel file and returns a dictionary of data."""
     data = {}  # hash_id : record
     file_exists = os.path.isfile(filename)
@@ -103,7 +103,7 @@ def read_jobs_excel(filename):
     return data
 
 
-def update_jobs_excel_headers(filename, new_headers):
+def update_jobs_excel_headers(filename: str, new_headers: List[str]) -> None:
     """Updates the headers of the Excel file with the new headers."""
     print("Updating Excel headers")
 
@@ -148,7 +148,7 @@ def update_jobs_excel_headers(filename, new_headers):
     print("Done updating Excel headers")
 
 
-def write_jobs_excel(filename, job_records):
+def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     """Writes job records to an Excel file."""
     print("Updating Excel record data")
 
@@ -220,7 +220,7 @@ def write_jobs_excel(filename, job_records):
     wb.save(filename)
     print("Done updating Excel records")
 
-def string_to_hash(input_string):
+def string_to_hash(input_string: str) -> str:
     """Converts a string to a SHA-256 hash."""
     # Encode the string to bytes
     encoded_string = input_string.encode()
@@ -233,7 +233,7 @@ def string_to_hash(input_string):
 
     return hex_hash
 
-def parse_indeed_url(url):
+def parse_indeed_url(url: str) -> str:
     """Parses an Indeed URL and returns the base URL."""
     count = 0
 
@@ -244,7 +244,7 @@ def parse_indeed_url(url):
                 return url[:idx]
     return url
 
-def parse_post_date(post_date_string):
+def parse_post_date(post_date_string: str) -> str:
     """Parses a post date string and returns the formatted date."""
     split_post_date = post_date_string.split()
 
@@ -263,7 +263,7 @@ def parse_post_date(post_date_string):
         return datetime.date.today().strftime("%m/%d/%Y")
 
 # Checks if the indeed link is valid based on the prefix of the URL.
-def is_valid_indeed_job_link(url):
+def is_valid_indeed_job_link(url: str) -> bool:
     """Checks if an Indeed job link is valid."""
     # In rare cases, a job card may return 'https://www.indeed.com/pagead/clk?mo=r&ad', which isn't a valid link
     valid_prefix = 'https://www.indeed.com/rc/clk?jk='
@@ -273,7 +273,7 @@ def is_valid_indeed_job_link(url):
         return True
     return False
 
-def is_valid_description_criteria(description):
+def is_valid_description_criteria(description: str) -> bool:
     """Checks if a job description meets the specified years of experience criteria."""
     # Regular expression to match variations of years of experience
     regex = r'(\d+)\+?[\s\w]* years'
@@ -294,7 +294,7 @@ def is_valid_description_criteria(description):
     else:
         return True
     
-def update_config_field(filepath, field_path, new_value):
+def update_config_field(filepath: str, field_path: str, new_value) -> None:
     """Updates a specific field in the config.json configuration file."""
     if field_path == 'excluded_keywords':
         # Filter out empty strings from the list of new values
@@ -314,6 +314,6 @@ def update_config_field(filepath, field_path, new_value):
     with open(filepath, 'w') as file:
         json.dump(config, file, indent=4)
 
-def is_valid_numerical_field_input(input):
+def is_valid_numerical_field_input(input: str) -> bool:
     """Checks if an input string is a valid numerical field."""
     return input.isdigit() or input== ""
