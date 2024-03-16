@@ -14,7 +14,6 @@ from openpyxl.styles import Font, PatternFill
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.worksheet import Worksheet
 
-
 def build_indeed_url(position, location, experience_level, job_type, max_days_posted_ago):            
     template = 'https://www.indeed.com/jobs?{}'
     formatted_params = []
@@ -78,23 +77,6 @@ def get_next_page_url(url):
         curr_start_num = int(url[digit_start_idx:digit_end_idx])
 
         return url[:tag_end_idx] + str(curr_start_num + 10) + url[digit_end_idx:]
-
-def read_jobs_csv(filename):
-    data = {} # hash_id : record
-    file_exists = os.path.isfile(filename)
-
-    if not file_exists: 
-        return data
-
-    with open(filename, 'r') as csv_file:
-        # Create a DictReader object
-        csv_reader = csv.DictReader(csv_file)
-
-        # Iterate over each row in the csv file
-        for record in csv_reader:
-            data[record['hash_id']] = record
-    
-    return data
 
 def read_jobs_excel(filename):
     data = {}  # hash_id : record
@@ -232,58 +214,6 @@ def write_jobs_excel(filename, job_records):
     # Save the workbook
     wb.save(filename)
     print("Done updating Excel records")
-
-# Updates all records in the CSV to respect new header structure
-def update_jobs_csv_headers(filename, new_headers):
-    print("Updating CSV headers")
-    # Read the existing CSV data
-    with open(filename, 'r', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        existing_data = list(reader)
-    
-    # Update the data with empty values for the new headers
-    updated_data = []
-    for row in existing_data:
-        updated_row = {header: row.get(header, '') for header in new_headers}
-        updated_data.append(updated_row)
-
-    # Overwrite the CSV with the updated data
-    with open(filename, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=new_headers)
-        writer.writeheader()
-        writer.writerows(updated_data)
-    
-    print("Done updating CSV headers")
-    return
-
-def write_jobs_csv(filename, job_records):
-    print("Updating CSV record data")
-    with open('config.json') as config_file:
-        config = json.load(config_file)
-
-    # Check if the file exists and is non-empty
-    file_exists = os.path.isfile(filename) and os.path.getsize(filename) > 0
-    fieldnames = config['csv_settings']['csv_headers']
-
-    with open(filename, "w", newline='', errors='replace') as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames, dialect='excel')
-        
-        # Update the header structure for all records if the order or type of attributes have changed
-        if file_exists:
-            with open(filename, 'r', newline='') as read_file:
-                reader = csv.reader(read_file)
-                existing_headers = next(reader, None)
-
-                if existing_headers and set(existing_headers) != set(fieldnames):
-                    update_jobs_csv_headers(filename, new_headers=fieldnames)
-
-        # Write the new data
-        writer.writeheader()
-                    
-        for job_record in job_records.values():
-            writer.writerow(job_record)
-    print("Done updating CSV records")
-    return
 
 def string_to_hash(input_string):
     # Encode the string to bytes
