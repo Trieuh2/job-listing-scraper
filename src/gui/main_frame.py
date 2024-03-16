@@ -26,7 +26,7 @@ class MainFrame(ctk.CTk):
             self.config = json.load(config_file)
 
         self.title('Job Listing Scraper')
-        self.geometry('800x750')
+        self.geometry('800x775')
         self.resizable=False
 
         ctk.set_appearance_mode('System')
@@ -60,7 +60,7 @@ class MainFrame(ctk.CTk):
 
     def create_footer(self):
         footer_frame = ctk.CTkFrame(self, bg_color='transparent', fg_color='transparent')
-        footer_frame.pack(fill='x')
+        footer_frame.pack(fill='x', pady=10)
 
         self.create_scrape_settings_frame(footer_frame)
         self.create_button_frame(footer_frame)
@@ -75,7 +75,9 @@ class MainFrame(ctk.CTk):
         self.scrape_all_checkbox.pack(side='left', padx=(20, 10), pady=(20, 10))
 
         self.create_num_pages_scrape_frame(self.scrape_settings_frame)
+        self.create_crawl_delay_frame(self.scrape_settings_frame)
         self.initialize_scrape_settings()
+
         self.frames.append(self.scrape_settings_frame)
 
     def create_num_pages_scrape_frame(self, parent):
@@ -92,9 +94,26 @@ class MainFrame(ctk.CTk):
         self.num_pages_to_scrape_entry_field.bind(
             '<KeyRelease>', command=self.update_config_num_pages_scrape)
         self.num_pages_to_scrape_entry_field.pack(anchor='w')
+
         self.frames.append(self.num_pages_scrape_frame)
 
+    def create_crawl_delay_frame(self, parent):
+        self.crawl_delay_frame = ctk.CTkFrame(
+            parent, bg_color='transparent', fg_color='transparent')
+        self.crawl_delay_frame.pack(side='left', padx=10, pady=(5, 10))
+
+        crawl_delay_label = ctk.CTkLabel(
+            self.crawl_delay_frame, text='Crawl Delay', font=self.default_font)
+        crawl_delay_label.pack(anchor='w')
+
+        self.crawl_delay_entry_field = ctk.CTkEntry(self.crawl_delay_frame, font=self.default_font)
+        self.crawl_delay_entry_field.pack(anchor='w')
+        self.crawl_delay_entry_field.bind('<KeyRelease>', command=self.update_config_crawl_delay)
+
+        self.frames.append(self.crawl_delay_frame)
+
     def initialize_scrape_settings(self):
+        # Initialize Scrape all checkbox / Number of pages to scrape
         if self.config['num_pages_to_scrape'] == 0:
             self.scrape_all_checkbox.select()
             self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
@@ -102,6 +121,9 @@ class MainFrame(ctk.CTk):
             self.num_pages_to_scrape_entry_field.insert(
                 index=1, string=str(self.config['num_pages_to_scrape']))
             self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color='#343638')
+
+        # Initialize crawl delay value
+        self.crawl_delay_entry_field.insert(0, self.config['crawl_delay'])
 
     def create_button_frame(self, parent):
         button_frame = ctk.CTkFrame(
@@ -148,6 +170,10 @@ class MainFrame(ctk.CTk):
     def update_config_num_pages_scrape(self, event):
         new_value = int(self.num_pages_to_scrape_entry_field.get())
         update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=new_value)
+
+    def update_config_crawl_delay(self, event):
+        new_value = int(self.crawl_delay_entry_field.get())
+        update_config_field(filepath='config.json', field_path='crawl_delay', new_value=new_value)
 
     def begin_scraping(self):
         self.stop_scraping = False

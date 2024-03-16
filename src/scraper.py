@@ -1,13 +1,16 @@
+import json
+import math
+from time import sleep
+from random import randint
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
-from random import randint
+
 import utils
-import json
 
 class Scraper:
     def __init__(self, url):
@@ -20,6 +23,7 @@ class Scraper:
 
         self.excluded_keywords = config['excluded_keywords']
         self.csv_headers = config['csv_settings']['csv_headers']
+        self.crawl_delay = config['crawl_delay']
         self.jobs = utils.read_jobs_csv(config['csv_settings']['csv_output_path'])   # {hash_id : record}
         self.initial_num_records = len(self.jobs)
         self.search_criteria = '|'.join(list(config['indeed_criteria'].values()))
@@ -124,7 +128,7 @@ class Scraper:
     
     def navigate_next_page(self):
         self.url = utils.get_next_page_url(self.url)
-        sleep(randint(2,3)) # Crawl delay
+        sleep(randint(self.crawl_delay, math.floor(self.crawl_delay * 1.5)))
         self.driver.get(self.url)
         return
         

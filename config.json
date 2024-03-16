@@ -25,7 +25,7 @@
         "user_years_of_experience": "2"
     },
     "csv_settings": {
-        "csv_output_path": "C:/Users/henry/Desktop/Temp Coding Workspace/data.csv",
+        "csv_output_path": "C:/VSC Workspaces/Python Projects/job-listing-scraper/data/data.csv",
         "csv_headers": [
             "posted_date",
             "applied",
@@ -40,5 +40,6 @@
         ],
         "update_csv_on_completion": true
     },
-    "num_pages_to_scrape": 0
+    "num_pages_to_scrape": 10,
+    "crawl_delay": 10
 }
