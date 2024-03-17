@@ -76,6 +76,9 @@ class Scraper:
 
                 add_to_results = self.extract_job_detail(job_card, job_details, header, hash_id)
 
+                if header not in job_details:
+                    job_details[header] = ''
+
             if add_to_results:
                 # Update results and print details
                 self.jobs[hash_id] = job_details
