@@ -9,7 +9,7 @@ from typing import List, Dict, Union, cast
 from openpyxl import Workbook, load_workbook
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.formatting.formatting import ConditionalFormattingList
-from openpyxl.styles import Font, PatternFill
+from openpyxl.styles import Font, PatternFill, NamedStyle
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.worksheet import Worksheet
 
@@ -63,49 +63,25 @@ def read_jobs_excel(filename: str) -> Dict[str, Dict[str, Union[str, int, float]
     """Reads job records from an Excel file and returns a dictionary of data."""
     if not os.path.isfile(filename):
         return {}
-    
+
+    with open('config.json') as config_file:
+        config = json.load(config_file)
+
     data = {}  # hash_id : record
     wb = load_workbook(filename)
     ws = cast(Worksheet, wb.active)
-    headers = [cell for cell in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
+    config_headers = config['csv_settings']['csv_headers']
+    current_headers_in_file = [cell for cell in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
 
     for row in ws.iter_rows(min_row=2, values_only=True):
-        record = dict(zip(headers, row))
-        data[record['hash_id']] = record
+        record = dict(zip(current_headers_in_file, row))
+        formatted_record = {}
+
+        for header in config_headers:
+            formatted_record[header] = record.get(header, '')
+
+        data[formatted_record['hash_id']] = formatted_record
     return data
-
-def update_jobs_excel_headers(filename: str, new_headers: List[str]) -> None:
-    """Updates the headers of the Excel file with the new headers."""
-    print("Updating Excel headers")
-
-    if not os.path.isfile(filename):
-        print(f"File {filename} does not exist.")
-        return
-
-    wb = load_workbook(filename)
-    ws = cast(Worksheet, wb.active)
-
-    existing_data = []
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        existing_data.append(row)
-    ws.delete_rows(1, ws.max_row)
-    ws.append(new_headers)
-
-    # Update the data with empty values for the new headers
-    updated_data = []
-    for row in existing_data:
-        updated_row = {header: '' for header in new_headers}
-        for i, cell in enumerate(row):
-            header = ws.cell(row=1, column=i + 1).value
-            if header in updated_row:
-                updated_row[header] = cell
-        updated_data.append(list(updated_row.values()))
-
-    for row in updated_data:
-        ws.append(row)
-    wb.save(filename)
-    print("Done updating Excel headers")
-
 
 def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     """Writes job records to an Excel file."""
@@ -118,21 +94,27 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     file_exists = os.path.isfile(filename)
     fieldnames = config['csv_settings']['csv_headers']
 
-    # Create a new workbook or load the existing one
+    # Load the existing Worksheet or create a new Worksheet
     if file_exists:
         wb = load_workbook(filename)
-        ws = cast(Worksheet, wb.active)
+        worksheet = cast(Worksheet, wb.active)
+        clear_all_cell_values(worksheet)
+        # Set headers
+        for col, header in enumerate(fieldnames, start=1):
+            worksheet.cell(row=1, column=col).value = header
     else:
         wb = Workbook()
-        ws = cast(Worksheet, wb.active)
-        ws.append(fieldnames)
+        worksheet = cast(Worksheet, wb.active)
+        worksheet.append(fieldnames)
 
-    # Clear existing data if the file already exists
-    if file_exists:
-        for row in ws.iter_rows(min_row=2, max_col=len(fieldnames), max_row=ws.max_row):
-            for cell in row:
-                cell.value = None
+    write_new_cell_data(worksheet, fieldnames, job_records)
+    apply_worksheet_conditional_formatting(worksheet)
+    update_or_create_worksheet_table(worksheet, fieldnames)
+    wb.save(filename)
+    print("Done updating Excel records")
 
+def write_new_cell_data(worksheet: Worksheet, fieldnames, job_records: Dict[str, Dict]) -> None:
+    """Writes the sorted job record data to the Worksheet"""
     # Sort the job records first by 'posted_date' from newest to oldest, then by 'company' in alphabetical order
     sorted_job_records = sorted(job_records.values(), key=lambda x: x.get('company', ''))
     sorted_job_records.sort(key=lambda x: x['posted_date'], reverse=True)
@@ -142,7 +124,7 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     for job_record in sorted_job_records:
         col_num = 1
         for header in fieldnames:
-            cell = ws.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
+            cell = worksheet.cell(row=row_num, column=col_num, value=job_record.get(header, ''))
 
             if header == 'job_link' and cell.value:  # Check if the column is 'job_link' and has a value
                 setattr(cell, "hyperlink", cell.value) # Set the hyperlink
@@ -150,31 +132,34 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
             col_num += 1
         row_num += 1
 
-    apply_worksheet_conditional_formatting(ws)
-    update_or_create_worksheet_table(ws, fieldnames)
-    wb.save(filename)
-    print("Done updating Excel records")
+def clear_all_cell_values(worksheet: Worksheet) -> None:
+    """Clears all cell values in the worksheet."""
+    for row in worksheet.iter_rows(min_row=2):
+        for cell in row:
+            cell.value = None
 
-def update_or_create_worksheet_table(ws, fieldnames):
-    # Update or create the table with starting from row 2
-    table_exists = len(ws.tables) > 0
+            if cell.style != 'Normal':
+                cell.style = 'Normal'
+
+def update_or_create_worksheet_table(worksheet, fieldnames):
+    """Creates table reference for the job data."""
+    table_exists = len(worksheet.tables) > 0
     if table_exists:
-        table = ws.tables[next(iter(ws.tables))]
-        table.ref = f"A1:{chr(64 + len(fieldnames))}{ws.max_row}"
+        table = worksheet.tables[next(iter(worksheet.tables))]
+        table.ref = f"A1:{chr(64 + len(fieldnames))}{worksheet.max_row}"
         table.tableStyleInfo.showRowStripes = True 
     else:
-        table = Table(displayName="JobTable", ref=f"A1:{chr(64 + len(fieldnames))}{ws.max_row}")
+        table = Table(displayName="JobTable", ref=f"A1:{chr(64 + len(fieldnames))}{worksheet.max_row}")
         style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False,
                                showLastColumn=False, showRowStripes=True, showColumnStripes=False)
         table.tableStyleInfo = style
-        ws.add_table(table)
-
+        worksheet.add_table(table)
 
 def apply_worksheet_conditional_formatting(worksheet):
+    """Applies conditional formatting to column B, used for 'applied' column"""
     # Remove existing conditional formatting rules for the worksheet
     worksheet.conditional_formatting = ConditionalFormattingList()
 
-    # Apply conditional formatting to the 'applied' column in column 'B'
     green_fill = PatternFill(start_color='CCFFCC', end_color='CCFFCC', fill_type='solid')
     red_fill = PatternFill(start_color='FFCCCC', end_color='FFCCCC', fill_type='solid')
     yellow_fill = PatternFill(start_color='FFFF99', end_color='FFFF99', fill_type='solid')
@@ -190,7 +175,6 @@ def parse_indeed_url(url: str) -> str:
     """Parses an Indeed URL and returns the base URL."""
     second_equal_index = url.find('=', url.find('=') + 1)
     return url if second_equal_index == -1 else url[:second_equal_index]
-
 
 def parse_post_date(post_date_string: str) -> str:
     """Parses a post date string and returns the formatted date."""
