@@ -239,7 +239,8 @@ class MainFrame(ctk.CTk):
                 pages_scraped += 1
 
         print(f"Number of pages scraped: {pages_scraped}")
-        print(f"Number of new records: {len(scraper.jobs) - scraper.initial_num_records}\n")
+        print(f"Number of new records: {len(scraper.jobs) - scraper.initial_num_records}")
+        print(f"Number of errored extractions: {scraper.num_errored_job_extractions}\n")
 
         scraper.shutdown()
     

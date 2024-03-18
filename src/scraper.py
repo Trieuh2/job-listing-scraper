@@ -28,6 +28,7 @@ class Scraper:
         self.crawl_delay = config['crawl_delay']
         self.jobs = utils.read_jobs_excel(config['csv_settings']['excel_output_path'])  # {hash_id: record}
         self.initial_num_records = len(self.jobs)
+        self.num_errored_job_extractions = 0
         self.search_criteria = '|'.join(list(config['indeed_criteria'].values()))
         self.previous_page_hash_ids = set()
         self.logger = logging.getLogger(__name__)
@@ -137,6 +138,7 @@ class Scraper:
 
             return True  # By default, add to results
         except:
+            self.num_errored_job_extractions += 1
             return False
 
     def wait_for_job_cards_to_load(self, wait_time=5, max_tries=5):
