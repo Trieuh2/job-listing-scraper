@@ -25,7 +25,8 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         selected_label = ctk.CTkLabel(output_path_frame, text='Output Path')
         selected_label.pack(side='left', padx=5, pady=(0, 10))
 
-        outline_frame = ctk.CTkFrame(output_path_frame, corner_radius=10, fg_color="black")
+        foreground_color = "black" if ctk.get_appearance_mode() == "Dark" else "white"
+        outline_frame = ctk.CTkFrame(output_path_frame, corner_radius=10, fg_color=foreground_color)
         outline_frame.pack(side='left', padx=5, pady=(0, 10))
 
         self.current_path_label = ctk.CTkLabel(outline_frame, font=self.font, text=self.values['excel_output_path'])

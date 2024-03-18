@@ -23,6 +23,7 @@ class MainFrame(ctk.CTk):
         self.stop_scraping = False
         self.default_font = ctk.CTkFont(family='Roboto', size=12)
         self.validate_command = self.register(is_valid_numerical_field_input)
+        self.foreground_color = "black" if ctk.get_appearance_mode() == "Dark" else "white"
 
         with open('config.json') as config_file:
             self.config = json.load(config_file)
@@ -279,7 +280,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkCheckBox):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkEntry):
-                child.configure(state=ctk.NORMAL, fg_color='#343638')
+                child.configure(state=ctk.NORMAL, fg_color=self.foreground_color)
             elif isinstance(child, ctk.CTkOptionMenu):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkTextbox):
