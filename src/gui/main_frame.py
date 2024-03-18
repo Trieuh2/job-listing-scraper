@@ -281,7 +281,8 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkCheckBox):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkEntry):
-                child.configure(state=ctk.NORMAL, fg_color=self.enabled_entry_field_fg_color)
+                if child != self.num_pages_to_scrape_entry_field or self.scrape_all_checkbox.get() == 0:
+                    child.configure(state=ctk.NORMAL, fg_color=self.enabled_entry_field_fg_color)
             elif isinstance(child, ctk.CTkOptionMenu):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkTextbox):
