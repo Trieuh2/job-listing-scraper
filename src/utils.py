@@ -113,7 +113,7 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     wb.save(filename)
     print("Done updating Excel records")
 
-def write_new_cell_data(worksheet: Worksheet, fieldnames, job_records: Dict[str, Dict]) -> None:
+def write_new_cell_data(worksheet: Worksheet, fieldnames: List[str], job_records: Dict[str, Dict]) -> None:
     """Writes the sorted job record data to the Worksheet"""
     # Sort the job records first by 'posted_date' from newest to oldest, then by 'company' in alphabetical order
     sorted_job_records = sorted(job_records.values(), key=lambda x: x.get('company', ''))
@@ -141,7 +141,7 @@ def clear_all_cell_values(worksheet: Worksheet) -> None:
             if cell.style != 'Normal':
                 cell.style = 'Normal'
 
-def update_or_create_worksheet_table(worksheet, fieldnames):
+def update_or_create_worksheet_table(worksheet: Worksheet, fieldnames: List[str]):
     """Creates table reference for the job data."""
     table_exists = len(worksheet.tables) > 0
     if table_exists:
@@ -155,7 +155,7 @@ def update_or_create_worksheet_table(worksheet, fieldnames):
         table.tableStyleInfo = style
         worksheet.add_table(table)
 
-def apply_worksheet_conditional_formatting(worksheet):
+def apply_worksheet_conditional_formatting(worksheet: Worksheet):
     """Applies conditional formatting to column B, used for 'applied' column"""
     # Remove existing conditional formatting rules for the worksheet
     worksheet.conditional_formatting = ConditionalFormattingList()
@@ -213,9 +213,9 @@ def is_valid_description_criteria(description: str) -> bool:
             return False
     return True
     
-def update_config_field(filepath: str, field_path: str, new_value) -> None:
+def update_config_field(filepath: str, field_path: str, new_value: Union[str, List[str], int, bool]) -> None:
     """Updates a specific field in the config.json configuration file."""
-    if field_path == 'excluded_keywords':
+    if field_path == 'excluded_keywords' and isinstance(new_value, list):
         new_value = sorted([value.lower() for value in new_value if value.strip()])
 
     with open(filepath, 'r') as file:

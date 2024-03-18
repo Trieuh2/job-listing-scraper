@@ -3,12 +3,14 @@ import logging
 import math
 from random import randint
 from time import sleep
+from typing import Dict, Set, Tuple
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.remote.webelement import WebElement
 
 import utils
 
@@ -18,7 +20,7 @@ class Scraper:
         self.url = url
         self.initialize_scraper()
     
-    def initialize_scraper(self):
+    def initialize_scraper(self) -> None:
         """Initialize the Scraper based on the configuration file."""
         with open('config.json') as config_file:
             config = json.load(config_file)
@@ -34,7 +36,7 @@ class Scraper:
         self.logger = logging.getLogger(__name__)
         self.driver.get(self.url)
 
-    def extract_current_page(self):
+    def extract_current_page(self) -> Set[str]:
         """Extract and print job details."""
         current_page_added_hash_ids = set()
         success, message = self.wait_for_job_cards_to_load()
@@ -52,7 +54,7 @@ class Scraper:
 
         return current_page_added_hash_ids
 
-    def process_job_card(self, job_card, current_page_added_hash_ids):
+    def process_job_card(self, job_card: WebElement, current_page_added_hash_ids: Set[str]) -> None:
         """Process individual job card."""
         add_to_results = True
         job_details = {}
@@ -61,6 +63,12 @@ class Scraper:
             # Extract job details
             title_anchor_element = job_card.find_element(By.TAG_NAME, 'a')
             indeed_full_url = title_anchor_element.get_attribute('href')
+
+            if indeed_full_url is None:
+                add_to_results = False
+                self.num_errored_job_extractions += 1
+                return
+
             job_details['job_link'] = utils.parse_indeed_url(indeed_full_url)
             job_details['hash_id'] = utils.string_to_hash(job_details['job_link'])
             hash_id = job_details['hash_id']
@@ -91,7 +99,7 @@ class Scraper:
         except NoSuchElementException as e:
             print(f"An element was not found: {e}")
     
-    def extract_job_detail(self, job_card, job_details, header, hash_id):
+    def extract_job_detail(self, job_card: WebElement, job_details: Dict[str, str], header: str, hash_id: str) -> bool:
         """Extract specific job detail based on header."""
         try:
             if header == 'title':
@@ -122,14 +130,14 @@ class Scraper:
                 scraped_date_str = utils.parse_post_date(posted_date_element.text)
 
                 if hash_id in self.jobs:
-                    job_details[header] = self.jobs[hash_id][header]
+                    job_details[header] = str(self.jobs[hash_id][header])
                 else:
                     job_details[header] = scraped_date_str
 
             elif header == 'applied':
                 # Fetch pre-existing values or default to "No", for not applied to job yet
                 if hash_id in self.jobs:
-                    job_details[header] = self.jobs[hash_id][header]
+                    job_details[header] = str(self.jobs[hash_id][header])
                 else:
                     job_details[header] = 'No'
 
@@ -141,7 +149,7 @@ class Scraper:
             self.num_errored_job_extractions += 1
             return False
 
-    def wait_for_job_cards_to_load(self, wait_time=5, max_tries=5):
+    def wait_for_job_cards_to_load(self, wait_time: int=5, max_tries: int=5) -> Tuple[bool, str]:
         """Wait for job cards to load."""
         for attempt in range(max_tries):
             try:
@@ -156,12 +164,12 @@ class Scraper:
                     return (False, f"Failed to load the job cards after {max_tries} attempts.")
         return (False, f"Failed to load the job cards after {max_tries} attempts.")
 
-    def navigate_next_page(self):
+    def navigate_next_page(self) -> None:
         """Navigate to the next page of job listings."""
         self.url = utils.get_next_page_url(self.url)
         sleep(randint(self.crawl_delay, math.floor(self.crawl_delay * 1.5)))
         self.driver.get(self.url)
         
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Shut down the web driver."""
         self.driver.quit()
