@@ -81,7 +81,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
 
         self.date_posted_option_menu = ctk.CTkOptionMenu(
             date_posted_frame,
-            values=['Select', 'Last 24 hours', 'Last 3 days', 'Last 7 days', 'Last 30 days'],
+            values=['Select', 'Last 24 hours', 'Last 3 days', 'Last 7 days', 'Last 14 days', 'Last 30 days'],
             font=font,
             dropdown_font=font,
             command=lambda selected_value: self.update_config('max_days_posted_ago', selected_value)
@@ -139,6 +139,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
                 '1': 'Last 24 hours',
                 '3': 'Last 3 days',
                 '7': 'Last 7 days',
+                '14': 'Last 14 days',
                 '30': 'Last 30 days'
             },
             'job_type': {
@@ -169,6 +170,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
                 'Last 24 hours': '1',
                 'Last 3 days': '3',
                 'Last 7 days': '7',
+                'Last 14 days': '14',
                 'Last 30 days': '30'
             },
             'job_type': {
