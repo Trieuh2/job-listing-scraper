@@ -23,7 +23,6 @@ class MainFrame(ctk.CTk):
         self.stop_scraping = False
         self.default_font = ctk.CTkFont(family='Roboto', size=12)
         self.validate_command = self.register(is_valid_numerical_field_input)
-        self.enabled_field_foreground_color = "black" if ctk.get_appearance_mode() == "Dark" else "white"
 
         with open('config.json') as config_file:
             self.config = json.load(config_file)
@@ -34,6 +33,8 @@ class MainFrame(ctk.CTk):
 
         ctk.set_appearance_mode('System')
         ctk.set_default_color_theme('dark-blue')
+        self.enabled_entry_field_fg_color = "black" if ctk.get_appearance_mode() == "Dark" else "white"
+        self.disabled_entry_field_fg_color = "#A0A0A0"
 
         self.init_frames()
         self.create_footer()  
@@ -94,7 +95,7 @@ class MainFrame(ctk.CTk):
         num_pages_to_scrape_label.pack(anchor='w')
 
         self.num_pages_to_scrape_entry_field = ctk.CTkEntry(
-            self.num_pages_scrape_frame, placeholder_text=str(DEFAULT_NUM_PAGES_SCRAPE), font=self.default_font, fg_color=self.enabled_field_foreground_color)
+            self.num_pages_scrape_frame, placeholder_text=str(DEFAULT_NUM_PAGES_SCRAPE), font=self.default_font, fg_color=self.enabled_entry_field_fg_color)
         self.num_pages_to_scrape_entry_field.bind(
             '<KeyRelease>', command=self.update_config_num_pages_scrape)
         self.num_pages_to_scrape_entry_field.pack(anchor='w')
@@ -111,7 +112,7 @@ class MainFrame(ctk.CTk):
             self.crawl_delay_frame, text='Crawl Delay', font=self.default_font)
         crawl_delay_label.pack(anchor='w')
 
-        self.crawl_delay_entry_field = ctk.CTkEntry(self.crawl_delay_frame, font=self.default_font, fg_color=self.enabled_field_foreground_color)
+        self.crawl_delay_entry_field = ctk.CTkEntry(self.crawl_delay_frame, font=self.default_font, fg_color=self.enabled_entry_field_fg_color)
         self.crawl_delay_entry_field.pack(anchor='w')
         self.crawl_delay_entry_field.bind('<KeyRelease>', command=self.update_config_crawl_delay)
         self.crawl_delay_entry_field.configure(validate='key', validatecommand=(self.validate_command, '%P'))
@@ -122,11 +123,11 @@ class MainFrame(ctk.CTk):
         # Initialize Scrape all checkbox / Number of pages to scrape
         if self.config['num_pages_to_scrape'] == 0:
             self.scrape_all_checkbox.select()
-            self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color=self.disabled_entry_field_fg_color)
         else:
             self.num_pages_to_scrape_entry_field.insert(
                 index=1, string=str(self.config['num_pages_to_scrape']))
-            self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color=self.enabled_field_foreground_color)
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color=self.enabled_entry_field_fg_color)
 
         # Initialize crawl delay value
         self.crawl_delay_entry_field.insert(0, self.config['crawl_delay'])
@@ -164,12 +165,12 @@ class MainFrame(ctk.CTk):
     def toggle_scrape_all_checkbox(self):
         if self.scrape_all_checkbox.get() == 0:
             # Configured to scrape a specific num of pages
-            self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color='#343638')
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.NORMAL, fg_color=self.enabled_entry_field_fg_color)
             self.set_default_config_num_pages_scrape()
         else:
             # Configured to scrape all pages
             self.num_pages_to_scrape_entry_field.delete(0, len(self.num_pages_to_scrape_entry_field.get()))
-            self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
+            self.num_pages_to_scrape_entry_field.configure(state=ctk.DISABLED, fg_color=self.disabled_entry_field_fg_color)
             update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=0)
 
     # Configuration Update Functions
@@ -265,7 +266,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkCheckBox):
                 child.configure(state=ctk.DISABLED)
             elif isinstance(child, ctk.CTkEntry):
-                child.configure(state=ctk.DISABLED, fg_color='#A0A0A0')
+                child.configure(state=ctk.DISABLED, fg_color=self.disabled_entry_field_fg_color)
             elif isinstance(child, ctk.CTkOptionMenu):
                 child.configure(state=ctk.DISABLED)
             elif isinstance(child, ctk.CTkTextbox):
@@ -280,7 +281,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkCheckBox):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkEntry):
-                child.configure(state=ctk.NORMAL, fg_color=self.enabled_field_foreground_color)
+                child.configure(state=ctk.NORMAL, fg_color=self.enabled_entry_field_fg_color)
             elif isinstance(child, ctk.CTkOptionMenu):
                 child.configure(state=ctk.NORMAL)
             elif isinstance(child, ctk.CTkTextbox):

@@ -10,6 +10,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self.update_timer = None
         self.update_delay = 0.25
         self.validate_command = validate_command
+        self.enabled_entry_field_fg_color = "black" if ctk.get_appearance_mode() == "Dark" else "white"
 
         self._create_title(font)
         self._create_fields_frame(font)
@@ -36,7 +37,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         position_label = ctk.CTkLabel(position_frame, text="Position", font=font)
         position_label.pack()
 
-        self.position_field = ctk.CTkEntry(position_frame, placeholder_text="Position", font=font)
+        self.position_field = ctk.CTkEntry(position_frame, placeholder_text="Position", font=font, fg_color=self.enabled_entry_field_fg_color)
         self.position_field.pack()
         self.position_field.bind('<KeyRelease>', lambda event: self.schedule_update('position', event))
 
@@ -47,7 +48,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         location_label = ctk.CTkLabel(location_frame, text='Location', font=font)
         location_label.pack()
 
-        self.location_field = ctk.CTkEntry(location_frame, placeholder_text="Location", font=font)
+        self.location_field = ctk.CTkEntry(location_frame, placeholder_text="Location", font=font, fg_color=self.enabled_entry_field_fg_color)
         self.location_field.pack()
         self.location_field.bind('<KeyRelease>', lambda event: self.schedule_update('location', event))
 
@@ -58,7 +59,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         years_experience_label = ctk.CTkLabel(years_experience_frame, text="Max Years of Experience", font=font)
         years_experience_label.pack()
 
-        self.user_years_of_experience_field = ctk.CTkEntry(years_experience_frame, placeholder_text="Max Years of Experience", font=font)
+        self.user_years_of_experience_field = ctk.CTkEntry(years_experience_frame, placeholder_text="Max Years of Experience", font=font, fg_color=self.enabled_entry_field_fg_color)
         self.user_years_of_experience_field.pack()
         self.user_years_of_experience_field.bind('<KeyRelease>', lambda event: self.schedule_update('user_years_of_experience', event))
         self.user_years_of_experience_field.configure(validate='key', validatecommand=(self.validate_command, '%P'))
