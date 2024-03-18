@@ -45,7 +45,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self._create_option_menus_frame(font)
         self._load_config_values()
 
-    def _create_title(self, font: ctk.CTkFont):
+    def _create_title(self, font: ctk.CTkFont) -> None:
         """Create the title label for the Indeed settings frame.        
         
         Args:
@@ -58,7 +58,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         title_label = ctk.CTkLabel(self, text=title, font=(font, 18))
         title_label.pack(pady=(10, 20))
 
-    def _create_fields_frame(self, font: ctk.CTkFont):
+    def _create_fields_frame(self, font: ctk.CTkFont) -> None:
         """Create the frame that contains the text entry fields.
         
         Args:
@@ -74,7 +74,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self._create_location_field(font, fields_frame)
         self._create_years_experience_field(font, fields_frame)
 
-    def _create_position_field(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_position_field(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """Create the field for entering the position.
         
         Args:
@@ -94,7 +94,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self.position_field.pack()
         self.position_field.bind('<KeyRelease>', lambda event: self.schedule_update('position', event))
 
-    def _create_location_field(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_location_field(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """Create the field for entering the location.
         
         Args:
@@ -114,7 +114,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self.location_field.pack()
         self.location_field.bind('<KeyRelease>', lambda event: self.schedule_update('location', event))
 
-    def _create_years_experience_field(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_years_experience_field(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """Create the field for entering the maximum years of experience.
         
         Args:
@@ -135,7 +135,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self.user_years_of_experience_field.bind('<KeyRelease>', lambda event: self.schedule_update('user_years_of_experience', event))
         self.user_years_of_experience_field.configure(validate='key', validatecommand=(self._validate_command, '%P'))
 
-    def _create_option_menus_frame(self, font: ctk.CTkFont):
+    def _create_option_menus_frame(self, font: ctk.CTkFont) -> None:
         """Create the frame that contains the option menus.
 
         Args:
@@ -151,7 +151,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self._create_job_type_option_menu(font, option_menus_frame)
         self._create_experience_level_option_menu(font, option_menus_frame)
 
-    def _create_date_posted_option_menu(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_date_posted_option_menu(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """Create the option menu for selecting the maximum age of the job posting (date posted).
         
         Args:
@@ -180,7 +180,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         )
         self.date_posted_option_menu.pack()
 
-    def _create_job_type_option_menu(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_job_type_option_menu(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """Create the option menu for selecting the job type.
         
         Args:
@@ -209,7 +209,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         )
         self.job_type_option_menu.pack()
 
-    def _create_experience_level_option_menu(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_experience_level_option_menu(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """Create the option menu for selecting the experience level.
 
         Args:
@@ -255,7 +255,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         self.job_type_option_menu.set(self.get_field_friendly_name('job_type', self._values['job_type']))
         self.experience_level_option_menu.set(self.get_field_friendly_name('experience_level', self._values['experience_level']))
 
-    def get_field_friendly_name(self, field_name: str, field_value: str):
+    def get_field_friendly_name(self, field_name: str, field_value: str) -> str:
         """Get the friendly name for a field value.
 
         Args:
@@ -295,7 +295,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
 
         return field_dictionary[field_name][field_value]
 
-    def _get_field_value(self, field_name: str, friendly_name: str):
+    def _get_field_value(self, field_name: str, friendly_name: str) -> str:
         """Get the value for a field based on its friendly name.
 
         Args:
@@ -338,7 +338,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
 
         return field_dictionary[field_name][friendly_name]
 
-    def update_config(self, field_name: str, selected_value_friendly_name: str):
+    def update_config(self, field_name: str, selected_value_friendly_name: str) -> None:
         """Update a field in the configuration file's Indeed criteria settings with the new field value.
         
         Args:
@@ -351,7 +351,7 @@ class IndeedSettingsFrame(ctk.CTkFrame):
         updated_value = self._get_field_value(field_name, selected_value_friendly_name)
         update_config_field('config.json', 'indeed_criteria.' + field_name, updated_value)
 
-    def schedule_update(self, field_name: str, event):
+    def schedule_update(self, field_name: str, event) -> None:
         """Schedule an update to the configuration file after a delay.
         
         Args:

@@ -75,7 +75,7 @@ class MainFrame(ctk.CTk):
         self.init_frames()
         self.create_footer()  
 
-    def init_frames(self):
+    def init_frames(self) -> None:
         """
         Initialize all frames within the main frame.
         
@@ -89,7 +89,7 @@ class MainFrame(ctk.CTk):
         self.init_excluded_keywords_frame()
         self.init_excel_settings_frame()
 
-    def init_indeed_settings_frame(self):
+    def init_indeed_settings_frame(self) -> None:
         """
         Initialize the Indeed settings frame.
         
@@ -103,7 +103,7 @@ class MainFrame(ctk.CTk):
         self.indeed_settings_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.indeed_settings_frame)
 
-    def init_excluded_keywords_frame(self):
+    def init_excluded_keywords_frame(self) -> None:
         """
         Initialize the excluded keywords frame.
         
@@ -117,7 +117,7 @@ class MainFrame(ctk.CTk):
         self.excluded_keywords_frame.pack(fill='x', padx=10, pady=(10, 0))
         self.frames.append(self.excluded_keywords_frame)
 
-    def init_excel_settings_frame(self):
+    def init_excel_settings_frame(self) -> None:
         """
         Initialize the Excel settings frame.
         
@@ -132,7 +132,7 @@ class MainFrame(ctk.CTk):
         self.frames.append(self.excel_settings_frame)
 
     # Footer and Settings Functions
-    def create_footer(self):
+    def create_footer(self) -> None:
         """
         Create the footer of the main frame.
         
@@ -147,7 +147,7 @@ class MainFrame(ctk.CTk):
         self.create_scrape_settings_frame(footer_frame)
         self.create_button_frame(footer_frame)
 
-    def create_scrape_settings_frame(self, parent: ctk.CTkFrame):
+    def create_scrape_settings_frame(self, parent: ctk.CTkFrame) -> None:
         """
         Create the scrape settings frame within the footer.
         
@@ -174,7 +174,7 @@ class MainFrame(ctk.CTk):
 
         self.frames.append(self.scrape_settings_frame)
 
-    def create_num_pages_scrape_frame(self, parent: ctk.CTkFrame):
+    def create_num_pages_scrape_frame(self, parent: ctk.CTkFrame) -> None:
         """
         Create the frame for setting the number of pages to scrape.
         
@@ -203,7 +203,7 @@ class MainFrame(ctk.CTk):
 
         self.frames.append(self.num_pages_scrape_frame)
 
-    def create_crawl_delay_frame(self, parent: ctk.CTkFrame):
+    def create_crawl_delay_frame(self, parent: ctk.CTkFrame) -> None:
         """
         Create the frame for setting the crawl delay.
         
@@ -231,7 +231,7 @@ class MainFrame(ctk.CTk):
 
         self.frames.append(self.crawl_delay_frame)
 
-    def initialize_scrape_settings(self):
+    def initialize_scrape_settings(self) -> None:
         """
         Initialize the scrape settings based on the configuration file.
         
@@ -253,7 +253,7 @@ class MainFrame(ctk.CTk):
         self.crawl_delay_entry_field.insert(0, self.config['crawl_delay'])
 
     # Footer Button and Checkbox Functions
-    def create_button_frame(self, parent: ctk.CTkFrame):
+    def create_button_frame(self, parent: ctk.CTkFrame) -> None:
         """
         Create the button frame within the footer.
         
@@ -277,7 +277,7 @@ class MainFrame(ctk.CTk):
             button_frame, text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043', command=self.toggle_start_stop)
         self.start_stop_button.pack(side='left', padx=(5, 20), pady=(20, 10))
 
-    def toggle_start_stop(self):
+    def toggle_start_stop(self) -> None:
         """
         Toggle between starting and stopping the scraping process.
         
@@ -299,7 +299,7 @@ class MainFrame(ctk.CTk):
             self.enable_frames()
             self.start_stop_button.configure(text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043')
 
-    def reset_start_stop_button(self):
+    def reset_start_stop_button(self) -> None:
         """
         Reset the start/stop button to its initial state.
         
@@ -312,7 +312,7 @@ class MainFrame(ctk.CTk):
         self.stop_scraping = True
         self.start_stop_button.configure(text='Start', text_color="#008000", fg_color='#4dff4d', hover_color='#3cb043')
 
-    def toggle_scrape_all_checkbox(self):
+    def toggle_scrape_all_checkbox(self) -> None:
         """
         Toggle the 'Scrape all pages' checkbox.
         
@@ -333,7 +333,7 @@ class MainFrame(ctk.CTk):
             update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=0)
 
     # Configuration Update Functions
-    def update_config_num_pages_scrape(self, event):
+    def update_config_num_pages_scrape(self, event) -> None:
         """
         Update the configuration file for the number of pages to scrape.
         
@@ -353,7 +353,7 @@ class MainFrame(ctk.CTk):
         else:
             self.set_default_config_num_pages_scrape()
 
-    def set_default_config_num_pages_scrape(self):
+    def set_default_config_num_pages_scrape(self) -> None:
         """
         Set the configuration file and entry field to scrape the default number of pages.
         
@@ -367,7 +367,7 @@ class MainFrame(ctk.CTk):
         self.num_pages_to_scrape_entry_field.insert(0, DEFAULT_NUM_PAGES_SCRAPE)
         update_config_field(filepath='config.json', field_path='num_pages_to_scrape', new_value=DEFAULT_NUM_PAGES_SCRAPE)
 
-    def update_config_crawl_delay(self, event):
+    def update_config_crawl_delay(self, event) -> None:
         """
         Update the configuration file for the entered crawl delay.
 
@@ -387,7 +387,7 @@ class MainFrame(ctk.CTk):
         else:
             self.set_default_config_crawl_delay()
 
-    def set_default_config_crawl_delay(self):
+    def set_default_config_crawl_delay(self) -> None:
         """
         Set the configuration file and entry field to the default crawl delay.
         
@@ -402,7 +402,7 @@ class MainFrame(ctk.CTk):
         update_config_field(filepath='config.json', field_path='crawl_delay', new_value=DEFAULT_CRAWL_DELAY)
 
     # Scraper Functions
-    def begin_scraping(self):
+    def begin_scraping(self) -> None:
         """
         Begin the scraping process in a separate thread.
         
@@ -415,7 +415,7 @@ class MainFrame(ctk.CTk):
         self.scraping_thread = threading.Thread(target=self.run_scraper)
         self.scraping_thread.start()
 
-    def setup_scraper(self):
+    def setup_scraper(self) -> Scraper:
         """
         Set up the scraper with the latest configuration values.
         
@@ -439,7 +439,7 @@ class MainFrame(ctk.CTk):
 
         return Scraper(indeed_url)
 
-    def run_scraper(self):
+    def run_scraper(self) -> None:
         """
         Run the scraper to begin extracting job listings.
         
@@ -479,7 +479,7 @@ class MainFrame(ctk.CTk):
         self.reset_start_stop_button()
 
     # Frame Enable/Disable Functions
-    def disable_frames(self):
+    def disable_frames(self) -> None:
         """
         Disable all frames in the main frame.
         
@@ -491,7 +491,7 @@ class MainFrame(ctk.CTk):
         for frame in self.frames:
             self.disable_frame(frame)
 
-    def enable_frames(self):
+    def enable_frames(self) -> None:
         """
         Enable all frames in the main frame.
         
@@ -503,7 +503,7 @@ class MainFrame(ctk.CTk):
         for frame in self.frames:
             self.enable_frame(frame)
 
-    def disable_frame(self, frame: ctk.CTkFrame):
+    def disable_frame(self, frame: ctk.CTkFrame) -> None:
         """
         Disable a specific frame and all its children.
 
@@ -529,7 +529,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkButton):
                 child.configure(state=ctk.DISABLED)
     
-    def enable_frame(self, frame: ctk.CTkFrame):
+    def enable_frame(self, frame: ctk.CTkFrame) -> None:
         """
         Enable a specific frame and all its child widgets.
 

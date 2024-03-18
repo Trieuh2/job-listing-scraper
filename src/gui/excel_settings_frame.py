@@ -35,7 +35,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         self._font = font
         self._create_widgets()
 
-    def _create_widgets(self):
+    def _create_widgets(self) -> None:
         """
         Creates and arranges the widgets within the frame.
 
@@ -46,7 +46,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         self._create_output_path_frame()
         self._create_update_excel_frame()
 
-    def _create_title_label(self):
+    def _create_title_label(self) -> None:
         """Creates the title label widget.
 
         Returns:
@@ -55,7 +55,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         title_label = ctk.CTkLabel(self, text="Excel Settings", font=(self._font, 18))
         title_label.pack(pady=(10, 20))
 
-    def _create_output_path_frame(self):
+    def _create_output_path_frame(self) -> None:
         """Creates the frame and widgets for output path selection.
 
         Returns:
@@ -77,7 +77,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         browse_button = ctk.CTkButton(output_path_frame, font=self._font, text='Browse', command=self._browse_folder)
         browse_button.pack(side='left', padx=10, pady=(0, 10))
 
-    def _create_update_excel_frame(self):
+    def _create_update_excel_frame(self) -> None:
         """Creates the frame and checkbox for enabling or disabling spreadsheet updates upon completion.
 
         Returns:
@@ -93,7 +93,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
             self.update_excel_upon_completion_checkbox.select()
         self.update_excel_upon_completion_checkbox.pack(side="left", padx=10, pady=(0, 10))
 
-    def _browse_folder(self):
+    def _browse_folder(self) -> None:
         """Opens a dialog to browse and select a folder, and updates the output path accordingly.
 
         Returns:
@@ -105,7 +105,7 @@ class ExcelSettingsFrame(ctk.CTkFrame):
             update_config_field('config.json', 'csv_settings.excel_output_path', new_path)
             self.current_path_label.configure(text=new_path)
 
-    def _update_spreadsheet_on_completion(self):
+    def _update_spreadsheet_on_completion(self) -> None:
         """Updates the configuration to reflect whether the spreadsheet should be updated upon completion.
 
         Returns:

@@ -39,7 +39,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         self._create_filter_description_frame(font)
         self._bind_events()
 
-    def _create_title_label(self, font: ctk.CTkFont):
+    def _create_title_label(self, font: ctk.CTkFont) -> None:
         """
         Creates the title label for the frame.
 
@@ -52,7 +52,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         title_label = ctk.CTkLabel(self, text='Excluded Keywords', font=(font, 18))
         title_label.pack(pady=(10, 20))
 
-    def _create_keywords_text_box(self, font: ctk.CTkFont):
+    def _create_keywords_text_box(self, font: ctk.CTkFont) -> None:
         """
         Creates the text box for entering excluded keywords.
 
@@ -67,7 +67,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         self.keywords_text_box.insert(index='1.0', text="\n".join(self._values))
         self.keywords_text_box.pack(padx=10, pady=(0, 10))
 
-    def _create_filter_frame(self, font: ctk.CTkFont):
+    def _create_filter_frame(self, font: ctk.CTkFont) -> None:
         """
         Creates the frame for the filter list.
 
@@ -82,7 +82,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         filter_title = ctk.CTkLabel(self.filter_frame, text='Filter List', font=font)
         filter_title.pack()
 
-    def _create_filter_description_frame(self, font: ctk.CTkFont):
+    def _create_filter_description_frame(self, font: ctk.CTkFont) -> None:
         """
         Creates the frame for the filter description.
 
@@ -96,7 +96,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         filter_description_frame.pack(anchor='center')
         self._create_description_label(font, filter_description_frame)
 
-    def _create_description_label(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
+    def _create_description_label(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame) -> None:
         """
         Creates the description label.
 
@@ -113,7 +113,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
                                          justify="left", wraplength=400)
         description_label.pack(side='left', padx=10, pady=(0, 10))
 
-    def _bind_events(self):
+    def _bind_events(self) -> None:
         """
         Binds events to the keywords text box.
 
@@ -122,7 +122,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         """
         self.keywords_text_box.bind('<KeyRelease>', self._schedule_update)
 
-    def _schedule_update(self, event):
+    def _schedule_update(self, event) -> None:
         """
         Schedules an update of the configuration file after a delay.
 
@@ -137,7 +137,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         self._update_timer = threading.Timer(self._update_delay, self._update_config)
         self._update_timer.start()
 
-    def _update_config(self):
+    def _update_config(self) -> None:
         """
         Updates the configuration file with the new excluded keywords.
 
