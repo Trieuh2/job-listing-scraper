@@ -1,27 +1,33 @@
 import customtkinter as ctk
 from tkinter import filedialog
 from utils import update_config_field
+from typing import List, TypedDict
+
+class ExcelSettingsValues(TypedDict):
+    excel_output_path: str
+    csv_headers: List[str]
+    update_spreadsheet_on_completion: bool
 
 class ExcelSettingsFrame(ctk.CTkFrame):
     """
     A frame for setting the Excel data output preferences.
     
     Attributes:
-        master (customtkinter.CTkFrame): The parent widget.
+        master (customtkinter.CTk): The parent widget.
         _font (customtkinter.CTkFont): The font family used for the text elements within the Frame.
         _values (dict): Configuration values for the frame, including paths and update flags.
         current_path_label (customtkinter.CTkLabel): Label displaying the current output path.
         update_excel_upon_completion_checkbox (customtkinter.CTkCheckBox): Checkbox to enable/disable spreadsheet updates upon completion.
     """
 
-    def __init__(self, master, font, values):
+    def __init__(self, master: ctk.CTk, font: ctk.CTkFont, values: ExcelSettingsValues):
         """
         Initializes the ExcelSettingsFrame with a parent widget, font, and initial values.
         It also creates the widgets for the frame.
 
         Args:
-            master (customtkinter.CTkFrame): The parent frame.
-            font (str): The font family to use for text elements.
+            master (customtkinter.CTk): The parent widget.
+            font (customtkinter.CTkFont): The font family to use for text elements.
             values (dict): Initial configuration values for the frame.
         """
         super().__init__(master)

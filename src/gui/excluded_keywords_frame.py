@@ -1,5 +1,6 @@
 import threading
 import customtkinter as ctk
+from typing import List
 
 from .utils_wrapper import update_config_field
 
@@ -16,14 +17,14 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         keywords_text_box (customtkinter.CTkTextbox): The text box for entering excluded keywords.
     """
 
-    def __init__(self, master, font, values):
+    def __init__(self, master: ctk.CTk, font: ctk.CTkFont, values:List[str]):
         """
         Initializes the ExcludedKeywordsFrame.
 
         Args:
-            master (customtkinter.CTkFrame): The parent frame.
+            master (customtkinter.CTk): The parent widget.
             font (customtkinter.CTkFont): The font used for the text elements in the frame.
-            values (list): A list of initial keyword values to be displayed.
+            values (List[str]): A list of initial keyword values to be displayed.
 
         Returns:
             None
@@ -38,7 +39,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         self._create_filter_description_frame(font)
         self._bind_events()
 
-    def _create_title_label(self, font):
+    def _create_title_label(self, font: ctk.CTkFont):
         """
         Creates the title label for the frame.
 
@@ -51,7 +52,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         title_label = ctk.CTkLabel(self, text='Excluded Keywords', font=(font, 18))
         title_label.pack(pady=(10, 20))
 
-    def _create_keywords_text_box(self, font):
+    def _create_keywords_text_box(self, font: ctk.CTkFont):
         """
         Creates the text box for entering excluded keywords.
 
@@ -66,7 +67,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         self.keywords_text_box.insert(index='1.0', text="\n".join(self._values))
         self.keywords_text_box.pack(padx=10, pady=(0, 10))
 
-    def _create_filter_frame(self, font):
+    def _create_filter_frame(self, font: ctk.CTkFont):
         """
         Creates the frame for the filter list.
 
@@ -81,7 +82,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         filter_title = ctk.CTkLabel(self.filter_frame, text='Filter List', font=font)
         filter_title.pack()
 
-    def _create_filter_description_frame(self, font):
+    def _create_filter_description_frame(self, font: ctk.CTkFont):
         """
         Creates the frame for the filter description.
 
@@ -95,7 +96,7 @@ class ExcludedKeywordsFrame(ctk.CTkFrame):
         filter_description_frame.pack(anchor='center')
         self._create_description_label(font, filter_description_frame)
 
-    def _create_description_label(self, font, parent_frame):
+    def _create_description_label(self, font: ctk.CTkFont, parent_frame: ctk.CTkFrame):
         """
         Creates the description label.
 

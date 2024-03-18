@@ -147,7 +147,7 @@ class MainFrame(ctk.CTk):
         self.create_scrape_settings_frame(footer_frame)
         self.create_button_frame(footer_frame)
 
-    def create_scrape_settings_frame(self, parent):
+    def create_scrape_settings_frame(self, parent: ctk.CTkFrame):
         """
         Create the scrape settings frame within the footer.
         
@@ -174,7 +174,7 @@ class MainFrame(ctk.CTk):
 
         self.frames.append(self.scrape_settings_frame)
 
-    def create_num_pages_scrape_frame(self, parent):
+    def create_num_pages_scrape_frame(self, parent: ctk.CTkFrame):
         """
         Create the frame for setting the number of pages to scrape.
         
@@ -203,7 +203,7 @@ class MainFrame(ctk.CTk):
 
         self.frames.append(self.num_pages_scrape_frame)
 
-    def create_crawl_delay_frame(self, parent):
+    def create_crawl_delay_frame(self, parent: ctk.CTkFrame):
         """
         Create the frame for setting the crawl delay.
         
@@ -253,7 +253,7 @@ class MainFrame(ctk.CTk):
         self.crawl_delay_entry_field.insert(0, self.config['crawl_delay'])
 
     # Footer Button and Checkbox Functions
-    def create_button_frame(self, parent):
+    def create_button_frame(self, parent: ctk.CTkFrame):
         """
         Create the button frame within the footer.
         
@@ -503,7 +503,7 @@ class MainFrame(ctk.CTk):
         for frame in self.frames:
             self.enable_frame(frame)
 
-    def disable_frame(self, frame):
+    def disable_frame(self, frame: ctk.CTkFrame):
         """
         Disable a specific frame and all its children.
 
@@ -529,7 +529,7 @@ class MainFrame(ctk.CTk):
             elif isinstance(child, ctk.CTkButton):
                 child.configure(state=ctk.DISABLED)
     
-    def enable_frame(self, frame):
+    def enable_frame(self, frame: ctk.CTkFrame):
         """
         Enable a specific frame and all its child widgets.
 
