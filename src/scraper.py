@@ -92,49 +92,52 @@ class Scraper:
     
     def extract_job_detail(self, job_card, job_details, header, hash_id):
         """Extract specific job detail based on header."""
-        if header == 'title':
-            title_element = job_card.find_element(By.CSS_SELECTOR, 'h2.jobTitle')
-            job_details[header] = title_element.text if title_element else 'Title not found'
+        try:
+            if header == 'title':
+                title_element = job_card.find_element(By.CSS_SELECTOR, 'h2.jobTitle')
+                job_details[header] = title_element.text if title_element else 'Title not found'
 
-            if title_element and utils.exclude_based_on_title(self.excluded_keywords, title_element.text):
-                return False  # Do not add to results if title is excluded
+                if title_element and utils.exclude_based_on_title(self.excluded_keywords, title_element.text):
+                    return False  # Do not add to results if title is excluded
 
-        elif header == 'company':
-            company_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="company-name"]')
-            job_details[header] = company_element.text if company_element else 'Company not found'
+            elif header == 'company':
+                company_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="company-name"]')
+                job_details[header] = company_element.text if company_element else 'Company not found'
 
-        elif header == 'location':
-            location_element = job_card.find_element(By.CSS_SELECTOR, 'div[data-testid="text-location"]')
-            job_details[header] = location_element.text if location_element else 'Location not found'
+            elif header == 'location':
+                location_element = job_card.find_element(By.CSS_SELECTOR, 'div[data-testid="text-location"]')
+                job_details[header] = location_element.text if location_element else 'Location not found'
 
-        elif header == 'salary_preview':
-            try:
-                salary_snippet_container = job_card.find_element(By.CSS_SELECTOR, '[class*="salary-snippet-container"]')
-                salary_element = salary_snippet_container.find_element(By.CSS_SELECTOR, 'div[data-testid="attribute_snippet_testid"]')
-                job_details[header] = salary_element.text if salary_element else 'N/A'
-            except NoSuchElementException:
-                job_details[header] = 'N/A'
+            elif header == 'salary_preview':
+                try:
+                    salary_snippet_container = job_card.find_element(By.CSS_SELECTOR, '[class*="salary-snippet-container"]')
+                    salary_element = salary_snippet_container.find_element(By.CSS_SELECTOR, 'div[data-testid="attribute_snippet_testid"]')
+                    job_details[header] = salary_element.text if salary_element else 'N/A'
+                except NoSuchElementException:
+                    job_details[header] = 'N/A'
 
-        elif header == 'posted_date':
-            posted_date_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="myJobsStateDate"]')
-            scraped_date_str = utils.parse_post_date(posted_date_element.text)
+            elif header == 'posted_date':
+                posted_date_element = job_card.find_element(By.CSS_SELECTOR, 'span[data-testid="myJobsStateDate"]')
+                scraped_date_str = utils.parse_post_date(posted_date_element.text)
 
-            if hash_id in self.jobs:
-                job_details[header] = self.jobs[hash_id][header]
-            else:
-                job_details[header] = scraped_date_str
+                if hash_id in self.jobs:
+                    job_details[header] = self.jobs[hash_id][header]
+                else:
+                    job_details[header] = scraped_date_str
 
-        elif header == 'applied':
-            # Fetch pre-existing values or default to "No", for not applied to job yet
-            if hash_id in self.jobs:
-                job_details[header] = self.jobs[hash_id][header]
-            else:
-                job_details[header] = 'No'
+            elif header == 'applied':
+                # Fetch pre-existing values or default to "No", for not applied to job yet
+                if hash_id in self.jobs:
+                    job_details[header] = self.jobs[hash_id][header]
+                else:
+                    job_details[header] = 'No'
 
-        elif header == 'search_criteria':
-            job_details[header] = self.search_criteria
+            elif header == 'search_criteria':
+                job_details[header] = self.search_criteria
 
-        return True  # By default, add to results
+            return True  # By default, add to results
+        except:
+            return False
 
     def wait_for_job_cards_to_load(self, wait_time=5, max_tries=5):
         """Wait for job cards to load."""
