@@ -42,6 +42,8 @@ class Scraper:
             print(message)
             return current_page_added_hash_ids
 
+        # Wait 1s to allow any dynamic web page changes to occur before scraping
+        sleep(1)
         job_cards = self.driver.find_elements(By.CSS_SELECTOR, 'div.job_seen_beacon')
 
         for job_card in job_cards:
@@ -148,7 +150,6 @@ class Scraper:
                 else:
                     return (False, f"Failed to load the job cards after {max_tries} attempts.")
         return (False, f"Failed to load the job cards after {max_tries} attempts.")
-
 
     def navigate_next_page(self):
         """Navigate to the next page of job listings."""
