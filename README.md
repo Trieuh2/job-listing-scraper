@@ -4,7 +4,11 @@ This application scrapes Indeed job results and parses the data into a working E
 
 ## Usage
 
-![Screenshot of Feature X](./screenshots/gui.png)
+![Screenshot of scraper GUI](./screenshots/gui.png)
+
+### Example Data Output
+
+![Screenshot of Excel spreadsheet output](./screenshots/data_output.png)
 
 ## Features
 
