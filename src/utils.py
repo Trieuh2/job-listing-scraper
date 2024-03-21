@@ -129,6 +129,9 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
         filename (str): The name of the Excel file where job records will be written.
         job_records (Dict[str, Dict]): A dictionary of job records, where each key is a hash_id and the value is a
         dictionary containing the job record fields.
+
+    Returns:
+        None
     """
     print("Updating Excel record data")
 
@@ -167,6 +170,9 @@ def write_new_cell_data(worksheet: Worksheet, fieldnames: List[str], job_records
         fieldnames (List[str]): A list of field names that correspond to the columns in the Worksheet.
         job_records (Dict[str, Dict]): A dictionary of job records, where each key is a hash_id and the value is a
         dictionary containing the job record fields.
+
+    Returns:
+        None
     """
     # Sort the job records first by 'posted_date' from newest to oldest, then by 'company' in alphabetical order
     sorted_job_records = sorted(job_records.values(), key=lambda x: x.get('company', ''))
@@ -191,6 +197,9 @@ def clear_all_cell_values(worksheet: Worksheet) -> None:
 
     Args:
         worksheet (Worksheet): The Worksheet object from which all cell values will be cleared.
+        
+    Returns:
+        None
     """
     for row in worksheet.iter_rows(min_row=2):
         for cell in row:
@@ -206,6 +215,9 @@ def update_or_create_worksheet_table(worksheet: Worksheet, fieldnames: List[str]
     Args:
         worksheet (Worksheet): The Worksheet object where the job data table will be created or updated.
         fieldnames (List[str]): A list of field names that correspond to the columns in the Worksheet.
+        
+    Returns:
+        None
     """
     table_exists = len(worksheet.tables) > 0
     if table_exists:
@@ -229,6 +241,9 @@ def apply_worksheet_conditional_formatting(worksheet: Worksheet) -> None:
 
     Args:
         worksheet (Worksheet): The Worksheet object to which conditional formatting will be applied.
+        
+    Returns:
+        None
     """
     # Remove existing conditional formatting rules for the worksheet
     worksheet.conditional_formatting = ConditionalFormattingList()
@@ -326,6 +341,9 @@ def update_config_field(filepath: str, field_path: str, new_value: Union[str, Li
         filepath (str): The path to the config.json file.
         field_path (str): The path to the field within the config that needs to be updated.
         new_value (Union[str, List[str], int, bool]): The new value to be set for the specified field.
+        
+    Returns:
+        None
     """
     if field_path == 'excluded_keywords' and isinstance(new_value, list):
         new_value = sorted([value.lower() for value in new_value if value.strip()])
