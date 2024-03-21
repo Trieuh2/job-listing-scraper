@@ -15,13 +15,39 @@ from selenium.webdriver.remote.webelement import WebElement
 import utils
 
 class Scraper:
+    """A web scraper for extracting job listings.
+
+    Attributes:
+        driver (webdriver.Chrome): The Selenium web driver for Chrome.
+        url (str): The URL to scrape.
+        excluded_keywords (Set[str]): Keywords to exclude from the results.
+        csv_headers (List[str]): Headers for the CSV output.
+        crawl_delay (int): Delay between page crawls.
+        jobs (Dict[str, Dict[str, str]]): Dictionary of job listings.
+        initial_num_records (int): Initial number of job records.
+        num_errored_job_extractions (int): Number of job extractions that resulted in errors.
+        search_criteria (str): Criteria used for searching jobs.
+        previous_page_hash_ids (Set[str]): Hash IDs of job listings from the previous page.
+        logger (logging.Logger): Logger for the scraper.
+    """
+
     def __init__(self, url):
+        """Initialize the Scraper with a URL.
+
+        Args:
+            url (str): The URL to scrape.
+        """
         self.driver = webdriver.Chrome()
         self.url = url
         self.initialize_scraper()
     
     def initialize_scraper(self) -> None:
-        """Initialize the Scraper based on the configuration file."""
+        """
+        Initialize the Scraper based on the configuration file.
+        
+        Returns:
+            None
+        """
         with open('config.json') as config_file:
             config = json.load(config_file)
 
@@ -37,7 +63,11 @@ class Scraper:
         self.driver.get(self.url)
 
     def extract_current_page(self) -> Set[str]:
-        """Extract and print job details."""
+        """Extract and print job details from the current page.
+
+        Returns:
+            Set[str]: Set of hash IDs for the jobs added to the results.
+        """
         current_page_added_hash_ids = set()
         success, message = self.wait_for_job_cards_to_load()
 
@@ -55,7 +85,12 @@ class Scraper:
         return current_page_added_hash_ids
 
     def process_job_card(self, job_card: WebElement, current_page_added_hash_ids: Set[str]) -> None:
-        """Process individual job card."""
+        """Process an individual job card.
+
+        Args:
+            job_card (WebElement): The job card element.
+            current_page_added_hash_ids (Set[str]): Set of hash IDs for the jobs added to the results.
+        """
         add_to_results = True
         job_details = {}
 
@@ -100,7 +135,18 @@ class Scraper:
             print(f"An element was not found: {e}")
     
     def extract_job_detail(self, job_card: WebElement, job_details: Dict[str, str], header: str, hash_id: str) -> bool:
-        """Extract specific job detail based on header."""
+        """
+        Extracts specific job details based on the header provided and updates the job_details dictionary.
+
+        Args:
+            job_card (WebElement): The WebElement representing a job card.
+            job_details (Dict[str, str]): The dictionary to store job details, where the key is the header and the value is the corresponding detail.
+            header (str): The specific job detail to extract, such as 'title', 'company', 'location', etc.
+            hash_id (str): The unique identifier for the job.
+
+        Returns:
+            bool: True if the job detail is successfully extracted and added to job_details, False otherwise.
+        """
         try:
             if header == 'title':
                 title_element = job_card.find_element(By.CSS_SELECTOR, 'h2.jobTitle')
@@ -150,7 +196,16 @@ class Scraper:
             return False
 
     def wait_for_job_cards_to_load(self, wait_time: int=5, max_tries: int=5) -> Tuple[bool, str]:
-        """Wait for job cards to load."""
+        """
+        Waits for job cards to load on the webpage.
+
+        Args:
+            wait_time (int, optional): The maximum number of seconds to wait for each attempt. Defaults to 5.
+            max_tries (int, optional): The maximum number of attempts to wait for the job cards to load. Defaults to 5.
+
+        Returns:
+            Tuple[bool, str]: A tuple containing a boolean indicating whether the job cards were successfully loaded and a message describing the outcome.
+        """
         for attempt in range(max_tries):
             try:
                 wait = WebDriverWait(self.driver, wait_time)
@@ -165,11 +220,21 @@ class Scraper:
         return (False, f"Failed to load the job cards after {max_tries} attempts.")
 
     def navigate_next_page(self) -> None:
-        """Navigate to the next page of job listings."""
+        """
+        Navigates to the next page of job listings by updating the current URL to the next page's URL.
+
+        Returns:
+            None
+        """
         self.url = utils.get_next_page_url(self.url)
         sleep(randint(self.crawl_delay, math.floor(self.crawl_delay * 1.5)))
         self.driver.get(self.url)
         
     def shutdown(self) -> None:
-        """Shut down the web driver."""
+        """
+        Shuts down the web driver, closing all associated windows and terminating the driver process.
+
+        Returns:
+            None
+        """
         self.driver.quit()
