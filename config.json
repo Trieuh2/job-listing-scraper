@@ -17,29 +17,29 @@
         "staff"
     ],
     "indeed_criteria": {
-        "position": "Software Engineer",
-        "location": "California",
-        "experience_level": "(ENTRY_LEVEL)",
+        "position": "",
+        "location": "",
+        "experience_level": "",
         "job_type": "",
         "max_days_posted_ago": "",
-        "user_years_of_experience": "2"
+        "user_years_of_experience": ""
     },
     "csv_settings": {
-        "excel_output_path": "C:/VSC Workspaces/Python Projects/job-listing-scraper/data/data.xlsx",
+        "excel_output_path": "",
         "csv_headers": [
             "posted_date",
             "applied",
             "title",
             "company",
             "location",
-            "salary_preview",
             "job_link",
-            "search_criteria",
             "description",
+            "salary_preview",
+            "search_criteria",
             "hash_id"
         ],
         "update_spreadsheet_on_completion": true
     },
-    "num_pages_to_scrape": 10,
+    "num_pages_to_scrape": 5,
     "crawl_delay": 10
 }
