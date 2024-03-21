@@ -63,19 +63,20 @@ class ExcelSettingsFrame(ctk.CTkFrame):
         """
         output_path_frame = ctk.CTkFrame(self, fg_color='transparent')
         output_path_frame.pack(anchor='center')
+        output_path_frame.grid_columnconfigure(1, minsize=500)
 
         selected_label = ctk.CTkLabel(output_path_frame, text='Output Path')
-        selected_label.pack(side='left', padx=5, pady=(0, 10))
+        selected_label.grid(row=0, column=0, padx=5, pady=(0, 10), sticky='w')
 
         foreground_color = "black" if ctk.get_appearance_mode() == "Dark" else "white"
         outline_frame = ctk.CTkFrame(output_path_frame, corner_radius=10, fg_color=foreground_color)
-        outline_frame.pack(side='left', padx=5, pady=(0, 10))
+        outline_frame.grid(row=0, column=1, padx=5, pady=(0, 10), sticky='ew')
 
         self.current_path_label = ctk.CTkLabel(outline_frame, font=self._font, text=self._values['excel_output_path'])
         self.current_path_label.pack(side='left', padx=10, pady=5)
 
         browse_button = ctk.CTkButton(output_path_frame, font=self._font, text='Browse', command=self._browse_folder)
-        browse_button.pack(side='left', padx=10, pady=(0, 10))
+        browse_button.grid(row=0, column=2, padx=10, pady=(0, 10), sticky='w')
 
     def _create_update_excel_frame(self) -> None:
         """Creates the frame and checkbox for enabling or disabling spreadsheet updates upon completion.
