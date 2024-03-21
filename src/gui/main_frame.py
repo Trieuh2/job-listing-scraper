@@ -423,7 +423,7 @@ class MainFrame(ctk.CTk):
         with the specified Indeed URL and search criteria.
 
         Returns:
-            None
+            Scraper: An instance of the scraper used to perform the scraping.
         """
         with open('config.json') as config_file:
             self.config = json.load(config_file)
