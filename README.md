@@ -1,6 +1,6 @@
 # Job Listing Scraper
 
-This application scrapes Indeed job results and parses the data into a working CSV file that users can use for their job search.
+This application scrapes Indeed job results and parses the data into a working Excel spreadsheet that users can use for their job search.
 
 ## Usage
 
@@ -8,14 +8,15 @@ This application scrapes Indeed job results and parses the data into a working C
 
 ## Features
 
-- User-friendly GUI via customTkinter
+- User-friendly GUI implemented via customTkinter
 - Searching jobs using Position, Location, Date Posted, Job Type, and Experience Level fields
-- Filtering job results via the years of experience mentioned in job descriptions
+- Filtering job results via minimum years of experience mentioned in job description snippets
 - Filtering job results via keywords in job titles
 - Scraping all pages returned
 - Scraping a specific number of pages
-- Duplicate result handling (only unique results are appended to resulting CSV)
-- Job tracking (Scraper will not overwrite the 'Applied' status of a job record in the CSV if it encounters the same job in a future scrape)
+- Custom minimum crawl delay (time between page requests are randomized between the minimum specified and 1.5x the specified amt.)
+- Duplicate result handling (only unique results are appended to resulting Excel spreadsheet)
+- Job tracking (Scraper will not overwrite the 'Applied' status of a job record in the Excel spreadsheet if it encounters the same job in a future scrape)
 
 ## Disclaimer
 
