@@ -14,7 +14,19 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 from openpyxl.worksheet.worksheet import Worksheet
 
 def build_indeed_url(position: str, location: str, experience_level: str, job_type: str, max_days_posted_ago: str) -> str:
-    """Builds a URL for Indeed job search based on the given parameters."""
+    """
+    Builds a URL for Indeed job search based on the given parameters.
+
+    Args:
+        position (str): The job position to search for.
+        location (str): The location where the job is based.
+        experience_level (str): The experience level required for the job.
+        job_type (str): The type of job (e.g., full-time, part-time).
+        max_days_posted_ago (str): The maximum number of days since the job was posted.
+
+    Returns:
+        str: The constructed URL for the Indeed job search.
+    """
     base_url = 'https://www.indeed.com/jobs?'
     params = []
 
@@ -33,9 +45,18 @@ def build_indeed_url(position: str, location: str, experience_level: str, job_ty
 
     return base_url + '&'.join(params)
 
-def exclude_based_on_title(excluded_keywords: List[str], cleaned_title: str) -> bool:
-    """Returns True if the cleaned title contains any excluded keywords."""
-    cleaned_title = re.sub(r'[^a-zA-Z0-9]', ' ', cleaned_title)
+def exclude_based_on_title(excluded_keywords: List[str], title_element_text: str) -> bool:
+    """
+    Returns True if the job title contains any excluded keywords.
+
+    Args:
+        excluded_keywords (List[str]): A list of keywords to be excluded from the title.
+        title_element_text (str): The title of the job extracted from the HTML element.
+
+    Returns:
+        bool: True if the job title contains any of the excluded keywords, False otherwise.
+    """
+    cleaned_title = re.sub(r'[^a-zA-Z0-9]', ' ', title_element_text)
     title_words = cleaned_title.split()
     for idx, word in enumerate(title_words):
         if word.lower() in excluded_keywords:
@@ -47,7 +68,15 @@ def exclude_based_on_title(excluded_keywords: List[str], cleaned_title: str) -> 
     return False
 
 def get_next_page_url(url: str) -> str:
-    """Returns the URL for the next page of job listings."""
+    """
+    Returns the URL for the next page of job listings.
+
+    Args:
+        url (str): The URL of the current page of job listings.
+
+    Returns:
+        str: The URL for the next page of job listings.
+    """
     start_tag = "&start="
     start_index = url.find(start_tag)
     if start_index == -1:
@@ -60,7 +89,16 @@ def get_next_page_url(url: str) -> str:
         return url[:start_index] + f"{start_tag}{current_page + 10}" + url[end_index:]
 
 def read_jobs_excel(filename: str) -> Dict[str, Dict[str, Union[str, int, float]]]:
-    """Reads job records from an Excel file and returns a dictionary of data."""
+    """
+    Reads job records from an Excel file and returns a dictionary of data.
+
+    Args:
+        filename (str): The name of the Excel file containing job records.
+
+    Returns:
+        Dict[str, Dict[str, Union[str, int, float]]]: A dictionary where each key is a hash_id and the value is a
+        dictionary of job record fields.
+    """
     if not os.path.isfile(filename):
         return {}
 
@@ -84,7 +122,14 @@ def read_jobs_excel(filename: str) -> Dict[str, Dict[str, Union[str, int, float]
     return data
 
 def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
-    """Writes job records to an Excel file."""
+    """
+    Writes job records to an Excel file.
+
+    Args:
+        filename (str): The name of the Excel file where job records will be written.
+        job_records (Dict[str, Dict]): A dictionary of job records, where each key is a hash_id and the value is a
+        dictionary containing the job record fields.
+    """
     print("Updating Excel record data")
 
     with open('config.json') as config_file:
@@ -114,7 +159,15 @@ def write_jobs_excel(filename: str, job_records: Dict[str, Dict]) -> None:
     print("Done updating Excel records")
 
 def write_new_cell_data(worksheet: Worksheet, fieldnames: List[str], job_records: Dict[str, Dict]) -> None:
-    """Writes the sorted job record data to the Worksheet"""
+    """
+    Writes the sorted job record data to the Worksheet.
+
+    Args:
+        worksheet (Worksheet): The Worksheet object where job records will be written.
+        fieldnames (List[str]): A list of field names that correspond to the columns in the Worksheet.
+        job_records (Dict[str, Dict]): A dictionary of job records, where each key is a hash_id and the value is a
+        dictionary containing the job record fields.
+    """
     # Sort the job records first by 'posted_date' from newest to oldest, then by 'company' in alphabetical order
     sorted_job_records = sorted(job_records.values(), key=lambda x: x.get('company', ''))
     sorted_job_records.sort(key=lambda x: x['posted_date'], reverse=True)
@@ -133,7 +186,12 @@ def write_new_cell_data(worksheet: Worksheet, fieldnames: List[str], job_records
         row_num += 1
 
 def clear_all_cell_values(worksheet: Worksheet) -> None:
-    """Clears all cell values in the worksheet."""
+    """
+    Clears all cell values in the worksheet.
+
+    Args:
+        worksheet (Worksheet): The Worksheet object from which all cell values will be cleared.
+    """
     for row in worksheet.iter_rows(min_row=2):
         for cell in row:
             cell.value = None
@@ -141,8 +199,14 @@ def clear_all_cell_values(worksheet: Worksheet) -> None:
             if cell.style != 'Normal':
                 cell.style = 'Normal'
 
-def update_or_create_worksheet_table(worksheet: Worksheet, fieldnames: List[str]):
-    """Creates table reference for the job data."""
+def update_or_create_worksheet_table(worksheet: Worksheet, fieldnames: List[str]) -> None:
+    """
+    Creates or updates the table reference for the job data in the worksheet.
+
+    Args:
+        worksheet (Worksheet): The Worksheet object where the job data table will be created or updated.
+        fieldnames (List[str]): A list of field names that correspond to the columns in the Worksheet.
+    """
     table_exists = len(worksheet.tables) > 0
     if table_exists:
         table = worksheet.tables[next(iter(worksheet.tables))]
@@ -155,8 +219,17 @@ def update_or_create_worksheet_table(worksheet: Worksheet, fieldnames: List[str]
         table.tableStyleInfo = style
         worksheet.add_table(table)
 
-def apply_worksheet_conditional_formatting(worksheet: Worksheet):
-    """Applies conditional formatting to column B, used for 'applied' column"""
+def apply_worksheet_conditional_formatting(worksheet: Worksheet) -> None:
+    """
+    Applies conditional formatting to column B, used for the 'applied' column in the worksheet.
+
+    Cells marked as "Yes" will be filled green.
+    Cells marked as "No" will be marked red.
+    Cells marked as "Skip" will be marked yellow.
+
+    Args:
+        worksheet (Worksheet): The Worksheet object to which conditional formatting will be applied.
+    """
     # Remove existing conditional formatting rules for the worksheet
     worksheet.conditional_formatting = ConditionalFormattingList()
 
@@ -168,7 +241,15 @@ def apply_worksheet_conditional_formatting(worksheet: Worksheet):
     worksheet.conditional_formatting.add('B2:B{}'.format(worksheet.max_row), CellIsRule(operator='equal', formula=['"Skip"'], fill=yellow_fill))
 
 def string_to_hash(input_string: str) -> str:
-    """Converts a string to a SHA-256 hash."""
+    """
+    Converts a string to a SHA-256 hash.
+
+    Args:
+        input_string (str): The string to be converted to a SHA-256 hash.
+
+    Returns:
+        str: The SHA-256 hash of the input string.
+    """
     return hashlib.sha256(input_string.encode()).hexdigest()
 
 def parse_indeed_url(url: str) -> str:
@@ -177,7 +258,15 @@ def parse_indeed_url(url: str) -> str:
     return url if second_equal_index == -1 else url[:second_equal_index]
 
 def parse_post_date(post_date_string: str) -> str:
-    """Parses a post date string and returns the formatted date."""
+    """
+    Parses an Indeed URL and returns the base URL.
+
+    Args:
+        url (str): The Indeed URL to be parsed.
+
+    Returns:
+        str: The base URL of the Indeed URL.
+    """
     if post_date_string in ["Today", "Just posted"]:
         return datetime.date.today().strftime("%m/%d/%Y")
     elif " day ago" in post_date_string:
@@ -188,12 +277,28 @@ def parse_post_date(post_date_string: str) -> str:
     else:
         return datetime.date.today().strftime("%m/%d/%Y")
 
-def is_valid_indeed_job_link(url: str) -> bool:
-    """Checks if an Indeed job link is valid."""
+def is_valid_indeed_job_link_structure(url: str) -> bool:
+    """
+    Checks if an Indeed job link is valid, based on the structure of the URL.
+
+    Args:
+        url (str): The Indeed job link to be checked.
+
+    Returns:
+        bool: True if the link is a valid Indeed job link, False otherwise.
+    """
     return url.startswith('https://www.indeed.com/rc/clk?jk=')
 
-def is_valid_description_criteria(description: str) -> bool:
-    """Checks if a job description meets the specified years of experience criteria."""
+def has_valid_years_of_experience(description: str) -> bool:
+    """
+    Checks if the user's specified maximum years of experience meets the minimum years of experience mentioned in the job description.
+
+    Args:
+        description (str): The job description to be checked.
+
+    Returns:
+        bool: True if the job description meets the years of experience criteria, False otherwise.
+    """
     # Regular expression to match variations of years of experience
     regex = r'(\d+)\+?[\s\w]* years'
     matches = re.findall(regex, description, re.IGNORECASE)
@@ -214,7 +319,14 @@ def is_valid_description_criteria(description: str) -> bool:
     return True
     
 def update_config_field(filepath: str, field_path: str, new_value: Union[str, List[str], int, bool]) -> None:
-    """Updates a specific field in the config.json configuration file."""
+    """
+    Updates a specific field in the config.json configuration file.
+
+    Args:
+        filepath (str): The path to the config.json file.
+        field_path (str): The path to the field within the config that needs to be updated.
+        new_value (Union[str, List[str], int, bool]): The new value to be set for the specified field.
+    """
     if field_path == 'excluded_keywords' and isinstance(new_value, list):
         new_value = sorted([value.lower() for value in new_value if value.strip()])
 
@@ -227,5 +339,13 @@ def update_config_field(filepath: str, field_path: str, new_value: Union[str, Li
         json.dump(config, file, indent=4)
 
 def is_valid_numerical_field_input(input: str) -> bool:
-    """Checks if an input string is a valid numerical field."""
+    """
+    Checks if an input string is a valid numerical field.
+
+    Args:
+        input_str (str): The input string to be checked.
+
+    Returns:
+        bool: True if the input string is a valid numerical field, False otherwise.
+    """
     return input.isdigit() or input== ""
