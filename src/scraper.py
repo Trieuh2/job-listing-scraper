@@ -113,7 +113,7 @@ class Scraper:
             job_details['description'] = description
 
             # Validate the job details
-            if not utils.is_valid_indeed_job_link_structure(job_details['job_link']) or not utils.has_valid_years_of_experience(description):
+            if not utils.is_valid_indeed_job_link_structure(job_details['job_link']) or not utils.description_has_valid_years_of_experience(description):
                 add_to_results = False
 
             for header in self.csv_headers:

@@ -31,15 +31,15 @@ def build_indeed_url(position: str, location: str, experience_level: str, job_ty
     params = []
 
     if position:
-        params.append(f"q={position}")
+        params.append(f"q={position.replace(' ', '+')}")
     if location:
         params.append(f"l={location}")
     if experience_level and job_type:
-        params.append(f"sc=0kf%3Aexplvl{experience_level}jt{job_type}%3B")
+        params.append(f"sc=0kf:explvl{experience_level}jt{job_type};")
     elif experience_level:
-        params.append(f"sc=0kf%3Aexplvl{experience_level}%3B")
+        params.append(f"sc=0kf:explvl{experience_level};")
     elif job_type:
-        params.append(f"sc=0kf%3Ajt{job_type}%3B")
+        params.append(f"sc=0kf:jt{job_type};")
     if max_days_posted_ago:
         params.append(f"fromage={max_days_posted_ago}")
 
@@ -304,7 +304,7 @@ def is_valid_indeed_job_link_structure(url: str) -> bool:
     """
     return url.startswith('https://www.indeed.com/rc/clk?jk=')
 
-def has_valid_years_of_experience(description: str) -> bool:
+def description_has_valid_years_of_experience(description: str) -> bool:
     """
     Checks if the user's specified maximum years of experience meets the minimum years of experience mentioned in the job description.
 
