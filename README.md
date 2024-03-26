@@ -2,6 +2,25 @@
 
 This application scrapes Indeed job results and parses the data into a working Excel spreadsheet that users can use for their job search.
 
+## Installation
+
+Follow these steps to install and run the project:
+1. **Clone the repository:**
+```bash
+git clone https://github.com/Trieuh2/job-listing-scraper.git
+cd job-listing-scraper
+```
+
+2. Install dependencies using pip
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the application
+```bash
+python src/main.py
+```
+
 ## Usage
 
 ![Screenshot of scraper GUI](./screenshots/gui.png)
@@ -18,9 +37,9 @@ This application scrapes Indeed job results and parses the data into a working E
 - Filtering job results via keywords in job titles
 - Scraping all pages returned
 - Scraping a specific number of pages
-- Custom minimum crawl delay (time between page requests are randomized between the minimum specified and 1.5x the specified amt.)
-- Duplicate result handling (only unique results are appended to resulting Excel spreadsheet)
-- Job tracking (Scraper will not overwrite the 'Applied' status of a job record in the Excel spreadsheet if it encounters the same job in a future scrape)
+- Custom minimum crawl delay
+- Duplicate result handling
+- Job tracking
 
 ## Disclaimer
 
